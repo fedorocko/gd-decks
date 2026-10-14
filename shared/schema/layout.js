@@ -140,7 +140,10 @@ function placeNode(node, state, x, y, w, out, artPad = 0) {
     badge: node.badge,
     pill: node.pill,
     soon: node.soon,
+    logos: node.logos,
+    figure: node.figure,
     hl: state.hl.includes(node.id),
+    plain: !!state.plain?.includes(node.id),
     // a placeholder for a logo set inside the box, named for what goes there
     slot: state.slots?.[node.id],
     ctx: !!(state.parent?.includes(node.id) || state.ctx?.includes(node.id)),
@@ -221,13 +224,128 @@ function placeKids(node, state, y, out) {
     return bottom + tail
   }
 
-  if (k.layout === 'branch') {
-    const a = area(k.lead.tier)
-    const leadBottom = placeNode(k.lead, state, a.x, y, a.w, out)
-    return placeColumns(node.id, k.columns, state, leadBottom + k.leadGap, out)
+  if (k.layout === 'versus') {
+    return placeVersus(node, state, y, out)
   }
 
   return y
+}
+
+/** The `versus` arrangement: how far the frame stands from the two rows; the
+    air between the rows, where "vs" is set; the gap between boxes in a row,
+    where an arrow runs; and the gap between the column and the box outside
+    it, which the arrow out to that box crosses. */
+const VS_PAD = 16
+const VS_GAP = 58
+const VS_STEP = 24
+const VS_OUT_GAP = 28
+/** How far an arrow's label sits above the arrow. */
+const NOTE_RISE = 26
+
+/**
+ * Two rows set against each other in a dashed frame (the inference slide):
+ * the upper box over one of the lower row, talking out to a box outside the
+ * column, and the lower row a run of boxes, one into the next. The frame takes
+ * its parent's band, the full width of the box it opens out of. The box
+ * outside, as wide as it is tall, stands past the column's right edge: it is
+ * someone else's service, and the column steps left to keep it on the stage
+ * (viewShift).
+ */
+function placeVersus(node, state, y, out) {
+  const k = node.kids
+  const ownerId = node.id
+  const band = area(node.tier)
+  const outW = k.out.h
+  const frameX = band.x
+  const frameR = band.x + band.w
+  const outX = COL_W + VS_OUT_GAP
+  const innerX = frameX + VS_PAD
+  const innerW = frameR - VS_PAD - innerX
+
+  const frameY = y
+  const upperY = frameY + VS_PAD
+  const lowerY = upperY + (k.upper.h ?? TIERS[k.upper.tier].h) + VS_GAP
+
+  // the lower row: a box with a `width` of its own keeps it, and the rest
+  // share what it and the arrows leave; a shorter one, a pill, is centred on
+  // the row's middle, where the arrows run
+  const fixed = k.lower.reduce((sum, c) => sum + (c.width ?? 0), 0)
+  const shares = k.lower.filter((c) => c.width === undefined).length
+  const unit = (innerW - VS_STEP * (k.lower.length - 1) - fixed) / shares
+  const height = (c) => c.h ?? TIERS[c.tier].h
+  const rowH = Math.max(...k.lower.map(height))
+  let x = innerX
+  const lower = k.lower.map((child) => {
+    const w = child.width ?? unit
+    placeNode(child, state, x, lowerY + (rowH - height(child)) / 2, w, out)
+    x += w + VS_STEP
+    return out.nodes.get(child.id)
+  })
+
+  // the upper box over its twin in the lower row
+  const twin = out.nodes.get(k.over)
+  placeNode(k.upper, state, twin.x, upperY, twin.w, out)
+  const upper = out.nodes.get(k.upper.id)
+  const upperMid = upper.y + upper.h / 2
+
+  // the box outside, level with the upper row
+  placeNode(k.out, state, outX, upperMid - k.out.h / 2, outW, out)
+  const outer = out.nodes.get(k.out.id)
+
+  const bottom = lowerY + rowH + VS_PAD
+  out.frames.set(`frame:${ownerId}`, {
+    id: `frame:${ownerId}`,
+    x: frameX,
+    y: frameY,
+    w: frameR - frameX,
+    h: bottom - frameY,
+    dashed: true,
+    visible: true,
+  })
+
+  // out of the upper box, across the frame, to the box outside
+  arrow(
+    out,
+    `arrow:${ownerId}:out`,
+    `M ${upper.x + upper.w + FLOW_PAD} ${upperMid} H ${outer.x - FLOW_PAD}`,
+  )
+  out.labels.set(`${ownerId}:out`, {
+    id: `${ownerId}:out`,
+    kind: 'note',
+    text: 'Talks to',
+    x: upper.x + upper.w,
+    y: upperMid - NOTE_RISE,
+    w: outer.x - upper.x - upper.w,
+    hl: false,
+    visible: true,
+  })
+
+  // "vs" in the middle of the air between the rows
+  out.labels.set(`${ownerId}:vs`, {
+    id: `${ownerId}:vs`,
+    kind: 'vs',
+    text: 'vs',
+    x: innerX,
+    y: upper.y + upper.h + VS_GAP / 2 - 13,
+    w: innerW,
+    hl: false,
+    visible: true,
+  })
+
+  // along the lower row, one box into the next; a pill is not a stop but
+  // sits on the arrow running behind it
+  const stops = lower.filter((r) => !r.pill)
+  stops.slice(1).forEach((b, i) => {
+    const a = stops[i]
+    const mid = a.y + a.h / 2
+    arrow(
+      out,
+      `arrow:${ownerId}:${i}`,
+      `M ${a.x + a.w + FLOW_PAD} ${mid} H ${b.x - FLOW_PAD}`,
+    )
+  })
+
+  return Math.max(bottom, outer.y + outer.h)
 }
 
 function placeColumns(ownerId, columns, state, y, out) {
@@ -513,6 +631,8 @@ function parkHidden(node, out, anchor) {
       badge: node.badge,
       pill: node.pill,
       soon: node.soon,
+      logos: node.logos,
+      figure: node.figure,
       ...parked,
     })
   }
@@ -544,8 +664,10 @@ function parkHidden(node, out, anchor) {
 /** Every box hanging directly off `node`, whatever arrangement it uses. */
 function childrenOf(node) {
   const kids = []
-  if (node.kids?.lead) kids.push(node.kids.lead)
   node.kids?.items?.forEach((c) => kids.push(c))
+  node.kids?.lower?.forEach((c) => kids.push(c))
+  if (node.kids?.upper) kids.push(node.kids.upper)
+  if (node.kids?.out) kids.push(node.kids.out)
   node.kids?.columns?.forEach((col) => col.items.forEach((c) => kids.push(c)))
   node.kids?.rows?.forEach((row) => row.items.forEach((c) => kids.push(c)))
   node.kids?.sections?.forEach((sec) => sec.items.forEach((c) => kids.push(c)))
@@ -765,20 +887,6 @@ function addArrows(state, out) {
       )
     }
     arrow(out, 'arrow:merge', `M ${mid} ${tip - 2} V ${store.y - 3}`)
-    return
-  }
-
-  if (state.arrows === 'branch') {
-    const router = out.nodes.get('router')
-    const a = out.nodes.get('modelA')
-    const b = out.nodes.get('modelB')
-    const bar = router.y + router.h + 22
-    arrow(out, 'arrow:rtrunk', `M ${cx(router)} ${router.y + router.h} V ${bar}`, {
-      head: false,
-    })
-    arrow(out, 'arrow:rbar', `M ${cx(a)} ${bar} H ${cx(b)}`, { head: false })
-    arrow(out, 'arrow:ra', `M ${cx(a)} ${bar} V ${a.y - 4}`)
-    arrow(out, 'arrow:rb', `M ${cx(b)} ${bar} V ${b.y - 4}`)
   }
 }
 
@@ -855,6 +963,26 @@ function viewOffset(state, out) {
   return Math.round(Math.min(highest, Math.max(lowest, wanted)))
 }
 
+/** How far past the slot's right edge a drawing may run: on a 16:9 screen
+    that still leaves 20px clear of the deck's arrow button. */
+const SPILL = 16
+
+/**
+ * How far left the column steps. Something drawn past its right edge, like
+ * an outside service the diagram talks to, has to stay on the stage and clear
+ * of the deck's arrow button, so the column makes room for it rather than
+ * letting it run off the slot.
+ */
+function viewShift(out) {
+  let right = 0
+  for (const set of [out.nodes, out.frames, out.labels]) {
+    for (const d of set.values()) {
+      if (d.visible && d.w !== undefined) right = Math.max(right, d.x + d.w)
+    }
+  }
+  return Math.min(0, Math.round(VIEW_W - WORLD_X + SPILL - right))
+}
+
 // --------------------------------------------------------------------- build
 
 function buildLayout(key, spot) {
@@ -874,7 +1002,7 @@ function buildLayout(key, spot) {
   addFrame(state, out)
   addArrows(state, out)
 
-  return { ...out, offset: viewOffset(state, out) }
+  return { ...out, offset: viewOffset(state, out), shift: viewShift(out) }
 }
 
 export const MODELS = Object.fromEntries(

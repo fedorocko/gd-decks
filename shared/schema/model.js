@@ -31,15 +31,32 @@ const box = (id, label, tier, extra) => ({ id, label, tier, ...extra })
  */
 const BADGE = { h: 46, font: 17, radius: 10, badge: true }
 
-/** A tag rather than a box: a lime pill, centred in its column at its own
- *  width, for something that belongs to the box above it. */
-const PILL = { h: 34, font: 15, radius: 999, pill: true, pillW: 172 }
-
 /** Not shipped yet: the box carries a tilted "Soon" sticker on its corner. */
 const SOON = { soon: true }
 
 /** A badge tall enough for a two-line label. */
 const ENGINE = { ...BADGE, h: 62 }
+
+/** A step in the inference slide's comparison: a badge tall enough for a
+ *  two-line label, sized by the row it stands in. */
+const STEP = { ...BADGE, h: 62 }
+
+/** A tag rather than a box: a lime pill, centred at its own width in the
+ *  space it is given, for what something passes through on its way. */
+const PILL = { h: 34, font: 15, radius: 999, pill: true, pillW: 132 }
+
+/** An agent, drawn as a picture of one rather than as a box: square, and
+ *  about as tall as the steps around it. */
+const AGENT = { h: 64, width: 64, figure: '/media/agent.png' }
+
+/** The model providers an agent usually talks to, as logos; a file not yet
+ *  in public/media holds its place as a dashed ring. */
+const PROVIDERS = [
+  '/media/icon-chatgpt.png',
+  '/media/icon-claude.svg',
+  '/media/icon-bedrock.png',
+  '/media/icon-foundry.png',
+]
 
 /** Holds a hyphenated word together: a label wraps at its spaces only. */
 const JOIN = '\u2060'
@@ -69,9 +86,13 @@ const pic = (id, art = null) => ({ id, art, ...WIDE })
 //   stack   — one under another, full width for their tier
 //   row     — side by side, sharing the tier's width
 //   columns — side by side, each column optionally titled and holding a stack
-//   branch  — one full-width lead box, then columns hanging below it
 //   sections— titled bands stacked up, each holding a row of equal items
 //   grid    — `cols` across and as many rows down as the items need
+//   versus  — two rows set against each other in a dashed frame, `upper` over
+//             the `lower` box named by `over`, and `out` outside the column,
+//             level with `upper`; a lower box keeps a `width` of its own or
+//             shares the rest of the row equally, and arrows run along it
+//             from box to box, behind any pill in the way
 // `gap` widens the space between a row's items to make room for arrows in it.
 
 export const TREE = {
@@ -186,25 +207,25 @@ export const TREE = {
           layout: 'stack',
           items: [
             {
-              ...box('inference', 'Inference', 2, SOON),
+              ...box('inference', 'Inference', 2),
               kids: {
-                layout: 'branch',
-                lead: box('router', 'Router', 3),
-                leadGap: 46,
-                columns: [
-                  {
-                    items: [
-                      box('modelA', 'Local Model', 3),
-                      box('profileA', 'Customer Profile', 3, PILL),
-                    ],
-                  },
-                  {
-                    items: [
-                      box('modelB', 'Local Model', 3),
-                      box('profileB', 'Customer Profile', 3, PILL),
-                    ],
-                  },
+                // an agent as it usually runs, talking out to a model
+                // provider, against one run on ours: through our secret
+                // sauce, to models of its own
+                layout: 'versus',
+                upper: box('agentOut', 'Agent', 3, AGENT),
+                // the upper agent stands over this one: the same agent
+                over: 'agent',
+                lower: [
+                  box('agent', 'Agent', 3, AGENT),
+                  // what the agent's call passes through, set as a pill on
+                  // the arrow from the agent to the models
+                  box('sauce', 'Secret Sauce', 3, PILL),
+                  // set on two lines, a word to each
+                  box('local', 'Local\nModels', 3, { ...STEP, ...SOON }),
                 ],
+                // as wide as it is tall, the logos two by two
+                out: box('providers', '', 3, { ...BADGE, h: 96, logos: PROVIDERS }),
               },
             },
             {
@@ -426,11 +447,13 @@ export const STATES = {
     focus: { sub: ['infra'] },
   },
 
+  // Inference opened up as a comparison: ours lit, the usual way and the
+  // providers it talks to only named.
   inference: {
     expand: ['infra', 'inference'],
-    hl: ['router', 'modelA', 'profileA', 'modelB', 'profileB'],
+    hl: ['agent', 'sauce', 'local'],
+    plain: ['agentOut', 'providers'],
     parent: ['inference'],
-    arrows: 'branch',
     focus: { sub: ['inference'], box: ['infra'] },
   },
 }

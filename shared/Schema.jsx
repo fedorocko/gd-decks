@@ -94,7 +94,7 @@ export default function Schema({ state }) {
           left: WORLD_X,
           width: WORLD_W,
           height: WORLD_H,
-          transform: `translateY(${model.offset}px)`,
+          transform: `translate(${model.shift}px, ${model.offset}px)`,
         }}
       >
         {ORDER.frames.map((id) => {
@@ -102,7 +102,13 @@ export default function Schema({ state }) {
           return (
             <div
               key={id}
-              className={f.strong ? 'sx-frame sx-frame--strong' : 'sx-frame'}
+              className={[
+                'sx-frame',
+                f.strong && 'sx-frame--strong',
+                f.dashed && 'sx-frame--dashed',
+              ]
+                .filter(Boolean)
+                .join(' ')}
               style={{
                 transform: `translate(${f.x}px, ${f.y}px)`,
                 width: f.w,
@@ -161,6 +167,8 @@ export default function Schema({ state }) {
             l.kind === 'logos' && 'sx-label--logos',
             l.kind === 'section' && 'sx-label--section',
             l.kind === 'pill' && 'sx-label--pill',
+            l.kind === 'note' && 'sx-label--note',
+            l.kind === 'vs' && 'sx-label--vs',
             l.hl && 'sx-label--hl',
           ]
             .filter(Boolean)
@@ -208,6 +216,7 @@ export default function Schema({ state }) {
             n.plain && 'sx--plain',
             n.flow !== undefined && 'sx--flow',
             n.badge && 'sx--badge',
+            n.figure && 'sx--figure',
             n.pill && 'sx--tag',
             icon && 'sx--icon',
             pic && 'sx--pic',
@@ -233,6 +242,25 @@ export default function Schema({ state }) {
               }}
             >
               {n.art && <img className="sx__pic" src={asset(n.art)} alt="" />}
+              {n.logos && (
+                <span className="sx__logos">
+                  {n.logos.map((src) => (
+                    <span key={src} className="sx__logo">
+                      <img
+                        src={asset(src)}
+                        alt=""
+                        // a logo not yet in public/media holds its place as a
+                        // dashed ring until the file is dropped in
+                        onError={(e) => {
+                          e.currentTarget.parentElement.classList.add(
+                            'sx__logo--missing',
+                          )
+                        }}
+                      />
+                    </span>
+                  ))}
+                </span>
+              )}
               {n.slot && (
                 <img className="sx__icon sx__slot-logo" src={asset(n.slot)} alt="" />
               )}
@@ -248,7 +276,11 @@ export default function Schema({ state }) {
                   }}
                 />
               )}
-              {n.label}
+              {n.figure ? (
+                <img className="sx__figure" src={asset(n.figure)} alt="" />
+              ) : (
+                n.label
+              )}
             </div>
           )
         })}

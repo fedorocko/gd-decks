@@ -6,9 +6,13 @@
    the old ones to have finished moving before they appear. A deck that shows
    the schema imports this after slides.css. */
 
+/* Clipped top and bottom only: a long state runs off those edges, while a
+   column that steps left to make room for something outside it on the right
+   must not lose its left side to the slot. */
 .schema {
   position: absolute;
-  overflow: hidden;
+  overflow-x: visible;
+  overflow-y: clip;
   animation: rise 420ms var(--ease-move) both;
 }
 
@@ -35,6 +39,8 @@
   padding: 0 14px;
   line-height: 1.15;
   letter-spacing: -0.015em;
+  /* a line break written into a label is kept */
+  white-space: pre-line;
   color: var(--muted);
   background: rgba(244, 243, 239, 0.035);
   border: 1px solid var(--line);
@@ -86,6 +92,25 @@
   left: 0.5em;
   width: 1.6em;
   height: 1.6em;
+}
+
+/* A box drawn as a picture of what it is, an agent: no frame, no fill and no
+   label, whatever its highlight, just the picture standing in its place. */
+.sx.sx--figure {
+  padding: 0;
+  background: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* The agent picture has air all round the head; it is set a third larger
+   than its place so the head itself fills it. */
+.sx__figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.35);
 }
 
 /* A card's picture. The frame belongs to the diagram, the art fills it. */
@@ -148,6 +173,7 @@
    elsewhere in the deck, and an outline otherwise. */
 .sx.sx--tag {
   padding: 0 14px;
+  white-space: nowrap;
   font-weight: 600;
   letter-spacing: 0.01em;
   box-shadow: none;
@@ -157,6 +183,7 @@
   background: var(--accent);
   border-color: var(--accent);
   color: var(--ink);
+  box-shadow: 0 10px 28px -10px rgba(218, 254, 133, 0.7);
 }
 
 /* Not shipped yet: a sticker slapped on the box's top-right corner, tilted so
@@ -253,6 +280,25 @@
   color: var(--paper);
 }
 
+/* What an arrow does, set over it in the middle of its run. */
+.sx-label--note {
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+/* The word between two things set against each other. */
+.sx-label--vs {
+  height: 26px;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 /* A row of logos at the end of an arrow: who that layer opens out to. */
 .sx-label--logos {
   height: 42px;
@@ -297,6 +343,36 @@
   text-transform: uppercase;
 }
 
+/* Logos filling a box in place of a label, two by two: who a box stands
+   for when that is someone else's product. */
+.sx__logos {
+  display: grid;
+  grid-template-columns: repeat(2, 34px);
+  gap: 8px;
+}
+
+.sx__logo {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.sx__logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* A logo whose file is still to come: the dashed ring the slots use. */
+.sx__logo--missing {
+  border-radius: 50%;
+  border: 1.5px dashed var(--faint);
+}
+
+.sx__logo--missing img {
+  visibility: hidden;
+}
+
 /* A logo set inside a box on one slide only, where a layer icon would sit. */
 .sx__slot-logo {
   opacity: 1;
@@ -313,6 +389,12 @@
   border-radius: 18px;
   transition: transform 520ms var(--ease-move), width 520ms var(--ease-move),
     height 520ms var(--ease-move), opacity 320ms ease var(--d, 0ms);
+}
+
+/* A frame that marks a boundary rather than grouping a layer: dashed, so the
+   arrow that crosses it reads as leaving. */
+.sx-frame--dashed {
+  border: 2px dashed var(--accent-line);
 }
 
 /* A frame that is the subject: the tree's own structure, drawn in full lime
