@@ -9,8 +9,8 @@ import Mark from '../../../shared/Mark.jsx'
 
 // The ASP pitch's slide 27, word for word: the four promises made over the
 // course of the architecture run, collected in the words they were made in,
-// here on slides 14, 15, 23 and 24.
-export default function S25Why() {
+// here on slides 17, 18, 26 and 27.
+export default function S28Why() {
   return (
     <CardsLayout
       title="Why the Agentic Serving Plane"

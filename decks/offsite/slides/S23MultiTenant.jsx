@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 22, word for word.
-export default function S20MultiTenant() {
+export default function S23MultiTenant() {
   return (
     <StatementLayout
       statement={
@@ -21,4 +21,4 @@ export default function S20MultiTenant() {
 }
 
 // The one authored stack, fanned out to many tenants over shared infrastructure.
-S20MultiTenant.schema = 'tenants'
+S23MultiTenant.schema = 'tenants'

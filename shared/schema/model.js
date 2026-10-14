@@ -1,6 +1,6 @@
 /**
  * The one diagram that runs behind the platform slides: the ASP pitch's
- * slides 16–26 and the offsite deck's 14–24.
+ * slides 16–26 and the offsite deck's 17–27.
  *
  * There is a single tree holding every box that ever appears. A slide does not
  * draw its own picture: it names a *state*, and the state says which branches
@@ -40,6 +40,9 @@ const SOON = { soon: true }
 
 /** A badge tall enough for a two-line label. */
 const ENGINE = { ...BADGE, h: 62 }
+
+/** Holds a hyphenated word together: a label wraps at its spaces only. */
+const JOIN = '\u2060'
 
 /**
  * A card is a badge with a picture above it — one tree node, drawn as two
@@ -224,8 +227,8 @@ export const TREE = {
                     // a third of the band each, so the labels take two lines
                     // and the badges stand taller to hold them
                     items: [
-                      box('mpp', 'MPP Engine', 3, ENGINE),
-                      box('inmemory', 'In-memory Datamart', 3, {
+                      box('mpp', `Cost-${JOIN}effective on Big Data`, 3, ENGINE),
+                      box('inmemory', `Fast on In-${JOIN}memory Data`, 3, {
                         ...ENGINE,
                         ...SOON,
                       }),

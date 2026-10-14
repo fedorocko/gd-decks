@@ -12,18 +12,19 @@ every deck and live in `../../shared/` — see the root `README.md`.
 | Path | What it holds |
 | --- | --- |
 | `slides/index.js` | the running order — **reorder the deck here** |
-| `slides/S01…S25.jsx` | one file per slide, content only |
+| `slides/S01…S28.jsx` | one file per slide, content only |
 | `layouts/` | the tiles, quote and screenshot slides |
-| `components/` | the scene, the two boxes of slides 9–10, and `Brand`, a product's mark set in a line with its name |
+| `components/` | the scene, the two boxes of slides 9–10, the copies of slides 11–13, and `Brand`, a product's mark set in a line with its name |
 | `scene/model.js` | where every piece of the scene sits on slides 3–5, and how it moves |
 | `sides.js` | what the two boxes hold on slides 9–10 — **edit their pills here** |
+| `copies.js` | how the copies stand on slides 11–13 — **set their grids here** |
 | `styles.css` | this deck's own styles, on top of `../../shared/deck.css`, `slides.css` and `schema.css` |
 | `media.js` | slide images, placeholders until supplied, and the video behind slide 2 |
-| `main.jsx` | mounts the deck, with the scene, the two boxes and the schema as its overlay |
+| `main.jsx` | mounts the deck, with the scene, the two boxes, the copies and the schema as its overlay |
 
 The look is the ASP pitch's: the type scale, `Mark`, `Media`, `Backdrop`, the title slide
 (`TitleLayout`) and the section slide (`SectionLayout`) live in `../../shared/`, and both
-decks use them. So does everything slides 13–25 are built from: the statement and card
+decks use them. So does everything slides 16–28 are built from: the statement and card
 slides (`StatementLayout`, `CardsLayout`), their figures (`Kpis`, `benchmarks.js`), the
 `Taxonomy` and the `Schema`.
 
@@ -81,7 +82,7 @@ the right edge. It is the one thing in the deck that is not lime: it is set in t
 the Claude Code mark on slide 6, `#d97757`, so that the train and the question after it read
 as the same thing. The colour is `--train` on `.scene__train` in `styles.css`.
 
-## The ASP pitch on slides 13–25
+## The ASP pitch on slides 16–28
 
 After the pillars the deck goes through the pitch's architecture run: its slide 14 and its
 slides 16–27, in the pitch's order. The pitch's slide 15, the internal page on how the
@@ -89,21 +90,21 @@ taxonomy is positioned, is left out.
 
 | Slides | In the pitch | What they are |
 | --- | --- | --- |
-| 13 | 14 | the Agentic Serving Plane's capabilities, with the taxonomy beside them |
-| 14–24 | 16–26 | the platform, layer by layer, over the schema |
-| 25 | 27 | why the Agentic Serving Plane: the four promises and the figures behind them |
+| 16 | 14 | the Agentic Serving Plane's capabilities, with the taxonomy beside them |
+| 17–27 | 16–26 | the platform, layer by layer, over the schema |
+| 28 | 27 | why the Agentic Serving Plane: the four promises and the figures behind them |
 
 Each slide's file is a copy of the pitch's, word for word, named for its place here:
-`S14Box.jsx` is the pitch's `S21Box.jsx`. They are copied, not shared, so a change of
+`S17Box.jsx` is the pitch's `S21Box.jsx`. They are copied, not shared, so a change of
 wording there has to be made here too. What they are built from is shared: the layouts, the
 figures, the taxonomy and the schema live in `../../shared/`, so a change to the diagram or
 to a benchmark figure shows in both decks.
 
-Slides 14–24 share the pitch's **schema**, one diagram that unfolds as you go. Like the
+Slides 17–27 share the pitch's **schema**, one diagram that unfolds as you go. Like the
 scene it is the deck's `overlay`, and a slide opts in by naming a state:
 
 ```js
-S16Management.schema = 'management'
+S19Management.schema = 'management'
 ```
 
 The states, and the tree of boxes they unfold, are in `../../shared/schema/model.js`; the
@@ -134,8 +135,11 @@ set before “Claude Code” in slide 6's headline: the mark alone on a transpar
 proportions, since it is sized by its height. `clerkScreenshot` is slide 8, Clerk's home
 page at 1680 × 928; a replacement is best at 16:9, ideally 2816 × 1584, and is cropped from
 the top otherwise. `pillarLanguage`, `pillarCreativity`, `pillarPrivate` and
-`pillarEfficiency` are the videos behind slide 12's columns: the ASP pitch's `pil-1.mp4` to
+`pillarEfficiency` are the videos behind slide 15's columns: the ASP pitch's `pil-1.mp4` to
 `pil-4.mp4`, the same files, portrait at 9 : 16, cropped a little from the left.
+`claudeDashboards` is slides 11–13, Claude's dashboards at 1920 × 1080; every copy of it
+is a 16 : 9 frame, so a replacement at 16 : 9 fits uncut and one of another shape is
+cropped to fill it.
 
 ## Speaker notes
 
@@ -156,9 +160,10 @@ I don’t need Clerk.
 `
 ```
 
-Slides 2–13 have their notes. Slide 13's are the hand-over into the pitch, which was
-written for a slide after the pillars and waited on slide 12 until the deck had one. The
-pitch's slides after it, 14–25, have none yet. The column belongs to the
+Slides 2–10 and 14–16 have their notes; 11–13, the dashboards, have none. Slide 16's
+are the hand-over into the pitch, which was written for a slide after the pillars and
+waited on slide 15 until the deck had one. The pitch's slides after it, 17–28, have none
+yet. The column belongs to the
 shared deck (`../../shared/Deck.jsx`, `.notes` in `../../shared/deck.css`), so its look is
 set there.
 
@@ -166,7 +171,7 @@ set there.
 
 Slide 1 is the ASP pitch's title slide, its slide 2, and slide 2 asks its question over the
 video behind the pitch's slide 3. The title's words are copied, not shared, like the
-pillars' on slide 12.
+pillars' on slide 15.
 
 Slides 7, 9 and 10 share their columns: the customer's side on the left, the vendor's on
 the right.
@@ -203,7 +208,31 @@ short on slide 9 and grow as the values open in them on slide 10, stepping down 
 leave the titles room. The stage has room for about ten rows a side on slide 10, features
 and values together. A pill longer than about 45 characters runs past the box.
 
-Slide 12 closes on the ASP pitch's four pillars, the headlines of its slides 6–9, one to a
+Slides 11–13 are **one picture breaking into copies**: Claude's dashboards on their own,
+as large as slide 8's screenshot, then 25 copies, five by five, then 90, in three columns
+of three by ten. Slide 11 is slide 12's grid seen up close, zoomed in on its middle copy
+until that copy fills the stage within slide 8's margins. Going forwards, the view pulls
+back to the whole grid, the rest of it coming in from the edges. Then each copy in the
+grid splits into the two to four that stand around it in the columns. Going back, the
+copies merge and the view zooms in again. The grids keep to the stage's 16 : 9 so they
+fill it. Five by five is 16 : 9 itself, and nine across by ten down comes close once the gutters between the
+columns are in. Slide 12's rows are twice the height of slide 13's.
+
+Like the boxes, the copies are the deck's `overlay` (`components/Copies.jsx`), and a slide
+opts in by naming an arrangement: `S12DashboardGrid.copies = 'grid'`. The arrangements are
+in `copies.js`, each a grid of `columns` by `rows`, with `groups` standing several side by
+side:
+
+```js
+columns: { columns: 3, rows: 10, groups: 3 },
+```
+
+The copies are sized to fit the stage within the screenshot's margins. All 90 are on the
+stage on every slide. Those an arrangement does not show wait hidden under a copy that is
+shown, the one nearest to where they end up in the columns, so changing a grid keeps the
+splits local. How long a move takes is `--move` on `.copies` in `styles.css`.
+
+Slide 15 closes on the ASP pitch's four pillars, the headlines of its slides 6–9, one to a
 column. They are copied, not shared, so a change of wording there has to be made here too.
 They stand in the order they are spoken to: code, no limits, private, scale. Under each
 headline is what we have for it, a pill each: filled where it is out, in no colour so that

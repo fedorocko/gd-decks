@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 16, word for word.
-export default function S14Box() {
+export default function S17Box() {
   return (
     <StatementLayout
       statement={
@@ -24,4 +24,4 @@ export default function S14Box() {
 }
 
 // The three layers, whole. Every schema slide that follows opens one of them.
-S14Box.schema = 'box'
+S17Box.schema = 'box'

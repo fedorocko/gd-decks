@@ -3,7 +3,7 @@ import { ACCURACY, LATENCY } from '../../../shared/benchmarks.js'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 26, word for word.
-export default function S24Inference() {
+export default function S27Inference() {
   return (
     <StatementLayout
       statement={
@@ -32,4 +32,4 @@ export default function S24Inference() {
   )
 }
 
-S24Inference.schema = 'inference'
+S27Inference.schema = 'inference'

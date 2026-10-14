@@ -8,6 +8,7 @@
    scale. */
 .tile__text,
 .quote__text,
+.quote__points .card__text,
 .scene__word,
 .scene__shard,
 .scene__train-word {
@@ -305,6 +306,36 @@
     transform 520ms var(--ease-move) calc(380ms + var(--i) * 110ms);
 }
 
+/* ----------------------------------------------------------------- copies */
+/* Slides 11–13 share the copies of one screenshot (Copies.jsx), mounted once
+   outside the keyed slide, so they move from one slide's arrangement to the
+   next: the picture shrinks and breaks into a grid, and the grid splits into
+   columns. copies.js says how they stand; each copy's box is worked out
+   there and set on it, and only how it moves is set here. A copy waiting
+   under another is hidden: it shows the moment it sets off and hides the
+   moment it arrives, both while it lies exactly under a shown one. */
+.copies {
+  --move: 1000ms;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: rise 420ms var(--ease-move) both;
+}
+
+.copies__copy {
+  position: absolute;
+  border: 0;
+  transition-property: left, top, width, height, border-radius, opacity;
+  transition-duration: var(--move), var(--move), var(--move), var(--move),
+    var(--move), 0ms;
+  transition-timing-function: var(--ease-move);
+}
+
+.copies__copy--hidden {
+  opacity: 0;
+  transition-delay: 0ms, 0ms, 0ms, 0ms, 0ms, var(--move);
+}
+
 /* ------------------------------------------------------------------ brand */
 /* A product's mark set in a line with its name (Brand.jsx). Sized in em, so
    it follows the type: just taller than the capitals and centred on them. */
@@ -379,6 +410,36 @@
   line-height: 1.7;
   letter-spacing: -0.01em;
   color: var(--muted);
+}
+
+/* What the quote leads to, a box each in a row under it: the ASP pitch's
+   cards, lit the way the scene lights its AI rectangle (a lime wash, a solid
+   lime edge, a glow) so that they hold their own under the claims, and set
+   in the headline face, a size under the line that opens the quote. */
+.quote__points {
+  width: 100%;
+  max-width: 1300px;
+  margin-top: 60px;
+}
+
+.quote__points .card {
+  justify-content: center;
+  padding: 30px 28px 34px;
+  border: 1.5px solid var(--accent);
+  background: linear-gradient(
+    170deg,
+    rgba(218, 254, 133, 0.16),
+    rgba(218, 254, 133, 0.04) 75%
+  );
+  box-shadow: 0 40px 90px -50px rgba(218, 254, 133, 0.5);
+}
+
+.quote__points .card__text {
+  font-size: 38px;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  text-wrap: balance;
 }
 
 /* Hung outside the line: out of the flow, so the words alone are centred. */
@@ -658,6 +719,8 @@
   .sides .side__title,
   .sides .side__value,
   .sides .side__value .pill,
+  .copies,
+  .copies__copy,
   .scene,
   .scene__piece,
   .scene__plane,

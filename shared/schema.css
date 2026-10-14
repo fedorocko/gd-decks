@@ -74,6 +74,8 @@
    line, with any icon scaled down to match. */
 .sx--badge {
   padding: 0 10px;
+  /* a label that runs to more lines splits them evenly, not one word over */
+  text-wrap: balance;
 }
 
 .sx--badge.sx--icon {

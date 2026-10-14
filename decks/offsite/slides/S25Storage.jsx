@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 24, word for word.
-export default function S22Storage() {
+export default function S25Storage() {
   return (
     <StatementLayout
       statement={
@@ -18,4 +18,4 @@ export default function S22Storage() {
   )
 }
 
-S22Storage.schema = 'storage'
+S25Storage.schema = 'storage'

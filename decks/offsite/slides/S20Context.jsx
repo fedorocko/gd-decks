@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 19, word for word.
-export default function S17Context() {
+export default function S20Context() {
   return (
     <StatementLayout
       statement={
@@ -29,4 +29,4 @@ export default function S17Context() {
   )
 }
 
-S17Context.schema = 'context'
+S20Context.schema = 'context'

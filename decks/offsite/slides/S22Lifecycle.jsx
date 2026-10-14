@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 21, word for word.
-export default function S19Lifecycle() {
+export default function S22Lifecycle() {
   return (
     <StatementLayout
       statement={
@@ -26,4 +26,4 @@ export default function S19Lifecycle() {
   )
 }
 
-S19Lifecycle.schema = 'lifecycle'
+S22Lifecycle.schema = 'lifecycle'

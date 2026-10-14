@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 20, word for word.
-export default function S18GovernanceTools() {
+export default function S21GovernanceTools() {
   return (
     <StatementLayout
       statement={
@@ -15,4 +15,4 @@ export default function S18GovernanceTools() {
   )
 }
 
-S18GovernanceTools.schema = 'governance'
+S21GovernanceTools.schema = 'governance'

@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 23, word for word.
-export default function S21Infra() {
+export default function S24Infra() {
   return (
     <StatementLayout
       statement={
@@ -15,4 +15,4 @@ export default function S21Infra() {
   )
 }
 
-S21Infra.schema = 'infra'
+S24Infra.schema = 'infra'

@@ -8,26 +8,29 @@ import S07TwoSides from './S07TwoSides.jsx'
 import S08ClerkScreenshot from './S08ClerkScreenshot.jsx'
 import S09Clerk from './S09Clerk.jsx'
 import S10Principles from './S10Principles.jsx'
-import S11Quote from './S11Quote.jsx'
-import S12Pillars from './S12Pillars.jsx'
-import S13Launch from './S13Launch.jsx'
-import S14Box from './S14Box.jsx'
-import S15BuiltIn from './S15BuiltIn.jsx'
-import S16Management from './S16Management.jsx'
-import S17Context from './S17Context.jsx'
-import S18GovernanceTools from './S18GovernanceTools.jsx'
-import S19Lifecycle from './S19Lifecycle.jsx'
-import S20MultiTenant from './S20MultiTenant.jsx'
-import S21Infra from './S21Infra.jsx'
-import S22Storage from './S22Storage.jsx'
-import S23Separation from './S23Separation.jsx'
-import S24Inference from './S24Inference.jsx'
-import S25Why from './S25Why.jsx'
+import S11Dashboards from './S11Dashboards.jsx'
+import S12DashboardGrid from './S12DashboardGrid.jsx'
+import S13DashboardColumns from './S13DashboardColumns.jsx'
+import S14Quote from './S14Quote.jsx'
+import S15Pillars from './S15Pillars.jsx'
+import S16Launch from './S16Launch.jsx'
+import S17Box from './S17Box.jsx'
+import S18BuiltIn from './S18BuiltIn.jsx'
+import S19Management from './S19Management.jsx'
+import S20Context from './S20Context.jsx'
+import S21GovernanceTools from './S21GovernanceTools.jsx'
+import S22Lifecycle from './S22Lifecycle.jsx'
+import S23MultiTenant from './S23MultiTenant.jsx'
+import S24Infra from './S24Infra.jsx'
+import S25Storage from './S25Storage.jsx'
+import S26Separation from './S26Separation.jsx'
+import S27Inference from './S27Inference.jsx'
+import S28Why from './S28Why.jsx'
 
 /** Presentation order. Reorder here to reorder the deck. Slides 3–5 share
- *  the scene and only make sense together, in this order. Slides 13–25 are
+ *  the scene and only make sense together, in this order. Slides 16–28 are
  *  the ASP pitch's slide 14 and its slides 16–27, in the pitch's order;
- *  14–24 share the schema, which unfolds from one to the next. */
+ *  17–27 share the schema, which unfolds from one to the next. */
 const slides = [
   S01Title,
   S02Question,
@@ -39,21 +42,24 @@ const slides = [
   S08ClerkScreenshot,
   S09Clerk,
   S10Principles,
-  S11Quote,
-  S12Pillars,
-  S13Launch,
-  S14Box,
-  S15BuiltIn,
-  S16Management,
-  S17Context,
-  S18GovernanceTools,
-  S19Lifecycle,
-  S20MultiTenant,
-  S21Infra,
-  S22Storage,
-  S23Separation,
-  S24Inference,
-  S25Why,
+  S11Dashboards,
+  S12DashboardGrid,
+  S13DashboardColumns,
+  S14Quote,
+  S15Pillars,
+  S16Launch,
+  S17Box,
+  S18BuiltIn,
+  S19Management,
+  S20Context,
+  S21GovernanceTools,
+  S22Lifecycle,
+  S23MultiTenant,
+  S24Infra,
+  S25Storage,
+  S26Separation,
+  S27Inference,
+  S28Why,
 ]
 
 export default slides

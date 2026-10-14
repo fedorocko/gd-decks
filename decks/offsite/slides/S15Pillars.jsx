@@ -5,7 +5,7 @@ import TilesLayout from '../layouts/TilesLayout.jsx'
 // the order they are spoken to here. Under each, what we have for it: `soon`
 // is what is still coming. Behind each, dimmed, that pillar's video from the
 // pitch (`clip`), played in turn from the left as the slide comes up.
-export default function S12Pillars() {
+export default function S15Pillars() {
   return (
     <TilesLayout
       columns={4}
@@ -61,14 +61,19 @@ export default function S12Pillars() {
               It drives efficiency at agent <Mark>scale.</Mark>
             </>
           ),
-          pills: ['Query caching', 'Model routing', 'Evaluations'],
+          pills: [
+            'Query caching',
+            'Model routing',
+            'Evaluations',
+            'Workspaces',
+          ],
         },
       ]}
     />
   )
 }
 
-S12Pillars.notes = `
+S15Pillars.notes = `
 With GoodData AI, we must speak the language of agents: code.
 All the context and semantics available as code. All the functions available as APIs and MCPs. All the components available as SDKs.
 We’ll give agents absolute flexibility, so they can build whatever they want without adjusting to us, with things like shell apps, Flow API, Flex smart, and hopefully sandboxes.

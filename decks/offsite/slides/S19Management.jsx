@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 18, word for word.
-export default function S16Management() {
+export default function S19Management() {
   return (
     <StatementLayout
       statement={
@@ -15,4 +15,4 @@ export default function S16Management() {
   )
 }
 
-S16Management.schema = 'management'
+S19Management.schema = 'management'

@@ -35,7 +35,15 @@ const media = {
     src: '/media/clerk-screenshot.png',
     label: 'Screenshot — Clerk',
   },
-  // Slide 12. The ASP pitch's four pillar videos, the same files, each dimmed
+  // Slides 11–13. Claude's dashboards: once, as large as slide 8's
+  // screenshot, then 25 and 90 copies (components/Copies.jsx). 1920 × 1080:
+  // each copy is a 16 : 9 frame, so this fits uncut; another shape is
+  // cropped to fill it.
+  claudeDashboards: {
+    src: '/media/claude-dashboards.png',
+    label: 'Screenshot — Claude dashboards',
+  },
+  // Slide 15. The ASP pitch's four pillar videos, the same files, each dimmed
   // behind its own pillar's column: portrait, 9 : 16, five seconds. They are
   // not looped here: the columns play theirs in turn, once (TilesLayout).
   pillarLanguage: {

@@ -3,7 +3,7 @@ import { CLICKHOUSE, IN_MEMORY_P90 } from '../../../shared/benchmarks.js'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 25, word for word.
-export default function S23Separation() {
+export default function S26Separation() {
   return (
     <StatementLayout
       statement={
@@ -26,4 +26,4 @@ export default function S23Separation() {
   )
 }
 
-S23Separation.schema = 'separation'
+S26Separation.schema = 'separation'

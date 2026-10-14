@@ -2,7 +2,7 @@ import Mark from '../../../shared/Mark.jsx'
 import StatementLayout from '../../../shared/StatementLayout.jsx'
 
 // The ASP pitch's slide 17, word for word.
-export default function S15BuiltIn() {
+export default function S18BuiltIn() {
   return (
     <StatementLayout
       statement="Interfaces contains:"
@@ -22,4 +22,4 @@ export default function S15BuiltIn() {
   )
 }
 
-S15BuiltIn.schema = 'builtin'
+S18BuiltIn.schema = 'builtin'

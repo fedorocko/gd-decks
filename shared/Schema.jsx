@@ -17,7 +17,7 @@ import {
 
 /**
  * The diagram behind the platform slides: the ASP pitch's slides 16–26 and
- * the offsite deck's 14–24.
+ * the offsite deck's 17–27.
  *
  * It is mounted once, outside the keyed slide, so it survives every slide
  * change inside that run and animates from one state to the next instead of

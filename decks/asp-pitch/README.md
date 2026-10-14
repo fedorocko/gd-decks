@@ -35,7 +35,7 @@ S30Management.schema = 'management'
 
 `main.jsx` hands the diagram to the deck as its `overlay`, which renders outside the keyed
 slide, so it survives the slide change and animates from the previous state instead of being
-redrawn. The diagram lives in `../../shared/`, because the offsite deck's slides 14–24 are
+redrawn. The diagram lives in `../../shared/`, because the offsite deck's slides 17–27 are
 these same eleven: a change to it shows in both decks.
 
 | Path | What it holds |
