@@ -26,7 +26,7 @@ export default function S02Cases() {
           heading:
             'Unlocking new revenue streams by up-selling personalized AI agents.',
           body: 'Mastercard uses GoodData’s AI Hub and agent builder to create agents with tiered capabilities and personalize them across its client base — under centralized governance.',
-          kpis: [{ value: '1st', label: 'AI Governance approval' }],
+          kpis: [{ value: '1st', label: 'vendor with AI Governance approval' }],
         },
         {
           id: 'boozt',

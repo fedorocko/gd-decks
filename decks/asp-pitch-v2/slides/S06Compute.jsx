@@ -11,7 +11,7 @@ export default function S06Compute() {
   return (
     <DiagramLayout
       kicker="Compute engines"
-      title="The right engine for every query, on open storage"
+      title="Optimized compute for lower cost and less data workloads"
     >
       <Inside
         boxes={[{ name: 'Storage', tag: 'Open table format' }, 'Agents']}

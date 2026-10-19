@@ -540,7 +540,7 @@
 }
 
 .panel__kpis .kpi__label {
-  max-width: 260px;
+  max-width: 360px;
 }
 
 /* ----------------------------------------------------------------- pills */
@@ -951,7 +951,8 @@
 
 /* Slide 7 is about ours: its frame in the full accent, a size heavier,
    glowing, its wash brighter; theirs set further back, all but its
-   problems, which are the case against it. */
+   problems, which are the case against it, and its model's logos, which
+   are who it is. */
 .versus--compare .versus__frame--ours {
   --edge-c: var(--accent);
   --edge-w: 2px;
@@ -960,7 +961,8 @@
 }
 
 .versus--compare .versus__frame--theirs,
-.versus--compare .versus__row--theirs .versus__box,
+.versus--compare .versus__row--theirs .versus__box--brought,
+.versus--compare .versus__row--theirs .versus__box--model > .versus__name,
 .versus--compare .versus__row--theirs .versus__edge {
   opacity: 0.6;
 }
@@ -1053,6 +1055,19 @@
 /* Theirs, set back. */
 .versus__row--theirs .versus__box {
   color: var(--muted);
+}
+
+/* Whose models theirs are, a row of logos under the name. */
+.versus__logos {
+  display: flex;
+  gap: 14px;
+}
+
+.versus__logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .versus__row--theirs .versus__box--brought {
@@ -1618,6 +1633,68 @@
 
 .engines__link--far {
   grid-area: 4 / 2;
+}
+
+/* -------------------------------------------------------------- promises */
+/* Slide 10 (components/Promises.jsx): the promises in the plane's frame,
+   drawn as slides 7–9 draw their subject — the full accent, glowing — a
+   card to each, two to a row, set as slide 2 sets its framed thoughts; the
+   figures centred in a row under the frame, their note under them. */
+.promises {
+  --radius: 12px;
+  --inset: 28px;
+  --label-h: 36px;
+  --pad-x: 26px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 36px;
+}
+
+.promises__frame {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 2px;
+  --edge-c: var(--accent);
+  margin-top: calc(var(--label-h) / 2);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) var(--inset);
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.04));
+  box-shadow: 0 0 80px rgba(218, 254, 133, 0.1);
+}
+
+.promises__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* The shared card, positioned so it paints over the frame. */
+.promises__card {
+  position: relative;
+  padding: 32px 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.promises__text {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.promises__kpis .kpiset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promises__kpis .kpis__note {
+  margin-top: 18px;
 }
 
 /* ------------------------------------------------------------------ tree */

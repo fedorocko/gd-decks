@@ -17,6 +17,12 @@ export default function S05Protect() {
         theirs={{
           label: 'Other solutions',
           problems: ['Data leaves', 'Price per token'],
+          logos: [
+            { name: 'ChatGPT', src: '/media/icon-chatgpt.png' },
+            { name: 'Claude', src: '/media/icon-claude.svg' },
+            { name: 'Amazon Bedrock', src: '/media/icon-bedrock.png' },
+            { name: 'Microsoft Foundry', src: '/media/icon-foundry.png' },
+          ],
         }}
         ours={{
           label: 'Agentic Serving Plane',
