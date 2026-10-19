@@ -960,6 +960,19 @@
   box-shadow: 0 0 80px rgba(218, 254, 133, 0.1);
 }
 
+/* The story's point: our models, on the client's own GPU. The box solid
+   in the accent, glowing, the deck's loudest mark, and the GPU's dotted line
+   round it in the full accent too. */
+.versus--compare .versus__row--ours .versus__box--model {
+  background: var(--accent);
+  box-shadow: 0 0 48px rgba(218, 254, 133, 0.35);
+  color: var(--ink);
+}
+
+.versus--compare .versus__host {
+  --edge-c: var(--accent);
+}
+
 .versus--compare .versus__frame--theirs,
 .versus--compare .versus__row--theirs .versus__box--brought,
 .versus--compare .versus__row--theirs .versus__box--model > .versus__name,
@@ -1504,6 +1517,8 @@
   background: var(--surface);
 }
 
+/* The slide's point, picked out as slide 7 picks out its models: solid in
+   the accent, glowing, its words and pills in ink. */
 .engines__pipeline {
   grid-area: 1 / 3 / 6 / 4;
   display: flex;
@@ -1511,6 +1526,16 @@
   justify-content: center;
   align-items: flex-start;
   gap: 16px;
+  border-color: transparent;
+  background: var(--accent);
+  box-shadow: 0 0 48px rgba(218, 254, 133, 0.35);
+  color: var(--ink);
+}
+
+.engines__pipeline .engines__item {
+  background: rgba(9, 9, 12, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(9, 9, 12, 0.22);
+  font-weight: 600;
 }
 
 .engines__name {
