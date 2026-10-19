@@ -8,9 +8,13 @@ import media from '../media.js'
  * its own picture or clip from media.js.
  *
  * title  — set over the columns
+ * titleFit — hold the title to one line, sized down to fit the stage
  * centre — the columns' content sits in their middle, over evenly dimmed
  *          media, rather than at their foot, under media that shows clearer
  *          towards the top
+ * grid   — two to a row instead of all side by side: landscape panels, the
+ *          content at the foot of their left side, the media clearer
+ *          towards their right
  * panels: [{ id, media, ... }], each holding any of, top to bottom:
  *   name    — whose it is, in small caps
  *   heading — what it did, as a headline
@@ -24,17 +28,34 @@ import media from '../media.js'
  * slide. Clips take turns, in the panels' order: each plays through once and
  * rests on its last frame, and then the next begins.
  */
-export default function PanelsLayout({ title, panels, centre = false }) {
+export default function PanelsLayout({
+  title,
+  titleFit = false,
+  panels,
+  centre = false,
+  grid = false,
+}) {
   const clips = panels
     .filter((panel) => media[panel.media]?.kind === 'video')
     .map((panel) => panel.id)
   const [turn, setTurn] = useState(0)
 
-  const cls = `panels panels--${panels.length}${centre ? ' panels--centre' : ''}`
+  const cls = [
+    'panels',
+    `panels--${panels.length}`,
+    centre && 'panels--centre',
+    grid && 'panels--grid',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <section className="slide slide--panels">
-      {title && <h2 className="h2 panels__title">{title}</h2>}
+      {title && (
+        <h2 className={`h2${titleFit ? ' h2--fit' : ''} panels__title`}>
+          {title}
+        </h2>
+      )}
       <ul className={cls}>
         {panels.map(({ id, ...panel }) => (
           <Panel

@@ -2,8 +2,8 @@ import Mark from '../../../shared/Mark.jsx'
 import PlaneLayout from '../layouts/PlaneLayout.jsx'
 
 // What we do and why us, stacked, beside how we do it: the Agentic Serving
-// Plane itself, framed, over stills of the pillar clips from slide 4 and from
-// the ASP pitch's slide 8.
+// Plane itself, framed, over stills of the pillar clips from the offsite
+// deck's slide 15 and from the ASP pitch's slide 8.
 export default function S01Plane() {
   return (
     <PlaneLayout
@@ -13,7 +13,11 @@ export default function S01Plane() {
           id: 'serve',
           heading: 'What we do',
           badge: 'B2B2B',
-          text: 'We help you serve AI to your clients.',
+          text: (
+            <>
+              We help <Mark>you</Mark> serve AI to <Mark>your</Mark> clients.
+            </>
+          ),
           lead: true,
         },
         {

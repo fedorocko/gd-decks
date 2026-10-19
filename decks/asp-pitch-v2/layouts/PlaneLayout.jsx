@@ -1,5 +1,6 @@
 import assetUrl from '../../../shared/asset.js'
 import Kpis from '../../../shared/Kpis.jsx'
+import Edges from '../components/Edges.jsx'
 import media from '../media.js'
 
 /**
@@ -75,42 +76,5 @@ function Thought({ at, badge, text, lead, kpis }) {
         </div>
       )}
     </div>
-  )
-}
-
-/**
- * A box's border, drawn in pieces so that a label can stand in a gap in its
- * top or bottom line, the way a fieldset's legend does in its top one, with
- * nothing painted behind it. Goes inside an `.edged` box, which has no border
- * of its own.
- *
- * centre — the side, 'top' or 'bottom', whose label stands in the middle of
- *          its line rather than in from its start
- */
-function Edges({ top, bottom, centre }) {
-  return (
-    <>
-      <Edge side="top" label={top} centred={centre === 'top'} />
-      <span className="edges__sides" />
-      <Edge side="bottom" label={bottom} centred={centre === 'bottom'} />
-    </>
-  )
-}
-
-function Edge({ side, label, centred }) {
-  const cls = `edges__edge edges__edge--${side}${centred ? ' edges__edge--centre' : ''}`
-
-  return (
-    <span className={cls}>
-      {label ? (
-        <>
-          <span className="edges__lead" />
-          <span className="edges__label">{label}</span>
-          <span className="edges__run" />
-        </>
-      ) : (
-        <span className="edges__run edges__run--whole" />
-      )}
-    </span>
   )
 }

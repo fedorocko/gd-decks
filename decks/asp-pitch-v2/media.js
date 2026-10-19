@@ -5,8 +5,8 @@
  */
 const media = {
   // Slide 1 (layouts/PlaneLayout.jsx). Stills of two pillar clips, taken at
-  // 2.5 s: the code from slide 4, the server racks from the ASP pitch's
-  // slide 8. Portrait, 720 × 1280, like the clips.
+  // 2.5 s: the code from the offsite deck's slide 15, the server racks from
+  // the ASP pitch's slide 8. Portrait, 720 × 1280, like the clips.
   stillCode: { src: '/media/pil-1-still.jpg', label: 'Still — code on a screen' },
   stillServers: { src: '/media/pil-3-still.jpg', label: 'Still — server racks' },
   // Slide 2. The ASP pitch's case study photos. Landscape, and Datev's and
@@ -17,21 +17,17 @@ const media = {
   mastercard: { src: '/media/mastercard.webp', label: 'Photo — Mastercard office' },
   boozt: { src: '/media/boozt.jpeg', label: 'Photo — Boozt office' },
   // Slide 3. Not chosen yet.
-  marketSignals: { src: null, label: 'Image — Market Signals' },
   surveyStudio: { src: null, label: 'Image — Survey Studio' },
   aiPublisher: { src: null, label: 'Image — AI Publisher' },
-  // Slide 4. The offsite deck's pillar videos, the same files: portrait,
-  // 9 : 16, five seconds. Played in turn, once each.
-  pillarLanguage: {
-    src: '/media/pil-1.mp4',
-    kind: 'video',
-    label: 'Video — code on a screen',
-  },
-  pillarCreativity: {
-    src: '/media/pil-4.mp4',
-    kind: 'video',
-    label: 'Video — a glowing model city',
-  },
+  signalsEngine: { src: null, label: 'Image — Signals Engine' },
+  marketPulse: { src: null, label: 'Image — Market Pulse' },
+  // Slide 4 (components/Tree.jsx). The solution and four clients' copies of
+  // it, each a 16 : 9 node of the tree. Not in yet.
+  tenantSolution: { src: null, label: 'Image — the solution' },
+  tenantA: { src: null, label: 'Image — Client A' },
+  tenantB: { src: null, label: 'Image — Client B' },
+  tenantC: { src: null, label: 'Image — Client C' },
+  tenantD: { src: null, label: 'Image — Client D' },
 }
 
 export default media
