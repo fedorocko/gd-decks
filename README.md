@@ -6,7 +6,9 @@ deck management — just the decks.
 | Deck | Folder | Published at |
 | --- | --- | --- |
 | ASP pitch | `decks/asp-pitch/` | https://fedorocko.github.io/gd-decks/asp-pitch/ |
+| ASP Pitch v2 | `decks/asp-pitch-v2/` | https://fedorocko.github.io/gd-decks/asp-pitch-v2/ |
 | Offsite | `decks/offsite/` | https://fedorocko.github.io/gd-decks/offsite/ |
+| Webinar | `decks/webinar/` | https://fedorocko.github.io/gd-decks/webinar/ |
 
 **https://fedorocko.github.io/gd-decks/** itself lists the decks.
 
@@ -72,7 +74,9 @@ is its own.
 | --- | --- |
 | `decks/index.html` | the page at `/gd-decks/` listing the decks |
 | `decks/asp-pitch/` | the ASP pitch — slides, layouts, styles; see its `README.md` |
+| `decks/asp-pitch-v2/` | the ASP pitch reworked — slides, its two layouts, media, styles |
 | `decks/offsite/` | the Offsite deck — slides, the animated scene, styles, and the pitch's architecture run; see its `README.md` |
+| `decks/webinar/` | the Webinar deck — slides, layouts, styles; its media in `public/media/webinar/` |
 | `shared/Deck.jsx` | the deck itself: stage, navigation, URL hash, presenting, speaker notes |
 | `shared/deck.css` | design tokens, the stage, and the deck's own buttons and notes column |
 | `shared/slides.css` | the type scale, emphasis marks, media frame, backdrop, figures, taxonomy, and the title, section, card and statement slides |

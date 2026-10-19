@@ -1,0 +1,882 @@
+/* The Webinar deck's own styles, on top of ../../shared/slides.css, which
+   holds the type scale, the marks, the media frame and the title, section,
+   card and statement slides every deck shares. The slides redo the first
+   eight of the webinar's original deck in this one's look. */
+
+/* ------------------------------------------------------------ type scale */
+/* This deck's own headline classes, set in Funnel Display like the shared
+   scale; everything else stays in Switzer. */
+.cover__title,
+.cover__sub,
+.round__name,
+.stack__head,
+.figure__value,
+.award__title,
+.agenda__num,
+.agenda__text {
+  font-family: var(--font-display);
+}
+
+/* The boxes on slides 4–6: the shared card's hairline and tint. */
+.stack,
+.figure,
+.award {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(244, 243, 239, 0.035);
+}
+
+/* -------------------------------------------------------------------- art */
+/* The original's background art, the slide's height, on its right. Behind
+   everything else on the slide, and faded in from its left edge, where the
+   crop cut through it. */
+.art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+
+/* ------------------------------------------------------------------ cover */
+/* Slide 1 (CoverLayout.jsx). */
+.slide--cover {
+  padding: 96px 120px;
+}
+
+.cover__logo {
+  position: absolute;
+  top: 96px;
+  left: 120px;
+  width: 224px;
+}
+
+.cover__block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+}
+
+.cover__title {
+  font-size: 92px;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+  color: var(--accent);
+  text-wrap: balance;
+}
+
+.cover__sub {
+  max-width: 900px;
+  font-size: 52px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.cover__date {
+  margin-top: 40px;
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- rounds */
+/* Slides 2–3 (RoundsLayout.jsx): the title in the corner, the rounds in the
+   middle of what is left. */
+.slide--rounds {
+  padding: 96px 120px 120px;
+  justify-content: flex-start;
+}
+
+/* The row sits in the middle of the space under the title; the rounds hang
+   from one line in it, however many lines their captions run to. */
+.rounds {
+  margin: auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 96px;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(var(--round) + 140px);
+  text-align: center;
+}
+
+.round__frame {
+  position: relative;
+  width: var(--round);
+  height: var(--round);
+  margin-bottom: 48px;
+}
+
+/* The original's orbits: two arcs of a ring a little way out, opposite each
+   other, in the accent's thin line. */
+.round__frame::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border: 1px solid;
+  border-color: var(--accent-line) transparent;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+.round__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.round__name {
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.round__text {
+  font-size: 30px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.round__text--role {
+  margin-top: 6px;
+  font-size: 26px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------- platform */
+/* Slide 4: the platform's three stacks in one frame, the ways in named on
+   its edge, who uses it over it and what it reads from under it. */
+.slide--platform {
+  padding: 48px 120px 56px;
+  align-items: center;
+}
+
+.platform__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.platform__head .h2 {
+  font-size: 56px;
+}
+
+.platform__kicker {
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logos__tile {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.logos__img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.platform {
+  position: relative;
+  align-self: stretch;
+  margin: 52px 0 36px;
+  padding: 48px 24px 24px;
+  border: 1.5px solid var(--accent-line);
+  border-radius: 28px;
+  background: linear-gradient(var(--accent-wash), transparent 60%);
+}
+
+/* A solid lime pill across the frame's top line, which it covers. */
+.platform__access {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 46px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 36px rgba(218, 254, 133, 0.22);
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 46px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.stacks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stack {
+  padding: 26px 26px 26px;
+}
+
+.stack__head {
+  margin-bottom: 20px;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.stack__items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stack__item {
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: rgba(250, 250, 247, 0.07);
+  font-size: 21px;
+  line-height: 46px;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------- figures */
+/* Slide 5. */
+.slide--figures {
+  padding: 88px 120px;
+}
+
+.slide--figures .h2 {
+  margin-bottom: 52px;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.figure {
+  padding: 34px 40px 38px;
+}
+
+.figure__value {
+  font-size: 92px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.figure__label {
+  margin-top: 16px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.funders {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-top: 20px;
+  padding: 0 40px;
+  height: 108px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.funders__label {
+  flex: none;
+}
+
+.funders__logos {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* The logos are dark on transparent, made for a light ground: every pixel
+   of them is turned white, so they read as one row in the deck's paper. */
+.funders__logo {
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.86;
+}
+
+/* Sized by eye to the same weight, as their shapes differ. */
+.funders__logo--a16z {
+  height: 42px;
+}
+
+.funders__logo--gc {
+  height: 30px;
+}
+
+.funders__logo--intel {
+  height: 58px;
+}
+
+/* ----------------------------------------------------------------- awards */
+/* Slide 6: what each recognition is, on a black plate as the badges come,
+   over what it says. */
+.slide--awards {
+  padding: 88px 120px;
+}
+
+.awards__title {
+  margin-bottom: 52px;
+  font-size: 52px;
+  letter-spacing: -0.025em;
+}
+
+.awards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.award {
+  padding: 20px 20px 40px;
+}
+
+.award__badge {
+  display: grid;
+  place-items: center;
+  height: 230px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+  background: var(--ink);
+}
+
+.award__img {
+  display: block;
+  height: 170px;
+}
+
+.award__img--gartner {
+  height: auto;
+  width: 250px;
+}
+
+.award__title,
+.award__text {
+  padding: 0 18px;
+}
+
+.award__title {
+  font-size: 34px;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.award__text {
+  margin-top: 12px;
+  font-size: 24px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------------- agenda */
+/* Slide 7: the running order down the left, the mark on the right. */
+.slide--agenda {
+  padding: 88px 120px;
+}
+
+.slide--agenda .h2 {
+  margin-bottom: 44px;
+}
+
+/* An ordered list, which the shared reset leaves alone: its own indent and
+   numbers go, as the items carry theirs. */
+.agenda {
+  width: 940px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+/* A part: its number and name, and what it covers under the name. */
+.agenda__item {
+  --num-w: 52px;
+  --num-gap: 24px;
+  padding: 28px 0 30px;
+  border-bottom: 1px solid var(--line);
+}
+
+.agenda__head {
+  display: flex;
+  align-items: center;
+  gap: var(--num-gap);
+}
+
+.agenda__num {
+  flex: none;
+  width: var(--num-w);
+  font-size: 24px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.agenda__text {
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+/* Under the part's name, in line with it, each led by a short lime rule. */
+.agenda__subs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0 0 calc(var(--num-w) + var(--num-gap));
+}
+
+/* Its tag runs on in the line after the words, so an item that wraps keeps
+   its tag beside its last word rather than out at the list's edge. */
+.agenda__sub {
+  position: relative;
+  padding-left: 32px;
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: rgba(250, 250, 247, 0.84);
+  text-wrap: balance;
+}
+
+/* level with the middle of the first line */
+.agenda__sub::before {
+  content: '';
+  position: absolute;
+  top: calc(0.625em - 1px);
+  left: 0;
+  width: 14px;
+  height: 2px;
+  background: var(--accent-line);
+}
+
+.agenda__sub .tag {
+  display: inline-block;
+  margin-left: 14px;
+  vertical-align: 0.1em;
+}
+
+/* -------------------------------------------------------------------- tag */
+/* The demo that shows a thing, after its name: outlined in the accent. */
+.tag {
+  flex: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- placeholder */
+/* A photo still to come, as round as the ones it stands beside. */
+.round__image.media--empty {
+  display: grid;
+}
+
+.round__image .media__label {
+  padding: 0 28px;
+  font-size: 15px;
+}
+
+/* ---------------------------------------------------------------- feature */
+/* Slides 8, 10 and 11 (FeatureLayout.jsx): the questions down the left, the
+   answers across the rest, a hairline between each. */
+.slide--feature {
+  padding: 48px 120px 56px;
+}
+
+.feature__head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.feature__head .eyebrow {
+  color: var(--accent);
+}
+
+.feature__title {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.feature__title .h2 {
+  font-size: 56px;
+}
+
+.feature {
+  border-top: 1px solid var(--line);
+}
+
+/* The label column is as wide as the longest question, kept on one line. */
+.feature__row {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* level with the first line of what answers it */
+.feature__label {
+  padding-top: 13px;
+  white-space: nowrap;
+}
+
+.feature__text {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+/* The sentence beside the screenshot that shows it, the two meeting at the
+   top. The screenshot keeps its own shape, so nothing at its edges is cut. */
+.feature__answer--shot {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 40px;
+  align-items: start;
+}
+
+.feature__shot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3024 / 1646;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+/* ----------------------------------------------------------------- people */
+/* Who it is for (People.jsx): outlined chips, a figure in the accent before
+   each name. Outlined, where the badges further down are filled, so the two
+   are not taken for one another. */
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.person {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 24px 0 18px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.person__icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* Ways to use it, side by side, each boxed with its schema under it. The
+   boxes share their rows, so the schemas start on one line. */
+.uses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  gap: 0 20px;
+}
+
+.use {
+  grid-row: span 3;
+  display: grid;
+  grid-template-rows: subgrid;
+  padding: 18px 26px 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(244, 243, 239, 0.035);
+}
+
+.use__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.use__text {
+  margin-top: 8px;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.use__schema {
+  margin-top: 16px;
+}
+
+/* ------------------------------------------------------------------ tiers */
+/* An agent schema (Tiers.jsx): what the rows are on the left, then the
+   agents over who gets them, a line from each to its own. */
+.tiers {
+  display: grid;
+  grid-template-columns: 64px repeat(3, 1fr);
+  column-gap: 30px;
+  align-items: center;
+}
+
+.tiers__label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tiers__agent,
+.tiers__to {
+  position: relative;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tiers__agent--low {
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.28);
+}
+
+.tiers__agent--mid {
+  background: rgba(250, 250, 247, 0.14);
+}
+
+.tiers__agent--top {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* The up-sell, in the gutter between one tier and the next. */
+.tiers__step {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 30px;
+  color: var(--accent);
+}
+
+.tiers__link {
+  justify-self: center;
+  width: 1px;
+  height: 22px;
+  background: var(--accent-line);
+}
+
+.tiers__to {
+  color: var(--muted);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* ----------------------------------------------------------------- checks */
+/* Ticked badges (Checks.jsx): filled in no colour, the tick in the accent;
+   lit, solid lime with the tick in ink. */
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px 0 15px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.1);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.check__icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.checks--lit .check {
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.checks--lit .check__icon {
+  stroke: var(--ink);
+}
+
+/* ------------------------------------------------------------- interfaces */
+/* Slide 9: the two, side by side, each named over its screenshot. */
+.slide--interfaces {
+  padding: 88px 120px;
+}
+
+.slide--interfaces .h2 {
+  margin-bottom: 52px;
+}
+
+/* Name, question, screenshot: each column takes these rows as its own, so
+   the screenshots start on one line however many lines a question runs to. */
+.interfaces {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  gap: 0 32px;
+}
+
+.interface {
+  grid-row: span 3;
+  display: grid;
+  grid-template-rows: subgrid;
+}
+
+.interface__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.interface__question {
+  margin: 12px 0 24px;
+  max-width: 600px;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.interface__name {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+}
+
+.interface__shot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3024 / 1646;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* Until it exists, its caption in the middle of the frame. */
+.interface__shot.media--empty {
+  display: grid;
+}
+
+/* ----------------------------------------------------------------- thanks */
+/* Slide 12: everything centred, the title's circles framing it from both
+   sides. */
+.slide--thanks {
+  align-items: center;
+  text-align: center;
+}
+
+/* The circles again, turned to face in from the left, and quieter. */
+.art--left {
+  right: auto;
+  left: 0;
+  transform: scaleX(-1);
+  opacity: 0.6;
+}
+
+.thanks__title {
+  font-family: var(--font-display);
+  font-size: 112px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.thanks__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 820px;
+  margin: 72px 0 88px;
+  font-size: 34px;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.thanks__logo {
+  width: 340px;
+}

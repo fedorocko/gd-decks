@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 
 // Every deck is a folder in decks/ with its own index.html, published at
 // /gd-decks/<folder>/. A new deck goes here and in the list on decks/index.html.
-const DECKS = ['asp-exec', 'asp-pitch', 'offsite']
+const DECKS = ['asp-exec', 'asp-pitch', 'asp-pitch-v2', 'offsite', 'webinar']
 
 // decks/ is the site root, so its folders map straight onto URLs; public/ and
 // the build output stay at the repo root.

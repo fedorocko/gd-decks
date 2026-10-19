@@ -1,0 +1,491 @@
+/* On top of ../../shared/slides.css, which holds the type scale, the marks,
+   the media frame, the backdrop, the figures, the taxonomy and the title,
+   section, card and statement slides every deck shares. */
+
+/* ------------------------------------------------------------ type scale */
+/* This deck's own headline classes, set in Funnel Display like the shared
+   scale; everything else stays in Switzer. */
+.plane__text,
+.plane__label,
+.panel__heading,
+.panel__text {
+  font-family: var(--font-display);
+}
+
+/* ---------------------------------------------------------------- badge  */
+/* Solid lime, the badge voice of the ASP pitch, kept small: a gloss on the
+   thought it stands over. */
+.badge {
+  height: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0.04em;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- edges  */
+/* A box's border in pieces (PlaneLayout.jsx, Edges): the top and bottom
+   lines each a row of a corner, the label if there is one, and the run to
+   the other corner; the sides between them. The label's middle sits on the
+   line, and the line stops either side of it. */
+.edged {
+  --edge-r: var(--radius);
+  --edge-w: 1px;
+  --edge-c: var(--line);
+  /* from the corner to the label: as far in as the box's text starts */
+  --edge-lead: calc(var(--pad-x) - 14px);
+  position: relative;
+  border-radius: var(--edge-r);
+}
+
+.edges__edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--edge-r);
+  display: flex;
+  pointer-events: none;
+}
+
+.edges__edge--top {
+  top: 0;
+}
+
+.edges__edge--bottom {
+  bottom: 0;
+}
+
+.edges__lead {
+  flex: none;
+  width: var(--edge-lead);
+}
+
+.edges__run {
+  flex: 1;
+}
+
+/* The label in the middle: the line runs in as far from either corner. */
+.edges__edge--centre > .edges__lead {
+  flex: 1;
+  width: auto;
+}
+
+.edges__edge--top > :not(.edges__label) {
+  border-top: var(--edge-w) solid var(--edge-c);
+}
+
+.edges__edge--bottom > :not(.edges__label) {
+  border-bottom: var(--edge-w) solid var(--edge-c);
+}
+
+.edges__lead,
+.edges__run--whole {
+  border-left: var(--edge-w) solid var(--edge-c);
+}
+
+.edges__run {
+  border-right: var(--edge-w) solid var(--edge-c);
+}
+
+.edges__edge--top > .edges__lead,
+.edges__edge--top > .edges__run--whole {
+  border-top-left-radius: var(--edge-r);
+}
+
+.edges__edge--top > .edges__run {
+  border-top-right-radius: var(--edge-r);
+}
+
+.edges__edge--bottom > .edges__lead,
+.edges__edge--bottom > .edges__run--whole {
+  border-bottom-left-radius: var(--edge-r);
+}
+
+.edges__edge--bottom > .edges__run {
+  border-bottom-right-radius: var(--edge-r);
+}
+
+.edges__sides {
+  position: absolute;
+  inset: var(--edge-r) 0;
+  border-inline: var(--edge-w) solid var(--edge-c);
+  pointer-events: none;
+}
+
+.edges__label {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 14px;
+  line-height: var(--label-h);
+  white-space: nowrap;
+}
+
+.edges__edge--top > .edges__label {
+  align-self: flex-start;
+  transform: translateY(-50%);
+}
+
+.edges__edge--bottom > .edges__label {
+  align-self: flex-end;
+  transform: translateY(50%);
+}
+
+/* ---------------------------------------------------------------- plane  */
+/* Slide 1 (PlaneLayout.jsx): two thoughts in a narrow first column, beside
+   two cards framed as the Agentic Serving Plane, the frame grown to the
+   slide's height. The margins come in as far as keeps the text clear of the
+   deck's arrow buttons, to give the columns their measure; at the foot, only
+   as far as the room the frame's heading needs below its line. */
+.slide--plane {
+  padding: 72px 88px 56px;
+}
+
+.plane__title {
+  margin-bottom: 24px;
+}
+
+/* Rows: the line of the first heading and the frame's label; down to the
+   cards; the cards' air, with the first thought at its top and the second's
+   heading at its foot; the thoughts level with the framed ones; the frame's
+   reach below its cards, its line carrying its heading. */
+.plane {
+  --reach: 22px;
+  --inner: 22px;
+  --label-h: 28px;
+  /* the frame's line runs through the middle of the first heading's line, a
+     reach above its cards */
+  --drop: calc(var(--reach) - var(--label-h) / 2);
+  --radius: 20px;
+  --pad-x: 40px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows: var(--label-h) var(--drop) 1fr auto var(--reach);
+  column-gap: 56px;
+}
+
+.plane__heading {
+  line-height: var(--label-h);
+  color: var(--muted);
+}
+
+.plane__label {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- stack  */
+.plane__heading--upper {
+  grid-area: 1 / 1;
+}
+
+.plane__thought--upper {
+  grid-area: 3 / 1;
+  align-self: start;
+  padding-top: 12px;
+}
+
+.plane__heading--lower {
+  grid-area: 3 / 1;
+  align-self: end;
+  margin-bottom: 14px;
+}
+
+.plane__thought--lower {
+  grid-area: 4 / 1;
+}
+
+/* ---------------------------------------------------------------- frame  */
+/* It takes the slide's rows as its own, so its cards' thoughts and the
+   stack's second start on one line. Its box, and the line round it, start
+   half a heading's line down, through that line's middle. Its corners follow
+   its cards' at the distance it keeps from them. */
+.plane__frame {
+  --edge-r: calc(var(--radius) + var(--reach));
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  --edge-lead: calc(var(--reach) + var(--pad-x) - 14px);
+  grid-area: 1 / 2 / -1 / 3;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: subgrid;
+  column-gap: var(--inner);
+  margin-top: calc(var(--label-h) / 2);
+  padding: 0 var(--reach);
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+/* The shared card, the panels' ground, over its still: air, then the
+   thought. Its own layer, so the art can go behind the text without going
+   behind the card. */
+.plane__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  grid-row: 3 / 5;
+  display: grid;
+  grid-template-rows: subgrid;
+  padding: 40px var(--pad-x);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.plane__card .plane__thought {
+  grid-row: 2;
+}
+
+/* Lines evened out, so a phrase held whole on the last line does not leave
+   a word stranded on the one before. */
+.plane__card .plane__text {
+  text-wrap: balance;
+}
+
+/* A still fills the card. Cropped from the left only, to keep the “AI
+   generated” mark in its bottom right corner whole. */
+.plane__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right;
+  filter: saturate(0.6);
+}
+
+/* The panels' scrim: all but solid at the foot, under the text, and thinning
+   towards the top, so the picture shows. */
+.plane__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(9, 9, 12, 0.3) 0%,
+    rgba(9, 9, 12, 0.72) 38%,
+    rgba(9, 9, 12, 0.94) 66%
+  );
+}
+
+/* --------------------------------------------------------------- thought */
+.plane__badge {
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.plane__text {
+  font-size: 38px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+/* The slide's main thought. */
+.plane__text--lead {
+  text-wrap: balance;
+  font-size: 56px;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+}
+
+.plane__kpis {
+  margin-top: 28px;
+}
+
+/* --------------------------------------------------------------- panels  */
+/* Slides 2–4 (PanelsLayout.jsx): columns side by side, each the shared card
+   grown to the slide's height, over its own picture or clip. */
+.slide--panels {
+  padding: 72px 88px 80px;
+}
+
+.panels__title {
+  margin-bottom: 40px;
+}
+
+/* Air, then the name, the headline or thought, the body, the figures, the
+   pills. Every panel takes these rows as its own, so like parts start
+   on one line across the slide however long each is. */
+.panels {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: 1fr repeat(5, auto);
+  column-gap: 24px;
+}
+
+/* Air under the content as well as over it, which centres it. */
+.panels--centre {
+  grid-template-rows: 1fr repeat(5, auto) 1fr;
+}
+
+.panel {
+  position: relative;
+  /* its own layer, so the art can go behind the text without going behind
+     the panel */
+  isolation: isolate;
+  overflow: hidden;
+  grid-row: 1 / -1;
+  display: grid;
+  grid-template-rows: subgrid;
+  align-items: start;
+  padding: 40px 36px 40px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.panels--2 .panel {
+  padding: 44px 56px;
+}
+
+/* The art fills the panel. At the foot of a panel, under its text, the scrim
+   is all but solid; towards the top it thins, so the picture shows. */
+.panel__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(9, 9, 12, 0.3) 0%,
+    rgba(9, 9, 12, 0.72) 38%,
+    rgba(9, 9, 12, 0.94) 66%
+  );
+}
+
+/* Centred, the text runs over the middle of the art, so it is dimmed evenly
+   instead: the offsite deck's pillar columns, a fifth of the light. */
+.panels--centre .panel::before {
+  background: rgba(9, 9, 12, 0.8);
+}
+
+/* The clips are cropped from the left only: they carry an “AI generated”
+   mark in their bottom right corner, which stays whole. */
+.panel__art--clip {
+  object-position: right;
+  filter: saturate(0.6);
+}
+
+/* The shared placeholder's stripes, with its label up where the picture
+   would show. */
+.panel__art--empty {
+  display: grid;
+  align-content: start;
+  padding-top: 120px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 14px,
+    #171b1a 14px,
+    #171b1a 28px
+  );
+}
+
+.panel__name {
+  grid-row: 2;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+.panel__heading,
+.panel__text {
+  grid-row: 3;
+  text-wrap: balance;
+}
+
+.panel__heading {
+  font-size: 32px;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.panel__text {
+  font-size: 64px;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  font-weight: 500;
+}
+
+.panel__body {
+  grid-row: 4;
+  margin-top: 20px;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Figures: a case's results, in the accent under its story. */
+.panel__kpis {
+  grid-row: 5;
+  margin-top: 32px;
+}
+
+.panel__kpis .kpis {
+  gap: 48px;
+}
+
+.panel__kpis .kpi__label {
+  max-width: 260px;
+}
+
+/* ----------------------------------------------------------------- pills */
+/* Pills: the offsite deck's, what stands behind a thought. */
+.pills {
+  grid-row: 6;
+  display: flex;
+  flex-wrap: wrap;
+  --pill-h: 48px;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pill {
+  height: var(--pill-h);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: var(--pill-h);
+  letter-spacing: -0.015em;
+  padding: 0 24px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.24);
+  white-space: nowrap;
+}
+
+/* Filled, but in no colour, and frosting the footage behind it so its label
+   is read against something even. */
+.pill--filled {
+  background: rgba(250, 250, 247, 0.14);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+}
+
+/* Not out yet: left as an outline beside the filled ones, and stepped back. */
+.pill--soon {
+  color: var(--muted);
+}
