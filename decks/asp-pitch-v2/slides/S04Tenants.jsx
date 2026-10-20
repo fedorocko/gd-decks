@@ -3,8 +3,8 @@ import Tree from '../components/Tree.jsx'
 import DiagramLayout from '../layouts/DiagramLayout.jsx'
 
 // After the solutions on slide 3: each of them comes multi-tenant, one
-// solution handed down to every client, drawn as a tree. The pictures are
-// not in yet (media.js).
+// solution handed down to every client, drawn as a tree: two pages of a
+// report, and two clients' copies of them in their own brand (media.js).
 export default function S04Tenants() {
   return (
     <DiagramLayout
@@ -16,12 +16,13 @@ export default function S04Tenants() {
       }
     >
       <Tree
-        root={{ media: 'tenantSolution', name: 'One solution' }}
+        root={{
+          pages: ['solutionOverview', 'solutionSummary'],
+          name: 'One solution',
+        }}
         leaves={[
-          { media: 'tenantA', name: 'Client A' },
-          { media: 'tenantB', name: 'Client B' },
-          { media: 'tenantC', name: 'Client C' },
-          { media: 'tenantD', name: 'Client D' },
+          { pages: ['clientAOverview', 'clientAReturns'], name: 'Client A' },
+          { pages: ['clientBOverview', 'clientBReturns'], name: 'Client B' },
         ]}
       />
     </DiagramLayout>

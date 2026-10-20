@@ -1,4 +1,5 @@
 import Edges from '../../../shared/Edges.jsx'
+import Shot from './Shot.jsx'
 
 /**
  * A platform drawn as a stack of layers, top to bottom, framed together,
@@ -7,8 +8,10 @@ import Edges from '../../../shared/Edges.jsx'
  *
  * label  — what the layers make up, in the middle of the frame's bottom
  *          line, leaving the top one to the arrows that rise from it
- * above  — what is built on it, in a row of 16 : 9 placeholder boxes as
- *          wide as the layers, an arrow rising to each: [{ name, yours }]
+ * above  — what is built on it, in a row of 16 : 9 boxes as wide as the
+ *          layers, an arrow rising to each: [{ name, media, yours }]
+ *   media  — a screenshot of it from media.js filling the box, its name
+ *            over the foot; without one the box is a hatched placeholder
  *   yours  — the client's own, drawn as its layers' contents are: a dashed
  *            line and the accent
  * below  — what the plane gives, in a row of lime pills under the frame,
@@ -34,11 +37,12 @@ export default function Stack({ label, above, below, layers }) {
     >
       {above && (
         <ul className="stack__above" style={{ '--count': above.length }}>
-          {above.map(({ name, yours }) => (
+          {above.map(({ name, media, yours }) => (
             <li className="stack__solution" key={name}>
               <span
-                className={`stack__solution-box${yours ? ' stack__solution-box--yours' : ''}`}
+                className={`stack__solution-box${yours ? ' stack__solution-box--yours' : ''}${media ? ' stack__solution-box--shot' : ''}`}
               >
+                {media && <Shot name={media} />}
                 {name}
               </span>
               <span className="stack__rise" />

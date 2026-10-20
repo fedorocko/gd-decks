@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import assetUrl from '../../../shared/asset.js'
 import Kpis from '../../../shared/Kpis.jsx'
+import Shot from '../components/Shot.jsx'
 import media from '../media.js'
 
 /**
@@ -15,6 +16,10 @@ import media from '../media.js'
  * grid   — two to a row instead of all side by side: landscape panels, the
  *          content at the foot of their left side, the media clearer
  *          towards their right
+ * shots  — the media a screenshot, shown clear at the top of the panel with
+ *          the content under it, rather than dimmed behind it. Its media.js
+ *          entry can crop it: `zoom`, how far in, from `focus`, an
+ *          object-position
  * panels: [{ id, media, ... }], each holding any of, top to bottom:
  *   name    — whose it is, in small caps
  *   heading — what it did, as a headline
@@ -34,6 +39,7 @@ export default function PanelsLayout({
   panels,
   centre = false,
   grid = false,
+  shots = false,
 }) {
   const clips = panels
     .filter((panel) => media[panel.media]?.kind === 'video')
@@ -45,6 +51,7 @@ export default function PanelsLayout({
     `panels--${panels.length}`,
     centre && 'panels--centre',
     grid && 'panels--grid',
+    shots && 'panels--shots',
   ]
     .filter(Boolean)
     .join(' ')
@@ -61,6 +68,7 @@ export default function PanelsLayout({
           <Panel
             key={id}
             {...panel}
+            shot={shots}
             playing={clips[turn] === id}
             onPlayed={() => setTurn(clips.indexOf(id) + 1)}
           />
@@ -79,12 +87,17 @@ function Panel({
   kpis,
   pills,
   soon = [],
+  shot,
   playing,
   onPlayed,
 }) {
   return (
     <li className="panel">
-      <Art name={art} playing={playing} onPlayed={onPlayed} />
+      {shot ? (
+        <PanelShot name={art} />
+      ) : (
+        <Art name={art} playing={playing} onPlayed={onPlayed} />
+      )}
       {name && <p className="eyebrow panel__name">{name}</p>}
       {heading && <h3 className="panel__heading">{heading}</h3>}
       {text && <p className="panel__text">{text}</p>}
@@ -129,6 +142,25 @@ function Art({ name, playing, onPlayed }) {
   }
 
   return <img className="panel__art" src={assetUrl(asset.src)} alt="" />
+}
+
+/** A screenshot over a panel's content, or its placeholder until it exists. */
+function PanelShot({ name }) {
+  const asset = media[name]
+
+  if (!asset?.src) {
+    return (
+      <div className="panel__shot panel__shot--empty">
+        <p className="media__label">{asset?.label ?? name}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="panel__shot">
+      <Shot name={name} />
+    </div>
+  )
 }
 
 /**

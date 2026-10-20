@@ -19,13 +19,12 @@ export default function S04Pillars() {
     >
       <Stack
         label="Agentic Serving Plane"
-        // slide 3's solutions, placeholders until they have pictures, and
+        // slide 3's solutions, over the screenshots it shows them by, and
         // the client's own
         above={[
-          { name: 'Survey Studio' },
-          { name: 'AI Publisher' },
-          { name: 'Signals Engine' },
-          { name: 'Market Pulse' },
+          { name: 'Survey Studio', media: 'surveyStudio' },
+          { name: 'AI Publisher', media: 'aiPublisher' },
+          { name: 'Signals Engine', media: 'signalsEngine' },
           { name: 'Your solution?', yours: true },
         ]}
         below={[
