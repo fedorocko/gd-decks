@@ -24,16 +24,11 @@ const media = {
   iconMuted: at('icon-muted.png'),
   iconQuestions: at('icon-questions.png'),
   iconRecording: at('icon-recording.png'),
-  // Slide 4. Who works through the platform, and what it reads from.
-  logoPerson: at('logo-person.png'),
-  logoCursor: at('logo-cursor.png'),
-  logoOpenai: at('logo-openai.png'),
-  logoStar: at('logo-star.png'),
-  logoDatabricks: at('logo-databricks.png'),
-  logoSnowflake: at('logo-snowflake.png'),
-  logoPostgres: at('logo-postgres.png'),
-  logoPdf: at('logo-pdf.png'),
-  logoPowerpoint: at('logo-powerpoint.png'),
+  // Slide 4. The ASP New Pitch's stills, kept with its media in public/media/
+  // and shared from there: code on a screen, and server racks. Portrait,
+  // 720 × 1280.
+  stillCode: '/media/pil-1-still.jpg',
+  stillServers: '/media/pil-3-still.jpg',
   // Slide 5. The investors, dark on transparent: shown white (styles.css).
   fundA16z: at('fund-a16z.png'),
   fundGeneralCatalyst: at('fund-general-catalyst.png'),

@@ -1,7 +1,7 @@
 import S01Title from './S01Title.jsx'
 import S02Speakers from './S02Speakers.jsx'
 import S03Housekeeping from './S03Housekeeping.jsx'
-import S04MeetGoodData from './S04MeetGoodData.jsx'
+import S04Plane from './S04Plane.jsx'
 import S05Trusted from './S05Trusted.jsx'
 import S06Recognition from './S06Recognition.jsx'
 import S07Agenda from './S07Agenda.jsx'
@@ -16,7 +16,7 @@ const slides = [
   S01Title,
   S02Speakers,
   S03Housekeeping,
-  S04MeetGoodData,
+  S04Plane,
   S05Trusted,
   S06Recognition,
   S07Agenda,

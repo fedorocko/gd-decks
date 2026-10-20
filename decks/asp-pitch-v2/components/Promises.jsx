@@ -1,5 +1,5 @@
 import Kpis from '../../../shared/Kpis.jsx'
-import Edges from './Edges.jsx'
+import Edges from '../../../shared/Edges.jsx'
 
 /**
  * What the plane promises: a card to each promise, two to a row, in the

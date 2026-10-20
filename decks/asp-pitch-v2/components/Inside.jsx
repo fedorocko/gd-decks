@@ -1,6 +1,6 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react'
 import Kpis from '../../../shared/Kpis.jsx'
-import Edges from './Edges.jsx'
+import Edges from '../../../shared/Edges.jsx'
 import { Box, Edge, Tag } from './Versus.jsx'
 
 /**

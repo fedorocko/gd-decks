@@ -1,10 +1,11 @@
 /**
  * Slide media, each behind its own column (layouts/PanelsLayout.jsx and
- * PlaneLayout.jsx). Drop the file into `public/media/` and point `src` at it;
- * while `src` is null the column shows a labelled placeholder instead.
+ * ../../shared/PlaneLayout.jsx). Drop the file into `public/media/` and
+ * point `src` at it; while `src` is null the column shows a labelled
+ * placeholder instead.
  */
 const media = {
-  // Slide 1 (layouts/PlaneLayout.jsx). Stills of two pillar clips, taken at
+  // Slide 1 (shared/PlaneLayout.jsx). Stills of two pillar clips, taken at
   // 2.5 s: the code from the offsite deck's slide 15, the server racks from
   // the ASP pitch's slide 8. Portrait, 720 × 1280, like the clips.
   stillCode: { src: '/media/pil-1-still.jpg', label: 'Still — code on a screen' },

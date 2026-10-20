@@ -1,5 +1,5 @@
 import assetUrl from '../../../shared/asset.js'
-import Edges from './Edges.jsx'
+import Edges from '../../../shared/Edges.jsx'
 
 /**
  * Two ways of running agents, one over the other: theirs, with the model

@@ -1,11 +1,11 @@
-import assetUrl from '../../../shared/asset.js'
-import Kpis from '../../../shared/Kpis.jsx'
-import Edges from '../components/Edges.jsx'
-import media from '../media.js'
+import assetUrl from './asset.js'
+import Edges from './Edges.jsx'
+import Kpis from './Kpis.jsx'
 
 /**
  * Two thoughts in a narrow first column, set on the ground, beside two cards
- * framed together, all under an optional title.
+ * framed together, all under an optional title. The ASP New Pitch's slide 2,
+ * and the webinar's slide 4.
  *
  * title   — set over the columns
  * stack:  two [{ id, heading, ... }]: the first at the top of the column, the
@@ -14,9 +14,9 @@ import media from '../media.js'
  * label   — what the framed cards are part of, in the middle of the frame's
  *           top line
  * heading — what they answer, in small caps in its bottom line
- * framed: two [{ id, media, ... }]
- *   media — a still from media.js behind the card, clear at its top and
- *           dimmed under the text at its foot
+ * framed: two [{ id, art, ... }]
+ *   art   — a still behind the card, a path in public/, clear at its top
+ *           and dimmed under the text at its foot
  *
  * Any thought holds, top to bottom:
  *   badge — a small lime pill over the text
@@ -39,13 +39,9 @@ export default function PlaneLayout({ title, stack, heading, label, framed }) {
         <Heading at="lower">{lower.heading}</Heading>
         <Thought at="lower" {...lower} />
         <div className="edged plane__frame">
-          {framed.map(({ id, media: art, ...thought }) => (
+          {framed.map(({ id, art, ...thought }) => (
             <div className="plane__card" key={id}>
-              <img
-                className="plane__art"
-                src={assetUrl(media[art].src)}
-                alt=""
-              />
+              <img className="plane__art" src={assetUrl(art)} alt="" />
               <Thought {...thought} />
             </div>
           ))}
@@ -68,7 +64,7 @@ function Heading({ at, children }) {
 function Thought({ at, badge, text, lead, kpis }) {
   return (
     <div className={`plane__thought${at ? ` plane__thought--${at}` : ''}`}>
-      {badge && <p className="badge plane__badge">{badge}</p>}
+      {badge && <p className="plane__badge">{badge}</p>}
       <p className={`plane__text${lead ? ' plane__text--lead' : ''}`}>{text}</p>
       {kpis && (
         <div className="plane__kpis">

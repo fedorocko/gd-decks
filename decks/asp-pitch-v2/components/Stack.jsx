@@ -1,4 +1,4 @@
-import Edges from './Edges.jsx'
+import Edges from '../../../shared/Edges.jsx'
 
 /**
  * A platform drawn as a stack of layers, top to bottom, framed together,

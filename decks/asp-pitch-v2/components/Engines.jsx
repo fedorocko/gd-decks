@@ -1,4 +1,4 @@
-import Edges from './Edges.jsx'
+import Edges from '../../../shared/Edges.jsx'
 
 /**
  * The compute, opened up: the engines, framed together, and the pipeline

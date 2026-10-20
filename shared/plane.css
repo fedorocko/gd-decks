@@ -1,0 +1,340 @@
+/* The Agentic Serving Plane drawn as a frame round two cards, beside two
+   thoughts (PlaneLayout.jsx), and the frame's border itself (Edges.jsx),
+   which the ASP New Pitch draws its diagrams with too. On top of
+   slides.css; imported by the decks that show it, after it and before their
+   own styles. */
+
+/* ------------------------------------------------------------ type scale */
+.plane__text,
+.plane__label {
+  font-family: var(--font-display);
+}
+
+/* ---------------------------------------------------------------- badge  */
+/* Solid lime, the badge voice of the ASP pitch, kept small: a gloss on the
+   thought it stands over. Its own class, not .badge: the ASP Enablement deck
+   has a .badge of its own. */
+.plane__badge {
+  width: fit-content;
+  margin-bottom: 20px;
+  height: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0.04em;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- edges  */
+/* A box's border in pieces (Edges.jsx): the top and bottom
+   lines each a row of a corner, the label if there is one, and the run to
+   the other corner; the sides between them. The label's middle sits on the
+   line, and the line stops either side of it. */
+.edged {
+  --edge-r: var(--radius);
+  --edge-w: 1px;
+  --edge-c: var(--line);
+  --edge-style: solid;
+  /* from the corner to the label: as far in as the box's text starts */
+  --edge-lead: calc(var(--pad-x) - 14px);
+  position: relative;
+  border-radius: var(--edge-r);
+}
+
+.edges__edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--edge-r);
+  display: flex;
+  pointer-events: none;
+}
+
+.edges__edge--top {
+  top: 0;
+}
+
+.edges__edge--bottom {
+  bottom: 0;
+}
+
+.edges__lead {
+  flex: none;
+  width: var(--edge-lead);
+}
+
+.edges__run {
+  flex: 1;
+}
+
+/* The label in the middle: the line runs in as far from either corner. */
+.edges__edge--centre > .edges__lead {
+  flex: 1;
+  width: auto;
+}
+
+/* The label in from the end: the same pieces, mirrored. The lead runs in
+   from the far corner, and the run takes the rest back to the near one. */
+.edges__edge--end {
+  flex-direction: row-reverse;
+}
+
+.edges__edge--end > .edges__lead {
+  border-left: 0;
+  border-right: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__edge--end > .edges__run {
+  border-right: 0;
+  border-left: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__edge--top.edges__edge--end > .edges__lead {
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--edge-r);
+}
+
+.edges__edge--top.edges__edge--end > .edges__run {
+  border-top-right-radius: 0;
+  border-top-left-radius: var(--edge-r);
+}
+
+.edges__edge--bottom.edges__edge--end > .edges__lead {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: var(--edge-r);
+}
+
+.edges__edge--bottom.edges__edge--end > .edges__run {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: var(--edge-r);
+}
+
+.edges__edge--top > :not(.edges__label) {
+  border-top: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__edge--bottom > :not(.edges__label) {
+  border-bottom: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__lead,
+.edges__run--whole {
+  border-left: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__run {
+  border-right: var(--edge-w) var(--edge-style) var(--edge-c);
+}
+
+.edges__edge--top > .edges__lead,
+.edges__edge--top > .edges__run--whole {
+  border-top-left-radius: var(--edge-r);
+}
+
+.edges__edge--top > .edges__run {
+  border-top-right-radius: var(--edge-r);
+}
+
+.edges__edge--bottom > .edges__lead,
+.edges__edge--bottom > .edges__run--whole {
+  border-bottom-left-radius: var(--edge-r);
+}
+
+.edges__edge--bottom > .edges__run {
+  border-bottom-right-radius: var(--edge-r);
+}
+
+.edges__sides {
+  position: absolute;
+  inset: var(--edge-r) 0;
+  border-inline: var(--edge-w) var(--edge-style) var(--edge-c);
+  pointer-events: none;
+}
+
+.edges__label {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 14px;
+  line-height: var(--label-h);
+  white-space: nowrap;
+}
+
+.edges__edge--top > .edges__label {
+  align-self: flex-start;
+  transform: translateY(-50%);
+}
+
+.edges__edge--bottom > .edges__label {
+  align-self: flex-end;
+  transform: translateY(50%);
+}
+
+/* ---------------------------------------------------------------- plane  */
+/* PlaneLayout.jsx: two thoughts in a narrow first column, beside
+   two cards framed as the Agentic Serving Plane, the frame grown to the
+   slide's height. The margins come in as far as keeps the text clear of the
+   deck's arrow buttons, to give the columns their measure; at the foot, only
+   as far as the room the frame's heading needs below its line. */
+.slide--plane {
+  padding: 72px 88px 56px;
+}
+
+.plane__title {
+  margin-bottom: 24px;
+}
+
+/* Rows: the line of the first heading and the frame's label; down to the
+   cards; the cards' air, with the first thought at its top and the second's
+   heading at its foot; the thoughts level with the framed ones; the frame's
+   reach below its cards, its line carrying its heading. */
+.plane {
+  --reach: 22px;
+  --inner: 22px;
+  --label-h: 28px;
+  /* the frame's line runs through the middle of the first heading's line, a
+     reach above its cards */
+  --drop: calc(var(--reach) - var(--label-h) / 2);
+  --radius: 20px;
+  --pad-x: 40px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows: var(--label-h) var(--drop) 1fr auto var(--reach);
+  column-gap: 56px;
+}
+
+.plane__heading {
+  line-height: var(--label-h);
+  color: var(--muted);
+}
+
+.plane__label {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- stack  */
+.plane__heading--upper {
+  grid-area: 1 / 1;
+}
+
+.plane__thought--upper {
+  grid-area: 3 / 1;
+  align-self: start;
+  padding-top: 12px;
+}
+
+.plane__heading--lower {
+  grid-area: 3 / 1;
+  align-self: end;
+  margin-bottom: 14px;
+}
+
+.plane__thought--lower {
+  grid-area: 4 / 1;
+}
+
+/* ---------------------------------------------------------------- frame  */
+/* It takes the slide's rows as its own, so its cards' thoughts and the
+   stack's second start on one line. Its box, and the line round it, start
+   half a heading's line down, through that line's middle. Its corners follow
+   its cards' at the distance it keeps from them. */
+.plane__frame {
+  --edge-r: calc(var(--radius) + var(--reach));
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  --edge-lead: calc(var(--reach) + var(--pad-x) - 14px);
+  grid-area: 1 / 2 / -1 / 3;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: subgrid;
+  column-gap: var(--inner);
+  margin-top: calc(var(--label-h) / 2);
+  padding: 0 var(--reach);
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+/* The shared card, the panels' ground, over its still: air, then the
+   thought. Its own layer, so the art can go behind the text without going
+   behind the card. */
+.plane__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  grid-row: 3 / 5;
+  display: grid;
+  grid-template-rows: subgrid;
+  padding: 40px var(--pad-x);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.plane__card .plane__thought {
+  grid-row: 2;
+}
+
+/* Lines evened out, so a phrase held whole on the last line does not leave
+   a word stranded on the one before. */
+.plane__card .plane__text {
+  text-wrap: balance;
+}
+
+/* A still fills the card. Cropped from the left only, to keep the “AI
+   generated” mark in its bottom right corner whole. */
+.plane__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right;
+  filter: saturate(0.6);
+}
+
+/* The panels' scrim: all but solid at the foot, under the text, and thinning
+   towards the top, so the picture shows. */
+.plane__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(9, 9, 12, 0.3) 0%,
+    rgba(9, 9, 12, 0.72) 38%,
+    rgba(9, 9, 12, 0.94) 66%
+  );
+}
+
+/* --------------------------------------------------------------- thought */
+.plane__text {
+  font-size: 38px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+/* The slide's main thought. */
+.plane__text--lead {
+  text-wrap: balance;
+  font-size: 56px;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+}
+
+.plane__kpis {
+  margin-top: 28px;
+}

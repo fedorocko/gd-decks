@@ -89,6 +89,9 @@ is its own.
 | `shared/StatementLayout.jsx` | the statement slide: one claim on the left, art or the schema on the right |
 | `shared/CardsLayout.jsx` | a slide that stands on a handful of claims, each boxed |
 | `shared/Kpis.jsx` | the figures that back a claim up |
+| `shared/PlaneLayout.jsx` | the Agentic Serving Plane framed round two cards, beside two thoughts — the ASP New Pitch's slide 2 and the webinar's slide 4 |
+| `shared/Edges.jsx` | a box's border drawn in pieces, with a label in a gap of its line — the plane's frame and the ASP New Pitch's diagrams |
+| `shared/plane.css` | those two's look; imported after `slides.css` by the decks that use them |
 | `shared/benchmarks.js` | the benchmark figures, in one place so a number and its footnote change together |
 | `shared/Taxonomy.jsx` | the Agentic Serving Plane as one indented tree |
 | `shared/Schema.jsx` | the animated diagram of the Agentic Serving Plane, behind the platform slides of both decks |
@@ -128,7 +131,8 @@ The URL hash carries the slide number, so `asp-pitch/#7` is that deck's seventh 
 When another deck wants the ASP pitch's layouts or components, move them into `shared/`
 rather than importing across deck folders — as `Mark`, `Media`, `Backdrop`, `SectionLayout`
 and `TitleLayout` were for the offsite deck, and then everything the pitch's architecture run
-is built from: `StatementLayout`, `CardsLayout`, `Kpis`, `Taxonomy` and the `Schema`. `Media` is handed the deck's own `media.js` as `from`, so each deck still
+is built from: `StatementLayout`, `CardsLayout`, `Kpis`, `Taxonomy` and the `Schema`; and
+`PlaneLayout` and `Edges` from the ASP New Pitch for the webinar. `Media` is handed the deck's own `media.js` as `from`, so each deck still
 keeps its own files.
 
 ## Changing the look

@@ -1,5 +1,6 @@
 import Mark from '../../../shared/Mark.jsx'
-import PlaneLayout from '../layouts/PlaneLayout.jsx'
+import PlaneLayout from '../../../shared/PlaneLayout.jsx'
+import media from '../media.js'
 
 // What we do and why us, stacked, beside how we do it: the Agentic Serving
 // Plane itself, framed, over stills of the pillar clips from the offsite
@@ -36,7 +37,7 @@ export default function S01Plane() {
       framed={[
         {
           id: 'build',
-          media: 'stillCode',
+          art: media.stillCode.src,
           text: (
             <>
               Open and flexible platform lets you build{' '}
@@ -48,7 +49,7 @@ export default function S01Plane() {
         },
         {
           id: 'keep',
-          media: 'stillServers',
+          art: media.stillServers.src,
           text: (
             <>
               {/* Each marked word starts its line, and "agent scale" stays
