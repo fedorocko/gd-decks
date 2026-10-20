@@ -66,22 +66,45 @@
         letter-spacing: -0.02em;
       }
 
-      ul {
+      .decks {
+        display: grid;
+        gap: 24px;
+        max-width: 1600px;
         margin: 0;
         padding: 0;
         list-style: none;
-        max-width: 880px;
-        border-top: 1px solid var(--line);
       }
 
-      a {
+      /* A deck: its name over three of its slides. The whole card opens the
+         deck from the start (the head's link is stretched over it); a slide
+         opens the deck at that slide. */
+      .card {
+        position: relative;
+        padding: 32px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+        transition: border-color 200ms ease;
+      }
+
+      .card:hover {
+        border-color: rgba(218, 254, 133, 0.32);
+      }
+
+      .card__head {
         display: flex;
         align-items: baseline;
         gap: 24px;
-        padding: 28px 0;
-        border-bottom: 1px solid var(--line);
+        margin-bottom: 28px;
         color: inherit;
         text-decoration: none;
+      }
+
+      .card__head::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
       }
 
       .name {
@@ -102,9 +125,44 @@
         transition: transform 200ms cubic-bezier(0.22, 0.8, 0.3, 1);
       }
 
-      a:hover .arrow,
-      a:focus-visible .arrow {
+      .card:hover .arrow {
         transform: translateX(6px);
+      }
+
+      .shots {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      /* above the stretched link, so it takes its own clicks */
+      .shot {
+        position: relative;
+        z-index: 1;
+        display: block;
+        border-radius: 12px;
+        transition: transform 200ms cubic-bezier(0.22, 0.8, 0.3, 1);
+      }
+
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: inherit;
+        background: var(--ink);
+        box-shadow: 0 0 0 1px var(--line);
+        transition: box-shadow 200ms ease;
+      }
+
+      .shot:hover {
+        transform: translateY(-4px);
+      }
+
+      .shot:hover img {
+        box-shadow:
+          0 0 0 1px var(--accent),
+          0 18px 40px rgba(0, 0, 0, 0.45);
       }
 
       a:focus-visible {
@@ -112,10 +170,25 @@
         outline-offset: 4px;
       }
 
+      .card__head:focus-visible {
+        outline: none;
+      }
+
+      .card__head:focus-visible::after {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
       @media (max-width: 600px) {
-        a {
+        .card {
+          padding: 20px;
+          border-radius: 18px;
+        }
+
+        .card__head {
           flex-wrap: wrap;
           gap: 4px 16px;
+          margin-bottom: 18px;
         }
 
         .name {
@@ -126,48 +199,96 @@
           order: 3;
           flex-basis: 100%;
         }
+
+        .shots {
+          gap: 8px;
+        }
+
+        .shot {
+          border-radius: 6px;
+        }
       }
     </style>
   </head>
   <body>
     <p class="eyebrow">[ GoodData ]</p>
     <h1>Decks</h1>
-    <!-- One row per deck folder; keep in step with DECKS in vite.config.js. -->
-    <ul>
-      <li>
-        <a href="asp-exec/">
-          <span class="name">ASP Executive Pitch</span>
-          <span class="note">GoodData.AI — executive summary</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="asp-pitch/">
-          <span class="name">ASP pitch</span>
-          <span class="note">GoodData.AI — the agentic serving plane</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="asp-pitch-v2/">
-          <span class="name">ASP Pitch v2</span>
+    <!-- One card per deck folder; keep in step with DECKS in vite.config.js. A deck
+         left out here (asp-exec) is hidden: still built, still at its URL.
+         Each card shows three of its slides: /previews/<deck>/<n>.webp is slide n,
+         taken by `npm run previews` from what this list asks for. -->
+    <ul class="decks">
+      <li class="card">
+        <a class="card__head" href="asp-pitch-v2/">
+          <span class="name">ASP New Pitch</span>
           <span class="note">GoodData.AI — the agentic serving plane, reworked</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
+        <div class="shots">
+          <a class="shot" href="asp-pitch-v2/#2">
+            <img src="/previews/asp-pitch-v2/2.webp" alt="ASP New Pitch, slide 2" width="960" height="540" />
+          </a>
+          <a class="shot" href="asp-pitch-v2/#4">
+            <img src="/previews/asp-pitch-v2/4.webp" alt="ASP New Pitch, slide 4" width="960" height="540" />
+          </a>
+          <a class="shot" href="asp-pitch-v2/#6">
+            <img src="/previews/asp-pitch-v2/6.webp" alt="ASP New Pitch, slide 6" width="960" height="540" />
+          </a>
+        </div>
       </li>
-      <li>
-        <a href="offsite/">
-          <span class="name">Offsite</span>
+      <li class="card">
+        <a class="card__head" href="asp-pitch/">
+          <span class="name">ASP Enablement</span>
+          <span class="note">GoodData.AI — the agentic serving plane</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <div class="shots">
+          <a class="shot" href="asp-pitch/#4">
+            <img src="/previews/asp-pitch/4.webp" alt="ASP Enablement, slide 4" width="960" height="540" />
+          </a>
+          <a class="shot" href="asp-pitch/#6">
+            <img src="/previews/asp-pitch/6.webp" alt="ASP Enablement, slide 6" width="960" height="540" />
+          </a>
+          <a class="shot" href="asp-pitch/#16">
+            <img src="/previews/asp-pitch/16.webp" alt="ASP Enablement, slide 16" width="960" height="540" />
+          </a>
+        </div>
+      </li>
+      <li class="card">
+        <a class="card__head" href="offsite/">
+          <span class="name">Offsite 2026</span>
           <span class="note">How AI changes traditional software</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
+        <div class="shots">
+          <a class="shot" href="offsite/#10">
+            <img src="/previews/offsite/10.webp" alt="Offsite 2026, slide 10" width="960" height="540" />
+          </a>
+          <a class="shot" href="offsite/#14">
+            <img src="/previews/offsite/14.webp" alt="Offsite 2026, slide 14" width="960" height="540" />
+          </a>
+          <a class="shot" href="offsite/#15">
+            <img src="/previews/offsite/15.webp" alt="Offsite 2026, slide 15" width="960" height="540" />
+          </a>
+        </div>
       </li>
-      <li>
-        <a href="webinar/">
-          <span class="name">Webinar</span>
+      <li class="card">
+        <a class="card__head" href="webinar/">
+          <span class="name">Webinar October 2026</span>
           <span class="note">GoodData.AI — webinar</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
+        <div class="shots">
+          <a class="shot" href="webinar/#7">
+            <img src="/previews/webinar/7.webp" alt="Webinar October 2026, slide 7" width="960" height="540" />
+          </a>
+          <a class="shot" href="webinar/#8">
+            <img src="/previews/webinar/8.webp" alt="Webinar October 2026, slide 8" width="960" height="540" />
+          </a>
+          <a class="shot" href="webinar/#9">
+            <img src="/previews/webinar/9.webp" alt="Webinar October 2026, slide 9" width="960" height="540" />
+          </a>
+        </div>
       </li>
     </ul>
   </body>

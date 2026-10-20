@@ -5,10 +5,10 @@ deck management — just the decks.
 
 | Deck | Folder | Published at |
 | --- | --- | --- |
-| ASP pitch | `decks/asp-pitch/` | https://fedorocko.github.io/gd-decks/asp-pitch/ |
-| ASP Pitch v2 | `decks/asp-pitch-v2/` | https://fedorocko.github.io/gd-decks/asp-pitch-v2/ |
-| Offsite | `decks/offsite/` | https://fedorocko.github.io/gd-decks/offsite/ |
-| Webinar | `decks/webinar/` | https://fedorocko.github.io/gd-decks/webinar/ |
+| ASP New Pitch | `decks/asp-pitch-v2/` | https://fedorocko.github.io/gd-decks/asp-pitch-v2/ |
+| ASP Enablement | `decks/asp-pitch/` | https://fedorocko.github.io/gd-decks/asp-pitch/ |
+| Offsite 2026 | `decks/offsite/` | https://fedorocko.github.io/gd-decks/offsite/ |
+| Webinar October 2026 | `decks/webinar/` | https://fedorocko.github.io/gd-decks/webinar/ |
 
 **https://fedorocko.github.io/gd-decks/** itself lists the decks.
 
@@ -16,6 +16,7 @@ deck management — just the decks.
 npm install
 npm run dev      # http://localhost:5173/gd-decks/ — each deck at /gd-decks/<folder>/
 npm run build    # static output in dist/
+npm run previews # retake the slide pictures on the deck list (needs Chrome)
 ```
 
 Dev and build both run under the `/gd-decks/` base that GitHub Pages serves from, so
