@@ -339,6 +339,7 @@
    them. The arrows run on across the inset, over the frame's line, to the
    layer. */
 .stack {
+  position: relative;
   --radius: 12px;
   --pad-x: 26px;
   --label-h: 24px;
@@ -346,12 +347,15 @@
   --run: 96px;
   --inset: 36px;
   --gap: 20px;
+  /* the plugs' columns as wide on both sides, whatever the names, so the
+     frame stays in the middle */
+  --plugs-w: 144px;
   flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns:
-    max-content var(--run) var(--inset) minmax(0, 1fr)
-    var(--inset) var(--run) max-content;
+    minmax(max-content, var(--plugs-w)) var(--run) var(--inset) minmax(0, 1fr)
+    var(--inset) var(--run) minmax(max-content, var(--plugs-w));
   grid-template-rows: auto 6px repeat(var(--layers), minmax(0, 1fr)) 14px;
   row-gap: var(--gap);
   /* the frame's label hangs half below its bottom line */
@@ -381,10 +385,23 @@
   --edge-r: 20px;
   --edge-w: 1.5px;
   --edge-c: var(--accent-line);
-  --label-h: 36px;
+  --label-h: 44px;
   grid-column: 3 / 6;
   grid-row: 2 / -1;
   background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+/* The plane's name, a solid lime pill on the frame's line, as slide 9 picks
+   out the arrow it opens: the beam to what the plane gives leaves from it. */
+.stack__name {
+  display: inline-block;
+  height: var(--label-h);
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-size: 24px;
+  line-height: var(--label-h);
+  color: var(--ink);
 }
 
 /* What is built on the plane: a row of 16 : 9 boxes sharing the layers'
@@ -516,11 +533,15 @@
 }
 
 /* The product layers, dashed: frames for what the client brings, against
-   the solid arrows and the plane's solid line. */
+   the solid arrows and the plane's solid line. What the client brings is
+   the slide's subject, so the line is in the full accent, over a lime wash,
+   glowing, as slide 8 draws the client's GPU and the plane. */
 .stack__layer.edged {
-  --edge-c: rgba(250, 250, 247, 0.32);
+  --edge-c: var(--accent);
+  --edge-w: 1.5px;
   --edge-style: dashed;
-  background: rgba(250, 250, 247, 0.03);
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.03));
+  box-shadow: 0 0 28px rgba(218, 254, 133, 0.16);
 }
 
 /* What comes built in stands at the end of the layer's bottom line, plain
@@ -573,28 +594,32 @@
   text-align: center;
 }
 
-/* What the plane gives: a row under the frame, clear of its label, in the
-   deck's lime badges set larger, the slide's payoff. */
+/* What the plane gives: a row under the frame, clear of its label, as wide
+   as its pills, with room over it for the beam from the label. Lime
+   outlines, not filled, so they back up the layers over them rather than
+   draw the eye from what the client brings. */
 .stack__below {
   grid-column: 1 / -1;
-  margin-top: 26px;
+  justify-self: center;
+  margin-top: 44px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
 }
 
+/* The plugs' size, a step back from the layers they follow. */
 .stack__benefit {
-  height: 50px;
-  padding: 0 26px;
+  height: 40px;
+  padding: 0 20px;
   border-radius: 999px;
-  font-size: 23px;
-  font-weight: 600;
-  line-height: 50px;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 40px;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  background: var(--accent);
-  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  color: var(--accent);
 }
 
 .stack__plug--left {
@@ -642,6 +667,24 @@
 .stack__arrow--to-left::after {
   left: 1px;
   transform: rotate(-135deg);
+}
+
+/* One each way, from a plug that names what goes in and what comes out:
+   in over out, both within the pill's height. */
+.stack__arrows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stack__arrows--left {
+  grid-column: 2 / 4;
+  margin-left: 10px;
+}
+
+.stack__arrows--right {
+  grid-column: 5 / 7;
+  margin-right: 10px;
 }
 
 /* ---------------------------------------------------------------- versus */
@@ -1114,10 +1157,11 @@
   transform: rotate(45deg);
 }
 
-/* From the pill down to the panel: the accent's wash fading as it goes,
-   ruled along its sides. Over the frame's line, under the row and the
-   panel. */
-.inside__beam {
+/* A beam (components/Beam.jsx): the accent's wash fading as it goes,
+   ruled along its sides. Slide 9's runs from the pill down to the panel,
+   over the frame's line, under the row and the panel; slide 6's from the
+   plane's name down to what it gives, under the frame. */
+.beam {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1128,16 +1172,16 @@
   stroke-width: 1;
 }
 
-.inside__beam polygon {
+.beam polygon {
   stroke: none;
 }
 
-.inside__beam-top {
+.beam__top {
   stop-color: var(--accent);
   stop-opacity: 0.26;
 }
 
-.inside__beam-foot {
+.beam__foot {
   stop-color: var(--accent);
   stop-opacity: 0.06;
 }

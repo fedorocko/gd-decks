@@ -1,6 +1,8 @@
-import { useId, useLayoutEffect, useRef, useState } from 'react'
-import Kpis from '../../../shared/Kpis.jsx'
+import { useMemo, useRef } from 'react'
 import Edges from '../../../shared/Edges.jsx'
+import Kpis from '../../../shared/Kpis.jsx'
+import Beam from './Beam.jsx'
+import useBeam from './useBeam.js'
 import { Box, Edge, Tag } from './Versus.jsx'
 
 /**
@@ -44,14 +46,19 @@ export default function Inside({
   const hostBox = useRef(null)
   const panel = useRef(null)
   // what stands either side of the opened arrow, whose corners the beam
-  // keeps clear of
-  const [before, pill, after] =
-    open === 0 ? [firstBox, betweenPill, lastBox] : [lastBox, outPill, hostBox]
-  const beam = useBeam(root, before, pill, after, panel)
+  // keeps clear of, the arrow's pill, and the panel it spreads to
+  const between = useMemo(
+    () =>
+      open === 0
+        ? [firstBox, betweenPill, lastBox, panel]
+        : [lastBox, outPill, hostBox, panel],
+    [open],
+  )
+  const beam = useBeam(root, between, spread)
   const [first, last] = boxes.map((box) =>
     typeof box === 'string' ? { name: box } : box,
   )
-  const [between, out] = edges
+  const [via, out] = edges
   const opened = (i) => (open === i ? ' versus__along--open' : '')
 
   return (
@@ -59,12 +66,12 @@ export default function Inside({
       <div className="edged versus__frame versus__frame--ours">
         <Edges top={<span className="plane__label">{label}</span>} centre="top" />
       </div>
-      {beam && <Beam {...beam} />}
+      {beam && <Beam points={beam} />}
 
       <div className="versus__row versus__row--ours">
         <Box {...first} column={2} boxRef={firstBox} />
         <div className={`versus__along versus__along--between${opened(0)}`}>
-          <Edge via={between} pillRef={betweenPill} />
+          <Edge via={via} pillRef={betweenPill} />
         </div>
         <Box {...last} column={4} boxRef={lastBox} />
         <div
@@ -136,69 +143,21 @@ export function Steps({ steps }) {
 const CLEAR = 24
 
 /**
- * The beam's corners, in the diagram's own pixels. It starts across the
- * pill's middle, clear of its rounded ends, and spreads down to the panel's
- * top line as wide as it can: each side passes just clear of the bottom
- * corner beside it, of what stands before the pill and after it. The stage
- * is scaled, so what the browser measures on screen is scaled back.
+ * The beam's corners: it starts across the pill's middle, clear of its
+ * rounded ends, and spreads down to the panel's top line as wide as it can:
+ * each side passes just clear of the bottom corner beside it, of what
+ * stands before the pill and after it.
  */
-function useBeam(root, before, pill, after, panel) {
-  const [beam, setBeam] = useState(null)
-
-  useLayoutEffect(() => {
-    let live = true
-    const measure = () => {
-      if (!live) return
-      const frame = root.current.getBoundingClientRect()
-      const k = root.current.offsetWidth / frame.width
-      const at = (x, y) => [(x - frame.left) * k, (y - frame.top) * k]
-      const [a, p, h, q] = [before, pill, after, panel].map((ref) =>
-        ref.current.getBoundingClientRect(),
-      )
-      const mid = p.top + p.height / 2
-      // where the line from (x, mid) past (cx, cy) meets the panel's top
-      const reach = (x, cx, cy) => x + ((cx - x) * (q.top - mid)) / (cy - mid)
-      const left = p.left + p.height / 2
-      const right = p.right - p.height / 2
-      setBeam({
-        points: [
-          at(left, mid),
-          at(right, mid),
-          at(reach(right, h.left - CLEAR, h.bottom), q.top),
-          at(reach(left, a.right + CLEAR, a.bottom), q.top),
-        ],
-      })
-    }
-
-    measure()
-    const observer = new ResizeObserver(measure)
-    observer.observe(root.current)
-    document.fonts?.ready.then(measure)
-    return () => {
-      live = false
-      observer.disconnect()
-    }
-  }, [root, before, pill, after, panel])
-
-  return beam
-}
-
-/** A wash from the pill down to the panel, ruled along its sides. */
-function Beam({ points }) {
-  const fill = useId()
-  const [a, b, c, d] = points
-
-  return (
-    <svg className="inside__beam" aria-hidden="true">
-      <defs>
-        <linearGradient id={fill} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" className="inside__beam-top" />
-          <stop offset="1" className="inside__beam-foot" />
-        </linearGradient>
-      </defs>
-      <polygon points={points.join(' ')} fill={`url(#${fill})`} />
-      <line x1={a[0]} y1={a[1]} x2={d[0]} y2={d[1]} />
-      <line x1={b[0]} y1={b[1]} x2={c[0]} y2={c[1]} />
-    </svg>
-  )
+function spread([a, p, h, q], at) {
+  const mid = p.top + p.height / 2
+  // where the line from (x, mid) past (cx, cy) meets the panel's top
+  const reach = (x, cx, cy) => x + ((cx - x) * (q.top - mid)) / (cy - mid)
+  const left = p.left + p.height / 2
+  const right = p.right - p.height / 2
+  return [
+    at(left, mid),
+    at(right, mid),
+    at(reach(right, h.left - CLEAR, h.bottom), q.top),
+    at(reach(left, a.right + CLEAR, a.bottom), q.top),
+  ]
 }

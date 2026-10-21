@@ -1,4 +1,7 @@
+import { useMemo, useRef } from 'react'
 import Edges from '../../../shared/Edges.jsx'
+import Beam from './Beam.jsx'
+import useBeam from './useBeam.js'
 import Shot from './Shot.jsx'
 import Soon from './Soon.jsx'
 
@@ -15,8 +18,8 @@ import Soon from './Soon.jsx'
  *            over the foot; without one the box is a hatched placeholder
  *   yours  — the client's own, drawn as its layers' contents are: a dashed
  *            line and the accent
- * below  — what the plane gives, in a row of lime pills under the frame,
- *          clear of its label: [name]
+ * below  — what the plane gives, in a row of pills under the frame, clear
+ *          of its label, a beam opening down to them from it: [name]
  * layers: [{ id, text, ... }]
  *   text   — what the layer holds, in its middle
  *   label  — what it is called, in its top line
@@ -25,19 +28,30 @@ import Soon from './Soon.jsx'
  *            bottom line: [name]
  *   filled — a solid layer for the ones above to stand on, with no lines
  *   left, right — what plugs into it on that side, outside the frame:
- *     { name, out, soon }
+ *     { name, out, both, soon }
  *     out  — the arrow runs out of the layer to it, not into the layer
+ *     both — two arrows, one each way: in over out, for a plug that names
+ *            what goes in and what comes out
  *     soon — not out yet: the Soon sticker on its corner
  *
  * The layers share the height between them; the plugs on each side share a
  * width, so they stand in a column. The arrows cross the frame's line.
  */
 export default function Stack({ label, above, below, layers }) {
+  const root = useRef(null)
+  const named = useRef(null)
+  const gives = useRef(null)
+  const ends = useMemo(() => [named, gives], [])
+  const beam = useBeam(root, ends, fan)
+
   return (
     <div
       className={`stack${below ? ' stack--below' : ''}`}
       style={{ '--layers': layers.length }}
+      ref={root}
     >
+      {/* first, so the frame and its name are drawn over it */}
+      {beam && <Beam points={beam} />}
       {above && (
         <ul className="stack__above" style={{ '--count': above.length }}>
           {above.map(({ name, media, yours }) => (
@@ -59,7 +73,13 @@ export default function Stack({ label, above, below, layers }) {
         style={{ gridRow: `2 / ${layers.length + 4}` }}
       >
         <Edges
-          bottom={label && <span className="plane__label">{label}</span>}
+          bottom={
+            label && (
+              <span className="plane__label stack__name" ref={named}>
+                {label}
+              </span>
+            )
+          }
           centre="bottom"
         />
       </div>
@@ -102,7 +122,11 @@ export default function Stack({ label, above, below, layers }) {
       ))}
       {below && (
         // after the frame's foot
-        <ul className="stack__below" style={{ gridRow: layers.length + 4 }}>
+        <ul
+          className="stack__below"
+          style={{ gridRow: layers.length + 4 }}
+          ref={gives}
+        >
           {below.map((name) => (
             <li className="stack__benefit" key={name}>
               {name}
@@ -114,9 +138,27 @@ export default function Stack({ label, above, below, layers }) {
   )
 }
 
-function Plug({ side, name, out, soon }) {
+/**
+ * The beam's corners: across the plane's name, a pill on the frame's line,
+ * at its middle and clear of its round ends, as slide 9's leaves its pill,
+ * down to the top of the row of what it gives, as wide as the row less its
+ * pills' round ends.
+ */
+function fan([name, row], at) {
+  const mid = name.top + name.height / 2
+  const end = row.height / 2
+  return [
+    at(name.left + name.height / 2, mid),
+    at(name.right - name.height / 2, mid),
+    at(row.right - end, row.top),
+    at(row.left + end, row.top),
+  ]
+}
+
+function Plug({ side, name, out, both, soon }) {
   // An arrow into the layer points away from the plug's side of it.
-  const towards = (side === 'left') !== Boolean(out) ? 'right' : 'left'
+  const inward = side === 'left' ? 'right' : 'left'
+  const outward = side === 'left' ? 'left' : 'right'
 
   return (
     <>
@@ -124,9 +166,16 @@ function Plug({ side, name, out, soon }) {
         {name}
         {soon && <Soon />}
       </span>
-      <span
-        className={`stack__arrow stack__arrow--${side} stack__arrow--to-${towards}`}
-      />
+      {both ? (
+        <span className={`stack__arrows stack__arrows--${side}`}>
+          <span className={`stack__arrow stack__arrow--to-${inward}`} />
+          <span className={`stack__arrow stack__arrow--to-${outward}`} />
+        </span>
+      ) : (
+        <span
+          className={`stack__arrow stack__arrow--${side} stack__arrow--to-${out ? outward : inward}`}
+        />
+      )}
     </>
   )
 }

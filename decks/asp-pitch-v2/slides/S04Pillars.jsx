@@ -1,22 +1,12 @@
-import Mark from '../../../shared/Mark.jsx'
 import Stack from '../components/Stack.jsx'
 import DiagramLayout from '../layouts/DiagramLayout.jsx'
 
 // The Agentic Serving Plane drawn as a stack: what the client brings, layer
-// by layer, over what we run it on, and the solutions built on it. The
-// subtitle is the line from the first of the offsite deck's four pillars, its
-// slide 15.
+// by layer, over what we run it on, and the solutions built on it. No
+// subtitle, so the diagram has the room.
 export default function S04Pillars() {
   return (
-    <DiagramLayout
-      title="Agentic Serving Plane lets you build any AI solution"
-      text={
-        <>
-          It is open and flexible because it speaks the language of agents:{' '}
-          <Mark>code.</Mark>
-        </>
-      }
-    >
+    <DiagramLayout title="Agentic Serving Plane lets you build any AI solution">
       <Stack
         label="Agentic Serving Plane"
         // slide 3's solutions, over the screenshots it shows them by, and
@@ -40,15 +30,18 @@ export default function S04Pillars() {
             text: 'Your UI',
             builtIn: ['Dashboards', 'Publisher'],
             left: { name: 'SDK', out: true },
-            right: { name: 'A2A', out: true },
+            right: { name: 'A2A + MCP', out: true },
           },
           {
             id: 'agents',
             label: 'AI Hub',
             text: 'Your Agents',
             builtIn: ['AI Analyst'],
-            left: { name: 'Skills', soon: true },
-            right: { name: 'Evals' },
+            // the agents' standards on the right, under A2A and MCP; how
+            // you build and check them on the left, with the SDK. Skills
+            // come in to the agents, and they call tools out: both ways.
+            left: { name: 'Evals' },
+            right: { name: 'Skills + Tools', both: true, soon: true },
           },
           {
             id: 'context',
@@ -59,7 +52,7 @@ export default function S04Pillars() {
           },
           {
             id: 'logic',
-            label: 'Flows',
+            label: 'Flows + Sandboxes',
             soon: true,
             text: 'Your Business Logic',
             builtIn: ['Key Drivers', 'What-if', 'Forecasting'],
