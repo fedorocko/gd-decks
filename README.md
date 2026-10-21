@@ -9,6 +9,7 @@ deck management — just the decks.
 | ASP Enablement | `decks/asp-pitch/` | https://fedorocko.github.io/gd-decks/asp-pitch/ |
 | Offsite 2026 | `decks/offsite/` | https://fedorocko.github.io/gd-decks/offsite/ |
 | Webinar October 2026 | `decks/webinar/` | https://fedorocko.github.io/gd-decks/webinar/ |
+| GoodData.AI + TeamViewer | `decks/teamviewer/` | https://fedorocko.github.io/gd-decks/teamviewer/ |
 
 **https://fedorocko.github.io/gd-decks/** itself lists the decks.
 
@@ -78,6 +79,7 @@ is its own.
 | `decks/asp-pitch-v2/` | the ASP pitch reworked — slides, its two layouts, media, styles |
 | `decks/offsite/` | the Offsite deck — slides, the animated scene, styles, and the pitch's architecture run; see its `README.md` |
 | `decks/webinar/` | the Webinar deck — slides, layouts, styles; its media in `public/media/webinar/` |
+| `decks/teamviewer/` | the TeamViewer deck — its title and agenda, then slides of the webinar's and the ASP New Pitch's, imported from their folders |
 | `shared/Deck.jsx` | the deck itself: stage, navigation, URL hash, presenting, speaker notes |
 | `shared/deck.css` | design tokens, the stage, and the deck's own buttons and notes column |
 | `shared/slides.css` | the type scale, emphasis marks, media frame, backdrop, figures, taxonomy, and the title, section, card and statement slides |
@@ -134,6 +136,11 @@ and `TitleLayout` were for the offsite deck, and then everything the pitch's arc
 is built from: `StatementLayout`, `CardsLayout`, `Kpis`, `Taxonomy` and the `Schema`; and
 `PlaneLayout` and `Edges` from the ASP New Pitch for the webinar. `Media` is handed the deck's own `media.js` as `from`, so each deck still
 keeps its own files.
+
+The one exception is a deck put together from other decks' slides, as the TeamViewer deck
+is. It imports those slides whole from their folders, and their decks' styles in its
+`main.jsx`, so the slides stay in step with the decks they come from. To change one for
+that deck alone, copy it into the deck's own folder first.
 
 ## Changing the look
 

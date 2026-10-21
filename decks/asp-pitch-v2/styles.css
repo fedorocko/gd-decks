@@ -562,11 +562,13 @@
 }
 
 .stack__label {
+  position: relative;
   font-size: 18px;
   font-weight: 600;
 }
 
 .stack__plug {
+  position: relative;
   justify-self: stretch;
   text-align: center;
 }
@@ -1714,3 +1716,43 @@
   transform: rotate(135deg);
 }
 
+/* ------------------------------------------------------------------ soon */
+/* Not out yet (components/Soon.jsx): the schema's sticker (shared/schema.css,
+   .sx-soon), the same look. Slapped on the top-right corner of what holds
+   it, tilted so it reads as a note on the diagram rather than part of it;
+   white, not lime, so it never competes with the slide's highlight. */
+.soon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.soon span {
+  display: block;
+  transform: translate(22%, -55%) rotate(8deg);
+  padding: 5px 10px 6px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.6);
+}
+
+/* On a name in a line, the word is shorter than the sticker: it goes just
+   after the word instead, on the line, rather than over its corner. */
+.stack__label .soon {
+  top: 50%;
+  right: auto;
+  left: 100%;
+}
+
+.stack__label .soon span {
+  transform: translate(8px, -50%) rotate(8deg);
+}

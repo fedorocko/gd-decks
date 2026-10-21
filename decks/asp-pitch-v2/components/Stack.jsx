@@ -1,5 +1,6 @@
 import Edges from '../../../shared/Edges.jsx'
 import Shot from './Shot.jsx'
+import Soon from './Soon.jsx'
 
 /**
  * A platform drawn as a stack of layers, top to bottom, framed together,
@@ -19,12 +20,14 @@ import Shot from './Shot.jsx'
  * layers: [{ id, text, ... }]
  *   text   — what the layer holds, in its middle
  *   label  — what it is called, in its top line
+ *   soon   — that is not out yet: the Soon sticker on its name
  *   builtIn — what comes with it, each with a plus, at the end of its
  *            bottom line: [name]
  *   filled — a solid layer for the ones above to stand on, with no lines
  *   left, right — what plugs into it on that side, outside the frame:
- *     { name, out }
+ *     { name, out, soon }
  *     out  — the arrow runs out of the layer to it, not into the layer
+ *     soon — not out yet: the Soon sticker on its corner
  *
  * The layers share the height between them; the plugs on each side share a
  * width, so they stand in a column. The arrows cross the frame's line.
@@ -60,7 +63,7 @@ export default function Stack({ label, above, below, layers }) {
           centre="bottom"
         />
       </div>
-      {layers.map(({ id, text, label: name, builtIn, filled, left, right }, i) => (
+      {layers.map(({ id, text, label: name, soon, builtIn, filled, left, right }, i) => (
         // the row over the frame, and the frame's top, come first
         <div className="stack__row" key={id} style={{ gridRow: i + 3 }}>
           {left && <Plug side="left" {...left} />}
@@ -74,7 +77,14 @@ export default function Stack({ label, above, below, layers }) {
             >
               <p className="stack__text">{text}</p>
               <Edges
-                top={name && <span className="stack__label">{name}</span>}
+                top={
+                  name && (
+                    <span className="stack__label">
+                      {name}
+                      {soon && <Soon />}
+                    </span>
+                  )
+                }
                 bottom={
                   builtIn &&
                   builtIn.map((feature) => (
@@ -104,7 +114,7 @@ export default function Stack({ label, above, below, layers }) {
   )
 }
 
-function Plug({ side, name, out }) {
+function Plug({ side, name, out, soon }) {
   // An arrow into the layer points away from the plug's side of it.
   const towards = (side === 'left') !== Boolean(out) ? 'right' : 'left'
 
@@ -112,6 +122,7 @@ function Plug({ side, name, out }) {
     <>
       <span className={`pill pill--filled stack__plug stack__plug--${side}`}>
         {name}
+        {soon && <Soon />}
       </span>
       <span
         className={`stack__arrow stack__arrow--${side} stack__arrow--to-${towards}`}

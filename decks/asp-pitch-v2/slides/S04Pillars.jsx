@@ -47,7 +47,7 @@ export default function S04Pillars() {
             label: 'AI Hub',
             text: 'Your Agents',
             builtIn: ['AI Analyst'],
-            left: { name: 'Skills' },
+            left: { name: 'Skills', soon: true },
             right: { name: 'Evals' },
           },
           {
@@ -60,6 +60,7 @@ export default function S04Pillars() {
           {
             id: 'logic',
             label: 'Flows',
+            soon: true,
             text: 'Your Business Logic',
             builtIn: ['Key Drivers', 'What-if', 'Forecasting'],
           },
