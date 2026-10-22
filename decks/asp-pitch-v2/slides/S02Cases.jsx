@@ -20,13 +20,16 @@ export default function S02Cases() {
           ],
         },
         {
-          id: 'mastercard',
-          media: 'mastercard',
-          name: 'Mastercard',
+          id: 'payments',
+          media: 'paymentsNetwork',
+          name: 'Payments Network',
           heading:
             'Unlocking new revenue streams by up-selling personalized AI agents.',
-          body: 'Mastercard uses GoodData’s AI Hub and agent builder to create agents with tiered capabilities and personalize them across its client base — under centralized governance.',
-          kpis: [{ value: '1st', label: 'vendor with AI Governance approval' }],
+          body: 'Payments Network uses GoodData’s AI Hub and agent builder to create agents with tiered capabilities and personalize them across its client base — under centralized governance.',
+          kpis: [
+            { value: '1st', label: 'vendor with AI Governance approval' },
+            { value: '5,000+', label: 'banks with access' },
+          ],
         },
         {
           id: 'boozt',

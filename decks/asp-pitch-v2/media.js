@@ -17,7 +17,7 @@ const media = {
   // blows them up by half again: soft, but the scrim over them hides most of
   // that.
   datev: { src: '/media/datev.jpeg', label: 'Photo — Datev office' },
-  mastercard: { src: '/media/mastercard.webp', label: 'Photo — Mastercard office' },
+  paymentsNetwork: { src: '/media/payments-network.webp', label: 'Photo — Payments Network office' },
   boozt: { src: '/media/boozt.jpeg', label: 'Photo — Boozt office' },
   // Slide 3. A screenshot of each product, landscape, about 1.6 : 1, shown
   // whole at the top of its panel. Survey Studio's and Signals Engine's are

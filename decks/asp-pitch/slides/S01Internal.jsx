@@ -18,7 +18,7 @@ const arc = [
   {
     text: 'Call out proof points with case studies.',
     ref: 'Slides 9–12',
-    note: 'Datev, Mastercard, Boozt',
+    note: 'Datev, Payments Network, Boozt',
   },
   {
     text: 'Explain what exactly makes us able to do it.',

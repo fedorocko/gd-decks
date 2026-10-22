@@ -9,7 +9,7 @@ import S08Efficiency from './S08Efficiency.jsx'
 import S09Creativity from './S09Creativity.jsx'
 import S10Proof from './S10Proof.jsx'
 import S11Datev from './S11Datev.jsx'
-import S12Mastercard from './S12Mastercard.jsx'
+import S12PaymentsNetwork from './S12PaymentsNetwork.jsx'
 import S13Boozt from './S13Boozt.jsx'
 import S14Launch from './S14Launch.jsx'
 import S17MultiTenant from './S17MultiTenant.jsx'
@@ -39,7 +39,7 @@ const slides = [
   S09Creativity,
   S10Proof,
   S11Datev,
-  S12Mastercard,
+  S12PaymentsNetwork,
   S13Boozt,
   S14Launch,
   S33Taxonomy,

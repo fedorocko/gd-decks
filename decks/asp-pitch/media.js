@@ -35,7 +35,7 @@ const media = {
     label: 'Portrait — open architecture / craft',
   },
   datev: { src: '/media/datev.jpeg', label: 'Photo — Datev office' },
-  mastercard: { src: '/media/mastercard.webp', label: 'Photo — Mastercard office' },
+  paymentsNetwork: { src: '/media/payments-network.webp', label: 'Photo — Payments Network office' },
   boozt: { src: '/media/boozt.jpeg', label: 'Photo — Boozt office' },
 }
 
