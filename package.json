@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "previews": "node scripts/previews.mjs"
+    "previews": "node scripts/previews.mjs",
+    "pdf": "node scripts/pdf.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",

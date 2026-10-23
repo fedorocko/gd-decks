@@ -14,10 +14,19 @@ const media = {
   // the ASP New Pitch's slide 2.
   stillCode: { src: '/media/pil-1-still.jpg', label: 'Still — code on a screen' },
   stillServers: { src: '/media/pil-3-still.jpg', label: 'Still — server racks' },
-  // Slide 5. What we have built for Mastercard. Not in yet.
-  builtA: { src: null, label: 'Screenshot — first product' },
-  builtB: { src: null, label: 'Screenshot — second product' },
-  builtC: { src: null, label: 'Screenshot — third product' },
+  // Slide 5. What we have built for Mastercard, in public/media/mc/: the
+  // assistant's start screen, padded with white top and bottom to 16 : 10
+  // so its suggestions stay whole (from mc1.png); a report's AI summary,
+  // shown from a little above its middle so the summary is whole (mc3.png);
+  // the assistant's chart creator saving to a dashboard, the caption round
+  // the capture cut off (from mc2.png).
+  builtA: { src: '/media/mc/assistant.png', label: 'Screenshot — AI Assistant' },
+  builtB: {
+    src: '/media/mc/mc3.png',
+    label: 'Screenshot — AI Summaries',
+    focus: '50% 75%',
+  },
+  builtC: { src: '/media/mc/copilot.png', label: 'Screenshot — Dashboard Builder Copilot' },
   // Slide 6. Two of the case studies' office photos.
   datev: { src: '/media/datev.jpeg', label: 'Photo — Datev office' },
   boozt: { src: '/media/boozt.jpeg', label: 'Photo — Boozt office' },
