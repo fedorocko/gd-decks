@@ -1,0 +1,2074 @@
+/* On top of ../../shared/slides.css, which holds the type scale, the marks,
+   the media frame, the backdrop, the figures, the taxonomy and the title,
+   section, card and statement slides every deck shares. */
+
+/* ------------------------------------------------------------ type scale */
+/* This deck's own headline classes, set in Funnel Display like the shared
+   scale; everything else stays in Switzer. */
+.panel__heading,
+.panel__text {
+  font-family: var(--font-display);
+}
+
+/* --------------------------------------------------------------- panels  */
+/* Slides 2–4 (PanelsLayout.jsx): columns side by side, each the shared card
+   grown to the slide's height, over its own picture or clip. */
+.slide--panels {
+  padding: 72px 88px 80px;
+}
+
+.panels__title {
+  margin-bottom: 40px;
+}
+
+/* Air, then the name, the headline or thought, the body, the figures, the
+   pills. Every panel takes these rows as its own, so like parts start
+   on one line across the slide however long each is. */
+.panels {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: 1fr repeat(5, auto);
+  column-gap: 24px;
+}
+
+/* Air under the content as well as over it, which centres it. */
+.panels--centre {
+  grid-template-rows: 1fr repeat(5, auto) 1fr;
+}
+
+.panel {
+  position: relative;
+  /* its own layer, so the art can go behind the text without going behind
+     the panel */
+  isolation: isolate;
+  overflow: hidden;
+  grid-row: 1 / -1;
+  display: grid;
+  grid-template-rows: subgrid;
+  align-items: start;
+  padding: 40px 36px 40px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.panels--2 .panel {
+  padding: 44px 56px;
+}
+
+/* Two to a row (slide 3): landscape panels sharing the height, each its own
+   column of content at the foot of its left side, so the art shows to the
+   right of it. */
+.panels--grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: row;
+  grid-template-rows: none;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.panels--grid .panel {
+  grid-row: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px 40px;
+}
+
+.panels--grid .panel > :not(.panel__art) {
+  max-width: 58%;
+}
+
+.panels--grid .panel__name {
+  margin-bottom: 14px;
+}
+
+.panels--grid .panel__heading {
+  font-size: 28px;
+}
+
+.panels--grid .panel__body {
+  margin-top: 14px;
+  font-size: 18px;
+}
+
+/* Screenshots (slide 4): each at the top of its panel, edge to edge, the
+   content under it and the air at the foot. Clear, not dimmed: the panel
+   has no scrim. */
+.panels--shots {
+  grid-template-rows: auto repeat(5, auto) 1fr;
+}
+
+.panels--shots .panel {
+  padding: 0 36px 36px;
+}
+
+.panels--shots .panel::before {
+  content: none;
+}
+
+/* no word left on a line of its own */
+.panels--shots .panel__body {
+  text-wrap: pretty;
+}
+
+.panel__shot {
+  grid-row: 1;
+  align-self: stretch;
+  margin: 0 -36px 32px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--ink);
+}
+
+/* A screenshot (components/Shot.jsx), filling its box, cropped in by its
+   zoom from its focus. */
+.shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus);
+  transform: scale(var(--zoom));
+  transform-origin: var(--focus);
+}
+
+.panel__shot--empty {
+  display: grid;
+  place-content: center;
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 14px,
+    #171b1a 14px,
+    #171b1a 28px
+  );
+}
+
+/* The art fills the panel. At the foot of a panel, under its text, the scrim
+   is all but solid; towards the top it thins, so the picture shows. */
+.panel__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(9, 9, 12, 0.3) 0%,
+    rgba(9, 9, 12, 0.72) 38%,
+    rgba(9, 9, 12, 0.94) 66%
+  );
+}
+
+/* Centred, the text runs over the middle of the art, so it is dimmed evenly
+   instead: the offsite deck's pillar columns, a fifth of the light. */
+.panels--centre .panel::before {
+  background: rgba(9, 9, 12, 0.8);
+}
+
+/* In the grid the text is on the left, so the scrim runs across: all but
+   solid behind it, thinning to the right. */
+.panels--grid .panel::before {
+  background: linear-gradient(
+    90deg,
+    rgba(9, 9, 12, 0.94) 0%,
+    rgba(9, 9, 12, 0.82) 50%,
+    rgba(9, 9, 12, 0.3) 100%
+  );
+}
+
+/* The clips are cropped from the left only: they carry an “AI generated”
+   mark in their bottom right corner, which stays whole. */
+.panel__art--clip {
+  object-position: right;
+  filter: saturate(0.6);
+}
+
+/* The shared placeholder's stripes, with its label up where the picture
+   would show. */
+.panel__art--empty {
+  display: grid;
+  align-content: start;
+  padding-top: 120px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 14px,
+    #171b1a 14px,
+    #171b1a 28px
+  );
+}
+
+.panels--grid .panel__art--empty {
+  place-content: center end;
+  padding: 0 24px 0 0;
+}
+
+.panel__name {
+  grid-row: 2;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+.panel__heading,
+.panel__text {
+  grid-row: 3;
+  text-wrap: balance;
+}
+
+.panel__heading {
+  font-size: 32px;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.panel__text {
+  font-size: 64px;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  font-weight: 500;
+}
+
+.panel__body {
+  grid-row: 4;
+  margin-top: 20px;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Figures: a case's results, in the accent under its story. */
+.panel__kpis {
+  grid-row: 5;
+  margin-top: 32px;
+}
+
+.panel__kpis .kpis {
+  gap: 48px;
+}
+
+.panel__kpis .kpi__label {
+  max-width: 360px;
+}
+
+/* ----------------------------------------------------------------- pills */
+/* Pills: the offsite deck's, what stands behind a thought. */
+.pills {
+  grid-row: 6;
+  display: flex;
+  flex-wrap: wrap;
+  --pill-h: 48px;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pill {
+  height: var(--pill-h);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: var(--pill-h);
+  letter-spacing: -0.015em;
+  padding: 0 24px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.24);
+  white-space: nowrap;
+}
+
+/* Filled, but in no colour, and frosting the footage behind it so its label
+   is read against something even. */
+.pill--filled {
+  background: rgba(250, 250, 247, 0.14);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+}
+
+/* Not out yet: left as an outline beside the filled ones, and stepped back. */
+.pill--soon {
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------- diagram */
+/* Slides 4–6 (DiagramLayout.jsx): the title on one line, a subtitle, and
+   the diagram the full width of the slide under them. The margins top
+   and foot come in to give the diagram the height it needs. */
+.slide--diagram {
+  padding: 60px 88px 40px;
+}
+
+/* Lime like the panels' names: the subject, ahead of the claim. */
+.diagram__kicker {
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+.diagram__text {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.diagram__art {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  margin-top: 28px;
+}
+
+/* ----------------------------------------------------------------- stack */
+/* Slide 5's diagram (components/Stack.jsx). Columns: the left plugs, their
+   arrows' run to the frame, the frame's inset, the layers, and the same
+   again mirrored. Rows: what stands over the frame, the frame's top, its
+   layers sharing the height, its foot, and the pills under it if it has
+   them. The arrows run on across the inset, over the frame's line, to the
+   layer. */
+.stack {
+  position: relative;
+  --radius: 12px;
+  --pad-x: 26px;
+  --label-h: 24px;
+  --pill-h: 40px;
+  --run: 96px;
+  --inset: 36px;
+  --gap: 20px;
+  /* the plugs' columns as wide on both sides, whatever the names, so the
+     frame stays in the middle */
+  --plugs-w: 144px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns:
+    minmax(max-content, var(--plugs-w)) var(--run) var(--inset) minmax(0, 1fr)
+    var(--inset) var(--run) minmax(max-content, var(--plugs-w));
+  grid-template-rows: auto 6px repeat(var(--layers), minmax(0, 1fr)) 14px;
+  row-gap: var(--gap);
+  /* the frame's label hangs half below its bottom line */
+  padding-bottom: 18px;
+}
+
+/* With pills under the frame, the frame's label hangs into the gap over
+   them instead. */
+.stack--below {
+  --gap: 18px;
+  grid-template-rows:
+    auto 6px repeat(var(--layers), minmax(0, 1fr)) 14px auto;
+  padding-bottom: 0;
+}
+
+/* The plugs, in one size. */
+.stack .pill {
+  font-size: 19px;
+  padding: 0 18px;
+}
+
+/* The Agentic Serving Plane, drawn as slide 1 draws it, but with its label
+   in the middle of its bottom line: the top one is where the arrows rise.
+   Its corners are the panels' 20px, not grown by the inset, which on a frame
+   this wide reads as soft. */
+.stack__frame {
+  --edge-r: 20px;
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  --label-h: 44px;
+  grid-column: 3 / 6;
+  grid-row: 2 / -1;
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+/* The plane's name, a solid lime pill on the frame's line, as slide 9 picks
+   out the arrow it opens: the beam to what the plane gives leaves from it. */
+.stack__name {
+  display: inline-block;
+  height: var(--label-h);
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-size: 24px;
+  line-height: var(--label-h);
+  color: var(--ink);
+}
+
+/* What is built on the plane: a row of 16 : 9 boxes sharing the layers'
+   width, each with an arrow rising to it from the frame's line. */
+.stack__above {
+  grid-column: 4;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.stack__solution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Placeholders, in the hatch the deck's empty columns use. */
+.stack__solution-box {
+  align-self: stretch;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.2);
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 10px,
+    #1a1f1d 10px,
+    #1a1f1d 20px
+  );
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* Over a screenshot: the picture fills the box, darkened towards its foot,
+   where the name stands; the hairline is drawn over the picture. */
+.stack__solution-box--shot {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  place-items: end center;
+  padding-bottom: 8px;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.stack__solution-box--shot .shot {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.stack__solution-box--shot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(transparent 30%, rgba(9, 9, 12, 0.9) 85%);
+}
+
+.stack__solution-box--shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.2);
+  pointer-events: none;
+}
+
+/* The client's own, an open question: dashed, in the accent, nothing in
+   it yet. */
+.stack__solution-box--yours {
+  background: none;
+  box-shadow: none;
+  border: 1px dashed rgba(250, 250, 247, 0.32);
+  color: var(--accent);
+}
+
+/* Up from the frame's line, through the gap over it, to the box: the run
+   reaches down past its row by that gap. */
+.stack__rise {
+  position: relative;
+  width: 0;
+  height: 40px;
+  margin-bottom: calc(-1 * var(--gap));
+  border-left: 1.5px solid currentColor;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.stack__rise::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: -5.75px;
+  width: 10px;
+  height: 10px;
+  border: solid currentColor;
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(-45deg);
+}
+
+.stack__row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+
+/* One line each: placed by column alone, a right plug written before its
+   arrow would push the arrow onto a line of its own. */
+.stack__row > * {
+  grid-row: 1;
+}
+
+.stack__layer {
+  grid-column: 4;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding: 0 var(--pad-x);
+  text-align: center;
+}
+
+/* The product layers, dashed: frames for what the client brings, against
+   the solid arrows and the plane's solid line. What the client brings is
+   the slide's subject, so the line is in the full accent, over a lime wash,
+   glowing, as slide 8 draws the client's GPU and the plane. */
+.stack__layer.edged {
+  --edge-c: var(--accent);
+  --edge-w: 1.5px;
+  --edge-style: dashed;
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.03));
+  box-shadow: 0 0 28px rgba(218, 254, 133, 0.16);
+}
+
+/* What comes built in stands at the end of the layer's bottom line, plain
+   and grey, each with a plus: what the client brings keeps the middle of
+   the layer, rising a little to stay clear of it. */
+.stack__layer--built {
+  padding-bottom: 8px;
+}
+
+.stack__built {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.stack__built::before {
+  content: '+\00a0';
+}
+
+/* What the layers above stand on: filled, frosted like the filled pills. */
+.stack__layer--filled {
+  border-radius: var(--radius);
+  background: rgba(250, 250, 247, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.stack__text {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* What the client brings, picked out in the accent; the product that holds
+   it, and what that gives it, stay in white and grey on the lines. */
+.stack__layer.edged .stack__text {
+  color: var(--accent);
+}
+
+.stack__label {
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stack__plug {
+  position: relative;
+  justify-self: stretch;
+  text-align: center;
+}
+
+/* What the plane gives: a row under the frame, clear of its label, as wide
+   as its pills, with room over it for the beam from the label. Lime
+   outlines, not filled, so they back up the layers over them rather than
+   draw the eye from what the client brings. */
+.stack__below {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* The plugs' size, a step back from the layers they follow. */
+.stack__benefit {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  color: var(--accent);
+}
+
+.stack__plug--left {
+  grid-column: 1;
+}
+
+.stack__plug--right {
+  grid-column: 7;
+}
+
+/* A solid run with a chevron at the end it points to: from just off the
+   plug, across the frame's inset, to the layer's line. */
+.stack__arrow {
+  position: relative;
+  height: 0;
+  border-top: 1.5px solid currentColor;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.stack__arrow--left {
+  grid-column: 2 / 4;
+  margin-left: 10px;
+}
+
+.stack__arrow--right {
+  grid-column: 5 / 7;
+  margin-right: 10px;
+}
+
+.stack__arrow::after {
+  content: '';
+  position: absolute;
+  top: -5.75px;
+  width: 10px;
+  height: 10px;
+  border: solid currentColor;
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.stack__arrow--to-right::after {
+  right: 1px;
+  transform: rotate(45deg);
+}
+
+.stack__arrow--to-left::after {
+  left: 1px;
+  transform: rotate(-135deg);
+}
+
+/* One each way, from a plug that names what goes in and what comes out:
+   in over out, both within the pill's height. */
+.stack__arrows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stack__arrows--left {
+  grid-column: 2 / 4;
+  margin-left: 10px;
+}
+
+.stack__arrows--right {
+  grid-column: 5 / 7;
+  margin-right: 10px;
+}
+
+/* ---------------------------------------------------------------- versus */
+/* Slide 7's diagram (components/Versus.jsx). Columns: the frames' inset,
+   the first box, the arrow between the boxes, the second box, the inset
+   again, the arrow's run to the model, the model, and the inset at the
+   right, wider by the host's room round the model. Rows: theirs — its
+   label's line, down to its boxes, the boxes, its inset — the gap with
+   "vs" in it, then ours, its label on its bottom line and its benefits
+   under that. Set at the height they need and centred, rather than grown
+   to the slide's. */
+.versus {
+  --radius: 12px;
+  --pad-x: 26px;
+  --label-h: 36px;
+  --box-h: 112px;
+  --inset: 32px;
+  --between: 210px;
+  --run: 300px;
+  /* theirs' air over and under its boxes; ours', over them, clears the
+     host's label */
+  --inset-y: 28px;
+  --inset-top: 52px;
+  --inset-foot: 44px;
+  --host-pad: 16px;
+  --bad: #ff7a6b;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns:
+    var(--inset) minmax(0, 1fr) var(--between) minmax(0, 1fr)
+    var(--inset) var(--run) minmax(0, 1fr) calc(var(--inset) + var(--host-pad));
+  grid-template-rows:
+    var(--label-h) calc(var(--inset-y) - var(--label-h) / 2) var(--box-h) var(--inset-y)
+    130px
+    var(--inset-top) var(--box-h) calc(var(--inset-foot) - var(--label-h) / 2) var(--label-h)
+    28px auto;
+  align-content: center;
+}
+
+/* The frames, drawn as slide 6 draws the plane, their line running through
+   the middle of their label's. Theirs holds the data and the agents only;
+   ours the model as well. */
+.versus__frame {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 1.5px;
+}
+
+.versus__frame--theirs {
+  --edge-c: rgba(250, 250, 247, 0.24);
+  grid-area: 1 / 1 / 5 / 6;
+  margin-top: calc(var(--label-h) / 2);
+}
+
+.versus__frame--ours {
+  --edge-c: var(--accent-line);
+  grid-area: 6 / 1 / 10 / -1;
+  margin-bottom: calc(var(--label-h) / 2);
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+.versus__label {
+  color: var(--muted);
+}
+
+/* Slide 7 is about ours: its frame in the full accent, a size heavier,
+   glowing, its wash brighter; theirs set further back, all but its
+   problems, which are the case against it, and its model's logos, which
+   are who it is. */
+.versus--compare .versus__frame--ours {
+  --edge-c: var(--accent);
+  --edge-w: 2px;
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.02));
+  box-shadow: 0 0 80px rgba(218, 254, 133, 0.1);
+}
+
+/* The story's point: our models, on the client's own GPU. The box solid
+   in the accent, glowing, the deck's loudest mark, and the GPU's dotted line
+   round it in the full accent too. */
+.versus--compare .versus__row--ours .versus__box--model {
+  background: var(--accent);
+  box-shadow: 0 0 48px rgba(218, 254, 133, 0.35);
+  color: var(--ink);
+}
+
+.versus--compare .versus__host {
+  --edge-c: var(--accent);
+}
+
+.versus--compare .versus__frame--theirs,
+.versus--compare .versus__row--theirs .versus__box--brought,
+.versus--compare .versus__row--theirs .versus__box--model > .versus__name,
+.versus--compare .versus__row--theirs .versus__edge {
+  opacity: 0.6;
+}
+
+/* Plain, in the middle of the slide, between the two. */
+.versus__vs {
+  grid-area: 5 / 1 / 6 / -1;
+  place-self: center;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.versus__row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+.versus__row--theirs {
+  grid-row: 3;
+}
+
+.versus__row--ours {
+  grid-row: 7;
+}
+
+/* Positioned, like the frames, so they paint over them. A badge, if it
+   has one, sits under the name, the two centred together. */
+.versus__box {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  row-gap: 10px;
+  border-radius: var(--radius);
+}
+
+/* What is picked out — what a box is built on, who shares an engine — in
+   the schema's highlight: the accent on its wash, behind a hairline. */
+.versus__badge {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.versus__name {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* What the client brings, dashed as on slide 6: in the accent in ours. */
+.versus__box--brought {
+  border: 1px dashed rgba(250, 250, 247, 0.32);
+  background: rgba(250, 250, 247, 0.03);
+}
+
+.versus__row--ours .versus__box--brought {
+  color: var(--accent);
+}
+
+/* One the slide is not about, set back in grey. */
+.versus__row .versus__box--quiet {
+  border-color: rgba(250, 250, 247, 0.2);
+  color: var(--muted);
+}
+
+/* The model, filled like slide 6's inference, but not frosted: nothing
+   stands behind it, and the blur would smear the arrow's head under it. */
+.versus__box--model {
+  background: rgba(250, 250, 247, 0.12);
+}
+
+.versus__row > .versus__box--model {
+  grid-column: 7;
+}
+
+/* Theirs, set back. */
+.versus__row--theirs .versus__box {
+  color: var(--muted);
+}
+
+/* Whose models theirs are, a row of logos under the name. */
+.versus__logos {
+  display: flex;
+  gap: 14px;
+}
+
+.versus__logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.versus__row--theirs .versus__box--brought {
+  border-color: rgba(250, 250, 247, 0.2);
+}
+
+.versus__row--theirs .versus__box--model {
+  background: rgba(250, 250, 247, 0.07);
+}
+
+/* Ours runs on the client's own GPU: a dotted box round the model, as far
+   out from it on every side, its name in the middle of its top line. */
+.versus__host {
+  --edge-r: calc(var(--radius) + var(--host-pad));
+  --edge-w: 2px;
+  --edge-c: var(--accent-line);
+  --edge-style: dotted;
+  --label-h: 26px;
+  grid-column: 7;
+  display: grid;
+  margin: calc(-1 * var(--host-pad));
+  padding: var(--host-pad);
+}
+
+.versus__host-label {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* The arrows: one between the boxes, and one from the last box to the
+   model, with theirs' problems over and under it. Theirs crosses the
+   frame's line on the way, ours the host's. */
+.versus__along {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.versus__along--between {
+  grid-column: 3;
+}
+
+.versus__along--out {
+  grid-column: 5 / 7;
+}
+
+/* A solid run with a chevron at the model's end, stopping either side of
+   the pill it carries. */
+.versus__edge {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin: 0 2px 0 10px;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.versus__line {
+  position: relative;
+  flex: 1;
+  height: 0;
+  border-top: 1.5px solid currentColor;
+}
+
+.versus__line--head::after {
+  content: '';
+  position: absolute;
+  top: -5.75px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border: solid currentColor;
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(45deg);
+}
+
+/* Filled like slide 6's plugs, a size down. */
+.versus__via {
+  height: 36px;
+  margin: 0 8px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.14);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 36px;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+/* What the slide is about, the model's inference, picked out in the
+   schema's highlight: the accent on its wash, behind a hairline. Not solid,
+   so it does not compete with the benefits' badges. */
+.versus__along--out .versus__via {
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* A problem: crossed, in red, on a red wash. A benefit: ticked, the deck's
+   solid lime badge set up a size to be read across the room. */
+.versus__tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.versus__tag--bad {
+  height: 34px;
+  gap: 8px;
+  padding: 0 16px 0 12px;
+  background: color-mix(in srgb, var(--bad) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bad) 55%, transparent);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--bad);
+}
+
+.versus__tag--good {
+  height: 48px;
+  gap: 10px;
+  padding: 0 24px 0 18px;
+  background: var(--accent);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: var(--ink);
+}
+
+.versus__sign {
+  flex: none;
+  width: 0.85em;
+  height: 0.85em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Under ours' label, centred on it. */
+.versus__benefits {
+  grid-row: 11;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ---------------------------------------------------------------- inside */
+/* Slides 8 and 9's diagram (components/Inside.jsx): slide 7's lower row
+   on its own, in the same columns, with one of its arrows opened into a
+   panel under it. Rows: the frame's label's line, down to the row, the row — taller,
+   for the models stacked in it — the frame's inset, the beam's drop, the
+   panel, and the figures or the benefits under it, if there are any. */
+.versus--inside {
+  --row-h: 100px;
+  --model-gap: 8px;
+  --model-h: calc(
+    (var(--row-h) - (var(--models) - 1) * var(--model-gap)) / var(--models)
+  );
+  /* from the arrow's line to the models, where it forks */
+  --fork: 44px;
+  --drop: 64px;
+  --panel-x: 28px;
+  /* the row is context here, so it is lower than slide 7's */
+  --box-h: 84px;
+  position: relative;
+  grid-template-rows:
+    var(--label-h) calc(var(--inset-top) - var(--label-h) / 2) var(--row-h)
+    var(--inset-foot) var(--drop) auto auto auto;
+}
+
+/* Its label on its top line, now: the beam leaves through the bottom one. */
+.versus--inside .versus__frame--ours {
+  grid-area: 1 / 1 / 5 / -1;
+  margin-top: calc(var(--label-h) / 2);
+  margin-bottom: 0;
+}
+
+.versus--inside .versus__row {
+  grid-row: 3;
+}
+
+/* The data and the agents keep slide 7's height, centred on the row. */
+.versus--inside .versus__box--brought {
+  align-self: center;
+  height: var(--box-h);
+}
+
+/* The pills plain, as the compute's is on slide 7, but the opened arrow's:
+   solid, since the beam comes out of it. */
+.versus--inside .versus__along--out .versus__via {
+  background: rgba(250, 250, 247, 0.14);
+  box-shadow: none;
+  font-weight: 500;
+  color: var(--paper);
+}
+
+.versus--inside .versus__along--open .versus__via {
+  background: var(--accent);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* The models, stacked, sharing the row's height. */
+.versus__models {
+  display: flex;
+  flex-direction: column;
+  gap: var(--model-gap);
+}
+
+.versus__models .versus__box--model {
+  flex: 1;
+}
+
+.versus__models .versus__name {
+  font-size: 16px;
+}
+
+/* The row is context: its words a size down, and all of it set back but
+   the opened arrow, so the eye goes from its pill down the beam to the
+   panel, which is what the slide is about. */
+.versus--inside .versus__box--brought .versus__name {
+  font-size: 24px;
+}
+
+.versus--inside .versus__frame--ours,
+.versus--inside .versus__row > :not(.versus__along--open) {
+  opacity: 0.5;
+}
+
+/* The arrow stops at a bar running from the first model's middle to the
+   last's, and a stub with a chevron runs on from the bar to each. */
+.versus__along--fork .versus__edge {
+  margin-right: var(--fork);
+}
+
+.versus__fork {
+  position: absolute;
+  top: calc(var(--model-h) / 2);
+  bottom: calc(var(--model-h) / 2);
+  right: 0;
+  width: var(--fork);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1.5px solid currentColor;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.versus__stub {
+  position: relative;
+  height: 0;
+  margin-right: 2px;
+  border-top: 1.5px solid currentColor;
+}
+
+.versus__stub::after {
+  content: '';
+  position: absolute;
+  top: -5.75px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border: solid currentColor;
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(45deg);
+}
+
+/* A beam (components/Beam.jsx): the accent's wash fading as it goes,
+   ruled along its sides. Slide 9's runs from the pill down to the panel,
+   over the frame's line, under the row and the panel; slide 6's from the
+   plane's name down to what it gives, under the frame. */
+.beam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  stroke: var(--accent-line);
+  stroke-width: 1;
+}
+
+.beam polygon {
+  stroke: none;
+}
+
+.beam__top {
+  stop-color: var(--accent);
+  stop-opacity: 0.26;
+}
+
+.beam__foot {
+  stop-color: var(--accent);
+  stop-opacity: 0.06;
+}
+
+/* The inference, opened: framed in the accent like the plane, its name in
+   its top line, its steps in a row with an arrow from each to the next. */
+.inside__panel {
+  --edge-r: 20px;
+  --edge-w: 2px;
+  --edge-c: var(--accent);
+  --pad-x: 32px;
+  grid-area: 6 / 1 / 7 / -1;
+  padding: 40px var(--panel-x) 28px;
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.04));
+  box-shadow: 0 0 80px rgba(218, 254, 133, 0.1);
+}
+
+/* Its name, a size up from the frames' labels. */
+.inside__label {
+  font-size: 34px;
+}
+
+/* An ordered list, which the shared reset leaves its indent. */
+.inside__steps {
+  --step-gap: 56px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
+  column-gap: var(--step-gap);
+}
+
+.inside__step {
+  position: relative;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.inside__name {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.inside__text {
+  margin-top: 10px;
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* The arrow across the gap before each step but the first: its line, and
+   its chevron just off the step's edge. */
+.inside__step + .inside__step::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(10px - var(--step-gap));
+  width: calc(var(--step-gap) - 12px);
+  border-top: 1.5px solid rgba(250, 250, 247, 0.6);
+}
+
+.inside__step + .inside__step::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 4.25px);
+  left: -13px;
+  width: 10px;
+  height: 10px;
+  border: solid rgba(250, 250, 247, 0.6);
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(45deg);
+}
+
+/* What the pipeline comes to: the shared figures, centred under the panel,
+   and their note at the row's right end, level with the panel's edge, on
+   their labels' line rather than under them, to keep the row low. */
+.inside__kpis {
+  grid-row: 7;
+  grid-column: 1 / -1;
+  margin-top: 28px;
+}
+
+/* Slide 7's benefit badges, under the panel instead of the plane. */
+.inside__benefits {
+  grid-row: 8;
+  margin-top: 16px;
+}
+
+.inside__kpis .kpiset {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+}
+
+.inside__kpis .kpis {
+  grid-column: 2;
+}
+
+.inside__kpis .kpis__note {
+  grid-column: 3;
+  justify-self: end;
+  margin: 0 0 5px;
+}
+
+/* --------------------------------------------------------------- engines */
+/* Slide 9's panel (components/Engines.jsx). Columns: the engines, the
+   arrows on from them, and the pipeline. Rows: the engines' frame's top,
+   with its label, the near engine, the gap, the far one, and the frame's
+   foot. The pipeline stands the full height; the engines sit in from their
+   frame. */
+.engines {
+  --link: 64px;
+  --pipeline-w: 290px;
+  --group-pad: 20px;
+  /* how much further from the storage's side the far engine starts */
+  --far: 210px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--link) var(--pipeline-w);
+  grid-template-rows: 28px auto 12px auto 18px;
+}
+
+/* The shared card, as the inference's steps are. Positioned, so they paint
+   over the engines' frame. */
+.engines__card {
+  position: relative;
+  padding: 16px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* The slide's point, picked out as slide 7 picks out its models: solid in
+   the accent, glowing, its words and pills in ink. */
+.engines__pipeline {
+  grid-area: 1 / 3 / 6 / 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  border-color: transparent;
+  background: var(--accent);
+  box-shadow: 0 0 48px rgba(218, 254, 133, 0.35);
+  color: var(--ink);
+}
+
+.engines__pipeline .engines__item {
+  background: rgba(9, 9, 12, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(9, 9, 12, 0.22);
+  font-weight: 600;
+}
+
+.engines__name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.engines__text {
+  margin-top: 6px;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+/* The engines, framed together, dashed as the client's boxes are. */
+.engines__group {
+  --edge-r: 16px;
+  --edge-w: 1px;
+  --edge-c: rgba(250, 250, 247, 0.32);
+  --edge-style: dashed;
+  --label-h: 26px;
+  grid-area: 1 / 1 / 6 / 2;
+}
+
+.engines__label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.engines__engine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.engines__engine--near {
+  grid-area: 2 / 1;
+  margin: 0 var(--group-pad);
+}
+
+/* Set off from the storage's side: it holds its data itself. */
+.engines__engine--far {
+  grid-area: 4 / 1;
+  margin: 0 var(--group-pad) 0 calc(var(--group-pad) + var(--far));
+}
+
+.engines__tenants {
+  display: flex;
+  gap: 8px;
+}
+
+/* What the far engine holds to: facts, not figures, so outlined and grey,
+   quieter than the badges over them. */
+.engines__fact {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.24);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.engines__items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Filled like the arrows' pills. */
+.engines__item {
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.14);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 34px;
+  white-space: nowrap;
+}
+
+/* The arrows from each engine to the pipeline, crossing the engines' frame
+   on the way. A solid run with a chevron, as the row's are. */
+.engines__link {
+  position: relative;
+  align-self: center;
+  height: 0;
+  border-top: 1.5px solid currentColor;
+  color: rgba(250, 250, 247, 0.6);
+}
+
+.engines__link::after {
+  content: '';
+  position: absolute;
+  top: -5.75px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border: solid currentColor;
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(45deg);
+}
+
+.engines__link--near,
+.engines__link--far {
+  margin: 0 2px 0 calc(10px - var(--group-pad));
+}
+
+.engines__link--near {
+  grid-area: 2 / 2;
+}
+
+.engines__link--far {
+  grid-area: 4 / 2;
+}
+
+/* -------------------------------------------------------------- promises */
+/* Slide 10 (components/Promises.jsx): the promises in the plane's frame,
+   drawn as slides 7–9 draw their subject — the full accent, glowing — a
+   card to each, two to a row, set as slide 2 sets its framed thoughts; the
+   figures centred in a row under the frame, their note under them. */
+.promises {
+  --radius: 12px;
+  --inset: 28px;
+  --label-h: 36px;
+  --pad-x: 26px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 36px;
+}
+
+.promises__frame {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 2px;
+  --edge-c: var(--accent);
+  margin-top: calc(var(--label-h) / 2);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) var(--inset);
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.04));
+  box-shadow: 0 0 80px rgba(218, 254, 133, 0.1);
+}
+
+.promises__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* The shared card, positioned so it paints over the frame. */
+.promises__card {
+  position: relative;
+  padding: 32px 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.promises__text {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.promises__kpis .kpiset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promises__kpis .kpis__note {
+  margin-top: 18px;
+}
+
+/* -------------------------------------------------------------- personas */
+/* Slide 7 (components/Personas.jsx): a framed column to each pillar, drawn
+   as the ways are, its name on the top line; in it a card to each persona,
+   who in the accent over what they can do, the cards sharing the column's
+   height so the columns end on one line. */
+.personas {
+  --radius: 12px;
+  --inset: 24px;
+  --label-h: 36px;
+  --pad-x: 26px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--pillars), minmax(0, 1fr));
+  column-gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.personas__pillar {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  display: flex;
+  margin-top: calc(var(--label-h) / 2);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) var(--inset);
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+.personas__list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The shared card, positioned so it paints over the frame. */
+.personas__persona {
+  position: relative;
+  flex: 1;
+  padding: 22px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.personas__who {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--accent);
+  text-wrap: balance;
+}
+
+.personas__does {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ ways */
+/* Slide 6 (components/Ways.jsx): a framed column to each way, drawn as the
+   management tools' groups are, its name in the middle of the top line;
+   what it works with in chips in its middle, what it lets you do set large
+   at its foot. The columns share their rows, so the claims start on one
+   line across the slide. */
+.ways {
+  --radius: 12px;
+  --inset: 32px;
+  --label-h: 36px;
+  --pad-x: 26px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--ways), minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  column-gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ways__way {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  grid-row: span 2;
+  display: grid;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  margin-top: calc(var(--label-h) / 2);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) 40px;
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+/* What shows the way, in the middle of the room over its claim. */
+.ways__art {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 28px;
+}
+
+.ways__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A screenshot, or its placeholder, the frame's width. */
+.ways__screen {
+  align-self: stretch;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+}
+
+/* One thing reaching another, top to bottom: the client's agent, dashed in
+   the accent as the stack draws what the client brings; the way it goes, a
+   frosted pill on the arrow; GoodData.AI, a solid lime line round a wash,
+   what it offers under its name and in it. */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flow__box {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.flow__box--from {
+  border: 1.5px dashed var(--accent);
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.03));
+  color: var(--accent);
+}
+
+.flow__box--to {
+  padding: 18px 14px 20px;
+  border: 1.5px solid var(--accent);
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.03));
+  box-shadow: 0 0 28px rgba(218, 254, 133, 0.16);
+}
+
+.flow__note {
+  margin-top: 6px;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+/* Examples of what it offers, small frosted pills under it, on one line,
+   with room over them for a Soon sticker. */
+.flow__tools {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flow__tool {
+  position: relative;
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.12);
+  font-family: var(--font);
+  font-size: 17px;
+  letter-spacing: 0;
+  font-weight: 500;
+  line-height: 36px;
+  white-space: nowrap;
+}
+
+.flow__via {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.12);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+/* Down, the chevron at its foot; held at its length, as the room for the
+   art is fixed. */
+.flow__arrow {
+  position: relative;
+  flex: none;
+  width: 0;
+  height: 40px;
+  border-left: 1.5px solid rgba(250, 250, 247, 0.6);
+}
+
+.flow__arrow:last-of-type::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border: solid rgba(250, 250, 247, 0.6);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+
+/* Frosted, as the stack's plugs are; ours in the accent's outline. */
+.ways__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.12);
+  font-size: 24px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ways__chip:has(.ways__logo) {
+  padding-left: 12px;
+}
+
+.ways__chip--ours {
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ways__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.ways__text {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* ----------------------------------------------------------------- tools */
+/* Slide 7 (components/Tools.jsx): a framed column to each group of
+   management tools, drawn as slide 2 draws the plane's frame, its name in
+   the middle of the top line and a line on it under that; its tools
+   stacked, sharing the height, each a screenshot under its name. */
+.tools {
+  --radius: 12px;
+  --inset: 24px;
+  --label-h: 36px;
+  --pad-x: 26px;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--groups), minmax(0, 1fr));
+  column-gap: 28px;
+}
+
+.tools__group {
+  --edge-r: calc(var(--radius) + var(--inset));
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: calc(var(--label-h) / 2);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) var(--inset);
+  background: linear-gradient(var(--accent-wash), transparent 70%);
+}
+
+.tools__text {
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.tools__list {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-rows: minmax(0, 1fr);
+  row-gap: 16px;
+}
+
+/* A screenshot fills the tile, darkened towards its foot, where the name
+   stands; the hairline is drawn over the picture. */
+.tools__tool {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  background: var(--ink);
+}
+
+.tools__tool .shot {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.tools__tool::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* all but solid behind the name, so no text of the picture's shows by it */
+  background: linear-gradient(
+    transparent 40%,
+    rgba(9, 9, 12, 0.94) 78%,
+    rgba(9, 9, 12, 0.97)
+  );
+}
+
+.tools__tool::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 247, 0.2);
+  pointer-events: none;
+}
+
+/* Not in yet: the deck's hatch, and nothing to darken. */
+.tools__tool--empty {
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 14px,
+    #171b1a 14px,
+    #171b1a 28px
+  );
+}
+
+.tools__tool--empty::before {
+  content: none;
+}
+
+.tools__name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------ tree */
+/* Slide 4's diagram (components/Tree.jsx): the root centred over a row of
+   leaves, every node as wide. A stem runs down from the root to a bar as
+   long as from the first leaf's middle to the last's, and a drop with an
+   arrow runs from the bar to each leaf. The lines are in the accent: the
+   subject is the handing down, not the pictures. */
+.tree {
+  --node-w: 640px;
+  --gap: 96px;
+  --drop: 56px;
+  --line-w: 1.5px;
+  --line-c: var(--accent-line);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tree__node {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree__node--root {
+  width: var(--node-w);
+}
+
+/* A node's pages side by side in a frame of their own: the root's in the
+   accent, the leaves' in the hairline. */
+.tree__pages {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(var(--pages), minmax(0, 1fr));
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.tree__node--root .tree__pages {
+  border: var(--line-w) solid var(--line-c);
+  background: var(--accent-wash);
+}
+
+/* Rounded at least as much as the pages were in the picture they were cut
+   from, so none of its dark ground shows at the corners. */
+.tree__media {
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+}
+
+.tree__name {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.tree__node--root .tree__name {
+  font-size: 26px;
+}
+
+.tree__stem {
+  height: 32px;
+  margin-top: 12px;
+  border-left: var(--line-w) solid var(--line-c);
+}
+
+.tree__leaves {
+  display: grid;
+  grid-template-columns: repeat(var(--leaves), var(--node-w));
+  column-gap: var(--gap);
+}
+
+.tree__leaf {
+  position: relative;
+  padding-top: var(--drop);
+}
+
+/* The bar, in pieces: each leaf draws it across its own width and half the
+   gaps either side, the first and last only from their middle inwards. */
+.tree__leaf::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--gap) / -2);
+  right: calc(var(--gap) / -2);
+  border-top: var(--line-w) solid var(--line-c);
+}
+
+.tree__leaf:first-child::before {
+  left: 50%;
+}
+
+.tree__leaf:last-child::before {
+  right: 50%;
+}
+
+/* Down from the bar to the leaf's picture, the chevron's tip on its edge. */
+.tree__drop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: var(--drop);
+  margin-left: calc(var(--line-w) / -2);
+  border-left: var(--line-w) solid var(--line-c);
+}
+
+.tree__drop::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: -5.75px;
+  width: 10px;
+  height: 10px;
+  border: solid var(--line-c);
+  border-width: var(--line-w) var(--line-w) 0 0;
+  transform: rotate(135deg);
+}
+
+/* ------------------------------------------------------------------ soon */
+/* Not out yet (components/Soon.jsx): the schema's sticker (shared/schema.css,
+   .sx-soon), the same look. Slapped on the top-right corner of what holds
+   it, tilted so it reads as a note on the diagram rather than part of it;
+   white, not lime, so it never competes with the slide's highlight. */
+.soon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.soon span {
+  display: block;
+  transform: translate(22%, -55%) rotate(8deg);
+  padding: 5px 10px 6px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.6);
+}
+
+/* On a name in a line, the word is shorter than the sticker: it goes just
+   after the word instead, on the line, rather than over its corner. */
+.stack__label .soon {
+  top: 50%;
+  right: auto;
+  left: 100%;
+}
+
+.stack__label .soon span {
+  transform: translate(8px, -50%) rotate(8deg);
+}

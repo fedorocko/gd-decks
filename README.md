@@ -10,6 +10,8 @@ deck management — just the decks.
 | Offsite 2026 | `decks/offsite/` | https://fedorocko.github.io/gd-decks/offsite/ |
 | Webinar October 2026 | `decks/webinar/` | https://fedorocko.github.io/gd-decks/webinar/ |
 | GoodData.AI + TeamViewer | `decks/teamviewer/` | https://fedorocko.github.io/gd-decks/teamviewer/ |
+| Vitol | `decks/vitol/` | https://fedorocko.github.io/gd-decks/vitol/ |
+| Mastercard | `decks/mastercard/` | https://fedorocko.github.io/gd-decks/mastercard/ |
 
 **https://fedorocko.github.io/gd-decks/** itself lists the decks.
 
@@ -80,6 +82,8 @@ is its own.
 | `decks/offsite/` | the Offsite deck — slides, the animated scene, styles, and the pitch's architecture run; see its `README.md` |
 | `decks/webinar/` | the Webinar deck — slides, layouts, styles; its media in `public/media/webinar/` |
 | `decks/teamviewer/` | the TeamViewer deck — its title and agenda, then slides of the webinar's and the ASP New Pitch's, imported from their folders |
+| `decks/vitol/` | the Vitol deck — a copy of the ASP New Pitch's folder, made on October 23, 2026, to be made Vitol's own; changes to either no longer reach the other |
+| `decks/mastercard/` | the Mastercard deck — its own slides, built on the ASP New Pitch's layouts, and slides of the ASP pitch's and the ASP New Pitch's, imported from their folders |
 | `shared/Deck.jsx` | the deck itself: stage, navigation, URL hash, presenting, speaker notes |
 | `shared/deck.css` | design tokens, the stage, and the deck's own buttons and notes column |
 | `shared/slides.css` | the type scale, emphasis marks, media frame, backdrop, figures, taxonomy, and the title, section, card and statement slides |
