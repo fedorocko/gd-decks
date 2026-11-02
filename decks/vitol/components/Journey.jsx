@@ -2,20 +2,18 @@ import Edges from '../../../shared/Edges.jsx'
 
 /**
  * A persona's journey, step by step down a framed column, each numbered on
- * a line that runs through them all. A step marked alt is another way to the
- * same end: set off under the main path, dashed.
+ * a line that runs through them all. Anything beyond it goes in a Bonus box
+ * (Bonus.jsx) instead.
  *
- * steps: [{ step, note?, alt? }]
+ * steps: [{ step, note? }]
  */
 export default function Journey({ steps }) {
-  let n = 0
-
   return (
     <div className="edged journey">
       <ol className="journey__steps">
-        {steps.map(({ step, note, alt }) => (
-          <li className={`journey__step${alt ? ' journey__step--alt' : ''}`} key={step}>
-            <span className="journey__n">{alt ? 'or' : ++n}</span>
+        {steps.map(({ step, note }, i) => (
+          <li className="journey__step" key={step}>
+            <span className="journey__n">{i + 1}</span>
             <div className="journey__what">
               <p className="journey__text">{step}</p>
               {note && <p className="journey__note">{note}</p>}
@@ -32,7 +30,7 @@ export default function Journey({ steps }) {
 export function Features({ features }) {
   return (
     <div className="features">
-      <p className="features__label">GoodData.AI in action</p>
+      <p className="features__label">Under the Hood in GoodData.AI</p>
       <ul className="features__list">
         {features.map((f) => (
           <li className="feature" key={f}>

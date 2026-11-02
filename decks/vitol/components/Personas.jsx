@@ -1,5 +1,4 @@
 import Edges from '../../../shared/Edges.jsx'
-import { roleOf } from '../demo.js'
 import { Face } from './Persona.jsx'
 
 /**
@@ -26,7 +25,7 @@ export default function Personas({ pillars }) {
                   <Face persona={persona} size={56} />
                   <div>
                     <p className="personas__name">{persona.name}</p>
-                    <p className="personas__who">{roleOf(persona)}</p>
+                    <p className="personas__who">{persona.role}</p>
                   </div>
                 </div>
                 <p className="personas__does">{persona.story}</p>

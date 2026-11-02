@@ -6,7 +6,9 @@
  *   id      — Vitol's
  *   name    — short, for the slide
  *   text    — Vitol's own words, for reference
- *   shownBy — the id of the persona whose demo shows it, or null
+ *   shownBy — the id of the persona whose demo shows it, a list of them
+ *             where more than one does, or null
+ *   note    — a word on how it is shown, beside its name (optional)
  */
 export const requirements = [
   {
@@ -25,7 +27,7 @@ export const requirements = [
     id: 'BR-CON-03',
     name: 'Visualisation components for custom Python dashboards',
     text: 'Nice to Have: Visualisation components that could be integrated into custom python dashboards',
-    shownBy: null,
+    shownBy: 'technical-analyst',
   },
   {
     id: 'BR-CON-04',
@@ -37,13 +39,15 @@ export const requirements = [
     id: 'BR-CON-05',
     name: 'Surface test results, incidents, data quality and errors',
     text: 'Surfaces test results, known incidents, data quality test results, errors',
-    shownBy: null,
+    shownBy: 'developer',
+    note: 'pytest & Python SDK',
   },
   {
     id: 'BR-CON-06',
     name: 'Entra ID authentication pushdown',
     text: 'EntraID authentication pushdown',
-    shownBy: null,
+    shownBy: 'admin',
+    note: 'Tested',
   },
   {
     id: 'BR-CON-07',
@@ -73,7 +77,7 @@ export const requirements = [
     id: 'BR-CON-11',
     name: 'Eager fetch: polling or push on data changes',
     text: 'Supports some form of "eager fetch" (ie: polling every second to process changes ASAP, or "push" mechanism)',
-    shownBy: null,
+    shownBy: 'developer',
   },
   {
     id: 'BR-CON-12',
@@ -115,13 +119,13 @@ export const requirements = [
     id: 'BR-CON-18',
     name: 'Share and auto-refresh Python notebooks',
     text: 'Would allow business users to share and automatically refresh Python Notebooks',
-    shownBy: null,
+    shownBy: 'technical-analyst',
   },
   {
     id: 'BR-GOV-01',
     name: 'Trust levels on data assets',
     text: 'Data assets should have trust levels associated so users understand the level of confidence they can put on any given metric/dataset (eg. Official, supported, desk, user, AI generated)',
-    shownBy: null,
+    shownBy: ['technical-analyst', 'admin'],
   },
   {
     id: 'BR-GOV-02',
@@ -193,7 +197,7 @@ export const requirements = [
     id: 'TR-CON-11',
     name: 'Detect schema drift and broken relationships',
     text: 'Keep definitions synchronised with underlying DB structures; detect schema drift, missing fields, broken relationships, unavailable sources',
-    shownBy: null,
+    shownBy: 'technical-analyst',
   },
   {
     id: 'TR-CON-12',
@@ -229,7 +233,7 @@ export const requirements = [
     id: 'TR-GOV-04',
     name: 'Reference and master data management',
     text: 'The platform should support management of reference and master data (counterparties, commodities, legal entities, books).',
-    shownBy: null,
+    shownBy: 'admin',
   },
   {
     id: 'TR-GOV-05',
@@ -263,9 +267,11 @@ export const requirements = [
   },
 ]
 
+const showing = (r) => [r.shownBy ?? []].flat()
+
 /** What a persona's demo shows, in the spreadsheet's order. */
 export const shownBy = (persona) =>
-  requirements.filter((r) => r.shownBy === persona.id)
+  requirements.filter((r) => showing(r).includes(persona.id))
 
 /** What no demo shows yet. */
-export const notShown = requirements.filter((r) => !r.shownBy)
+export const notShown = requirements.filter((r) => showing(r).length === 0)

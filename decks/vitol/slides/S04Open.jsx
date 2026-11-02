@@ -4,8 +4,8 @@ import DiagramLayout from '../layouts/DiagramLayout.jsx'
 import media from '../media.js'
 
 // Before the stack: why the plane is open, three ways it speaks the
-// language of agents, each with what shows it. The IDE's screenshot is not
-// in yet (media.js).
+// language of agents, each with what shows it. The IDE's still is the
+// Mastercard deck's (media.js).
 export default function S04Open() {
   return (
     <DiagramLayout title="Open to build any AI solution because it speaks code">

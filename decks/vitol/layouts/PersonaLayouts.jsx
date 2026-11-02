@@ -1,7 +1,8 @@
+import Bonus from '../components/Bonus.jsx'
 import Checklist from '../components/Checklist.jsx'
 import Journey, { Features } from '../components/Journey.jsx'
 import { Face, Roster, TierTag, Who } from '../components/Persona.jsx'
-import { roleOf, tierOf } from '../demo.js'
+import { tierOf } from '../demo.js'
 import { notShown, requirements, shownBy } from '../requirements.js'
 
 /**
@@ -24,7 +25,7 @@ export function IntroLayout({ persona }) {
           <p className="intro__tiertext">{tier.text}</p>
           <div className="intro__who">
             <p className="intro__role">
-              {roleOf(persona)}
+              {persona.role}
               {persona.access && <span className="intro__access">{persona.access}</span>}
             </p>
             <h2 className="intro__name">{persona.name}</h2>
@@ -37,8 +38,8 @@ export function IntroLayout({ persona }) {
   )
 }
 
-/** 2 — their business story, as the claim, over their journey and the
- *  features it shows, side by side. */
+/** 2 — their business story, as the claim, over their journey (and any
+ *  bonus under it) and the features it shows, side by side. */
 export function StoryLayout({ persona }) {
   return (
     <section className="slide slide--persona">
@@ -46,21 +47,27 @@ export function StoryLayout({ persona }) {
       <p className="eyebrow pslide__kicker">Business story</p>
       <h2 className="pslide__title pslide__title--story">{persona.story}</h2>
       <div className="pslide__body">
-        <Journey steps={persona.journey} />
+        <div className="pslide__path">
+          <Journey steps={persona.journey} />
+          {persona.bonus && <Bonus items={persona.bonus} />}
+        </div>
         <Features features={persona.features} />
       </div>
     </section>
   )
 }
 
-/** 3 — which of Vitol's requirements their demo shows, ticked. */
+/** 3 — which of Vitol's requirements their demo shows, ticked; down two
+ *  columns once there are more than one fits. */
 export function NeedsLayout({ persona }) {
+  const items = shownBy(persona)
+
   return (
     <section className="slide slide--persona">
       <Head persona={persona} />
       <p className="eyebrow pslide__kicker">Requirements</p>
       <h2 className="pslide__title">What you asked for</h2>
-      <Checklist items={shownBy(persona)} />
+      <Checklist items={items} columns={items.length > 6 ? 2 : 1} />
     </section>
   )
 }

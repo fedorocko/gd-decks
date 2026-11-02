@@ -1553,9 +1553,9 @@
   grid-row: span 2;
   display: grid;
   grid-template-rows: subgrid;
-  row-gap: 18px;
+  row-gap: 14px;
   margin-top: calc(var(--label-h) / 2);
-  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) var(--inset);
+  padding: calc(var(--inset) + var(--label-h) / 2) var(--inset) 20px;
   background: linear-gradient(var(--accent-wash), transparent 70%);
 }
 
@@ -1577,7 +1577,7 @@
   align-self: start;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1586,7 +1586,7 @@
 /* The shared card, positioned so it paints over the frame. */
 .personas__persona {
   position: relative;
-  padding: 18px 22px 20px;
+  padding: 16px 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -1614,9 +1614,9 @@
 }
 
 .personas__does {
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: 17px;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--muted);
   text-wrap: pretty;
 }
@@ -2332,9 +2332,22 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  column-gap: 64px;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  column-gap: 48px;
   margin-top: 44px;
+}
+
+/* The left column: the journey, taking the height, and any bonus under it,
+   far enough down for its name to clear the journey's frame. */
+.pslide__path {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.pslide__path > .journey {
+  flex: 1 0 auto;
 }
 
 /* A framed column, as slide 7's tiers are, its name on the top line. Steps
@@ -2368,7 +2381,7 @@
   grid-template-columns: 44px minmax(0, 1fr);
   column-gap: 28px;
   align-items: center;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 /* The line through the numbers: from the first's middle to the last's. */
@@ -2386,8 +2399,7 @@
   top: 50%;
 }
 
-.journey__step:last-child::before,
-.journey__step:has(+ .journey__step--alt)::before {
+.journey__step:last-child::before {
   bottom: 50%;
 }
 
@@ -2421,26 +2433,62 @@
   text-wrap: pretty;
 }
 
-/* Another way to the same end: off the line, under a dashed rule. */
-.journey__step--alt {
-  margin-top: 8px;
-  border-top: 1.5px dashed var(--line);
+/* Beyond the journey (components/Bonus.jsx): a frame of its own under it,
+   dashed, with no wash, so the journey stays the main path. A plus stands
+   where a step's number does, so the text lines up with the steps'. */
+.bonus {
+  --radius: 12px;
+  --pad-x: 40px;
+  --edge-r: 24px;
+  --edge-w: 1.5px;
+  --edge-c: var(--accent-line);
+  --edge-style: dashed;
+  flex: none;
+  padding: 30px 40px 22px;
 }
 
-.journey__step--alt::before {
-  display: none;
+.bonus__items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.journey__step--alt .journey__n {
-  background: none;
-  box-shadow: inset 0 0 0 1.5px var(--faint);
-  font-size: 17px;
-  font-style: italic;
+.bonus__item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 28px;
+  align-items: center;
+}
+
+.bonus__mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.bonus__text {
+  font-size: 26px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.bonus__note {
+  margin-top: 6px;
+  font-size: 19px;
+  line-height: 1.4;
   color: var(--muted);
-}
-
-.journey__step--alt .journey__text {
-  color: var(--muted);
+  text-wrap: pretty;
 }
 
 /* The features: no frame, just their name, set as the journey's is and on
@@ -2535,42 +2583,76 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The name, and any note after it: beside it where it fits, under it,
+   from the same start, where it does not. */
 .checklist__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
   font-size: 25px;
   line-height: 1.3;
   letter-spacing: -0.01em;
   text-wrap: pretty;
 }
 
-/* Not shown yet: the box left open, the ID set back, two columns of rows
-   a size down, to hold them all. */
-.checklist--open {
+/* A word on how it is shown: a small pill, as the features' are. */
+.checklist__note {
+  flex: none;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* In two columns: the ID's column only as wide as an ID, so the names
+   keep the room. */
+.checklist--split .checklist__item {
+  grid-template-columns: 36px 112px minmax(0, 1fr);
+  column-gap: 20px;
+}
+
+/* More rows than fit at full size: all of it a size down. */
+.checklist--dense {
   gap: 8px 24px;
 }
 
-.checklist--open .checklist__item {
+.checklist--dense .checklist__item {
   min-height: 58px;
   padding: 8px 22px;
   grid-template-columns: 28px 112px minmax(0, 1fr);
   column-gap: 18px;
 }
 
-.checklist--open .checklist__box {
+.checklist--dense .checklist__box {
   width: 28px;
   height: 28px;
   border-radius: 8px;
+}
+
+.checklist--dense .checklist__id {
+  font-size: 14px;
+}
+
+.checklist--dense .checklist__name {
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+/* Not shown yet: the box left open, the ID set back. */
+.checklist--open .checklist__box {
   background: none;
   box-shadow: inset 0 0 0 1.5px var(--faint);
 }
 
 .checklist--open .checklist__id {
-  font-size: 14px;
   color: var(--muted);
-}
-
-.checklist--open .checklist__name {
-  font-size: 19px;
-  line-height: 1.25;
 }
 
 /* On a slide with no persona over it, the kicker leads. */

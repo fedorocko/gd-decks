@@ -12,9 +12,9 @@ const slides = [
   S00Title,
   S01Plane,
   S02Cases,
-  S03Solutions,
   S04Open,
   S04Pillars,
+  S03Solutions,
   S04Today,
   // three slides to each persona slide 7 names, then the requirements none
   // of them shows (demo.js)

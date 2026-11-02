@@ -1,5 +1,5 @@
 import assetUrl from '../../../shared/asset.js'
-import { personas, roleOf, tierOf, tiers } from '../demo.js'
+import { personas, tierOf, tiers } from '../demo.js'
 
 /**
  * A persona's face, round. Without a photo, their initials stand in.
@@ -29,7 +29,7 @@ export function Who({ persona }) {
       <Face persona={persona} size={64} />
       <div>
         <p className="who__name">{persona.name}</p>
-        <p className="who__role">{roleOf(persona)}</p>
+        <p className="who__role">{persona.role}</p>
       </div>
     </div>
   )

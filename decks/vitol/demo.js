@@ -9,8 +9,9 @@
  *   access   — their permission level, a tag beside the role (optional)
  *   name     — made up, as is the face: photo, from public/
  *   story    — the business story, the claim of their journey slide
- *   journey  — the steps: [{ step, note?, alt? }]; alt marks another way to
- *              the same end, drawn apart from the main path
+ *   journey  — the steps: [{ step, note? }]
+ *   bonus    — beyond the journey: another way to the same end, or a step
+ *              past it, in a box of its own under it (optional, as steps)
  *   features — the GoodData.AI features the journey shows, a pill each in a
  *              column beside it; they are not tied to any one step
  *
@@ -47,20 +48,21 @@ export const personas = [
     id: 'desk-lead',
     tier: 'consume',
     role: 'Desk Lead',
-    kind: 'Business consumer',
     access: 'View',
     name: 'Ingrid Vos',
     photo: '/media/vitol/desk-lead.jpg',
-    story: 'Monitor, understand and act.',
+    story: 'Hear about a change first, understand it in seconds with AI, act on it in an app built for your desk.',
     journey: [
-      { step: 'Gets an email alert about an unexpected change.' },
-      { step: 'Opens the dashboard behind it.' },
       {
-        step: 'Understands what happened: summary, exploration, key driver analysis.',
+        step: 'Gets an email alert about an unexpected change.',
+        note: 'Or in Slack or Teams, or through any webhook.',
       },
-      { step: 'Resolves it in a purpose-built app.' },
+      { step: 'Navigates to the existing dashboard.' },
+      { step: 'Orientates quickly with AI Summary.' },
+      { step: 'Explores the data and runs a key driver analysis.' },
     ],
-    features: ['Automation framework', 'Dashboards', 'ML tools', 'SDK & custom apps'],
+    bonus: [{ step: 'Uses a purpose-built app for the desk and its workflow.' }],
+    features: ['Automation framework', 'Dashboards', 'ML tools', 'SDK', 'Custom apps'],
   },
   {
     id: 'trader',
@@ -68,19 +70,28 @@ export const personas = [
     role: 'Trader',
     name: 'Marco Ferreira',
     photo: '/media/vitol/trader.jpg',
-    story: 'Understand and decide fast and effortlessly, with help from AI.',
+    story: 'Understand and decide fast, just by asking AI in plain words. No coding needed.',
     journey: [
       { step: 'Receives a new tender and has to decide whether to accept it.' },
       { step: 'Opens AI Assistant and asks it to pull the data.' },
       { step: 'Asks for a break-down.' },
       { step: 'Runs a what-if analysis.' },
       { step: 'Makes the decision.' },
+    ],
+    bonus: [
       {
         step: 'Asks Claude, connected over MCP, to pull the data into a new Excel sheet and builds the model there.',
-        alt: true,
       },
     ],
-    features: ['AI Assistant', 'AI Skills: what-if', 'MCP'],
+    features: [
+      'AI Assistant',
+      'AI Skills',
+      'MCP',
+      'AI Memory',
+      'AI Knowledge',
+      'Personalization',
+      'AI Governance',
+    ],
   },
   {
     id: 'business-analyst',
@@ -88,12 +99,15 @@ export const personas = [
     role: 'Business Analyst',
     name: 'Elena Rossi',
     photo: '/media/vitol/business-analyst.jpg',
-    story: 'Turn a trader’s question into a governed metric, dashboard and deck, without waiting on IT.',
+    story: 'Turn a trader’s question into a governed dashboard and deck, without waiting on IT.',
     journey: [
       { step: 'A trader asks for a new analysis.' },
-      { step: 'Checks the catalog for what is already there.' },
-      { step: 'Creates a new metric and dashboard with AI.' },
+      { step: 'Uses semantic search to understand what is available.' },
+      { step: 'Prototypes with Dashboard Copilot.' },
+      { step: 'Refines and polishes with drag & drop.' },
       { step: 'Shares it with the trader.' },
+    ],
+    bonus: [
       {
         step: 'The trader wants it for others too: AI Publisher turns it into a narrative deck.',
       },
@@ -107,16 +121,14 @@ export const personas = [
     role: 'Technical Analyst',
     name: 'Daniel Tan',
     photo: '/media/vitol/technical-analyst.jpg',
-    story: 'Go beyond the dashboard: dig in with Python on governed data, and put the results back where the desk can use them.',
+    story: 'Go beyond the dashboard: dig into data with Python, and put the results back where the desk can use them.',
     journey: [
       {
         step: 'A business analyst spots an unusual profitability pattern that needs exploring.',
       },
-      {
-        step: 'Uses Data Catalog and Data Compass to understand its semantics, lineage, ontology and metadata.',
-      },
+      { step: 'Uses Data Compass to understand data semantics, metadata and lineage.' },
       { step: 'Opens a Python notebook and pulls the data in with the GoodData SDK.' },
-      { step: 'Writes the analysis.' },
+      { step: 'Implements custom data analysis using AI-assisted coding.' },
       { step: 'Publishes the results back to GoodData with the SDK.' },
     ],
     features: ['Data Catalog', 'GoodPandas', 'Python SDK'],
@@ -127,17 +139,13 @@ export const personas = [
     role: 'Data & Analytics Developer',
     name: 'Sofia Marín',
     photo: '/media/vitol/developer.jpg',
-    story: 'The prototype is valuable. How do we make it available to other desks without losing governance?',
+    story: 'Ship analytics like software: every change versioned, reviewed, tested and released from DEV to PROD.',
     journey: [
-      {
-        step: 'Defines models, reusable metrics and dashboard templates, ready to share.',
-        note: 'A profitability metric is defined once, and reused by dashboards, AI Assistant, Python and embedded apps.',
-      },
-      { step: 'Works in code, not the UI: in Data Compass or VS Code.' },
-      {
-        step: 'Releases through DEV → TEST → PROD.',
-        note: 'Desks develop new definitions locally; shared production assets go through review and release.',
-      },
+      { step: 'A business analyst hands over a new prototype in DEV.' },
+      { step: 'Reviews what is new or changed in Data Compass.' },
+      { step: 'Runs the tests and evaluations.' },
+      { step: 'Deploys to PROD with a Git action.' },
+      { step: 'Monitors usage, errors and adoption.' },
     ],
     features: ['Analytics as code', 'Version control'],
   },
@@ -151,6 +159,7 @@ export const personas = [
     story: 'Different desks need different data access and AI capabilities, without duplicating the platform.',
     journey: [
       { step: 'A new desk comes on board, with its own workspace on the shared platform.' },
+      { step: 'Creates a new child workspace and sets its workspace filters.' },
       { step: 'Sets who sees which data, down to each desk and user.' },
       { step: 'Decides which agents, skills and models each desk gets.' },
       { step: 'Governs what the agents know and remember.' },
@@ -169,5 +178,3 @@ export const personas = [
 
 export const tierOf = (persona) => tiers.find((t) => t.id === persona.tier)
 
-/** The persona's role, with what kind of user they are where it adds to it. */
-export const roleOf = ({ role, kind }) => (kind ? `${role} / ${kind}` : role)

@@ -57,9 +57,10 @@ const media = {
   toolCatalog: { src: '/media/catalog.png', label: 'Screenshot — Analytics Catalog' },
   toolObservability: { src: '/media/observ.png', label: 'Screenshot — Observability' },
   toolEvals: { src: '/media/evals.png', label: 'Screenshot — Evals' },
-  // Slide 6 (slides/S04Open.jsx). Analytics as code in an IDE, 16 : 10.
-  // Not in yet.
-  ide: { src: null, label: 'Screenshot — IDE' },
+  // Slide 5 (slides/S04Open.jsx). Analytics as code: the still of code on
+  // a screen that the Mastercard deck's slide 9 stands in for an IDE.
+  // Portrait, cropped to its middle in the 16 : 10 frame.
+  ide: { src: '/media/pil-1-still.jpg', label: 'IDE' },
 }
 
 export default media
