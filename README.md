@@ -82,7 +82,7 @@ is its own.
 | `decks/offsite/` | the Offsite deck — slides, the animated scene, styles, and the pitch's architecture run; see its `README.md` |
 | `decks/webinar/` | the Webinar deck — slides, layouts, styles; its media in `public/media/webinar/` |
 | `decks/teamviewer/` | the TeamViewer deck — its title and agenda, then slides of the webinar's and the ASP New Pitch's, imported from their folders |
-| `decks/vitol/` | the Vitol deck — a copy of the ASP New Pitch's folder, made on October 23, 2026, to be made Vitol's own; changes to either no longer reach the other |
+| `decks/vitol/` | the Vitol deck — a copy of the ASP New Pitch's folder, made on October 23, 2026, to be made Vitol's own; changes to either no longer reach the other. Its demo, slide 7 and the three slides per persona after it, is drawn from `demo.js`; the personas' faces are in `public/media/vitol/` |
 | `decks/mastercard/` | the Mastercard deck — its own slides, built on the ASP New Pitch's layouts, and slides of the ASP pitch's and the ASP New Pitch's, imported from their folders |
 | `shared/Deck.jsx` | the deck itself: stage, navigation, URL hash, presenting, speaker notes |
 | `shared/deck.css` | design tokens, the stage, and the deck's own buttons and notes column |

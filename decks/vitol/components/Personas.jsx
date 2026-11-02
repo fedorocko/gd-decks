@@ -1,26 +1,39 @@
 import Edges from '../../../shared/Edges.jsx'
+import { roleOf } from '../demo.js'
+import { Face } from './Persona.jsx'
 
 /**
- * Who works with the platform, by pillar: a framed column to each, its name
- * in the middle of its top line, and in it a box to each persona, who they
- * are over what they can do. The boxes share the column's height.
+ * Who the demo follows, by tier: a framed column to each, "Tier n" in the
+ * middle of its top line, its name and what it covers under that, then a
+ * card to each persona: face, name and role over their business story. The
+ * columns share their rows, so the first cards start on one line.
  *
- * pillars: [{ id, name, personas: [{ who, does }] }]
+ * pillars: [{ id, n, name, text, personas }], personas as in demo.js
  */
 export default function Personas({ pillars }) {
   return (
     <ul className="personas" style={{ '--pillars': pillars.length }}>
-      {pillars.map(({ id, name, personas }) => (
+      {pillars.map(({ id, n, name, text, personas }) => (
         <li className="edged personas__pillar" key={id}>
+          <div className="personas__tier">
+            <p className="personas__name personas__tiername">{name}</p>
+            <p className="personas__tiertext">{text}</p>
+          </div>
           <ul className="personas__list">
-            {personas.map(({ who, does }) => (
-              <li className="personas__persona" key={who}>
-                <p className="personas__who">{who}</p>
-                <p className="personas__does">{does}</p>
+            {personas.map((persona) => (
+              <li className="personas__persona" key={persona.id}>
+                <div className="personas__head">
+                  <Face persona={persona} size={56} />
+                  <div>
+                    <p className="personas__name">{persona.name}</p>
+                    <p className="personas__who">{roleOf(persona)}</p>
+                  </div>
+                </div>
+                <p className="personas__does">{persona.story}</p>
               </li>
             ))}
           </ul>
-          <Edges top={<span className="plane__label">{name}</span>} centre="top" />
+          <Edges top={<span className="plane__label">Tier {n}</span>} centre="top" />
         </li>
       ))}
     </ul>
