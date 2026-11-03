@@ -17,10 +17,12 @@ import media from '../media.js'
  *          content at the foot of their left side, the media clearer
  *          towards their right
  * shots  — the media a screenshot, shown clear at the top of the panel with
- *          the content under it, rather than dimmed behind it. Its media.js
- *          entry can crop it: `zoom`, how far in, from `focus`, an
+ *          the content under it, rather than dimmed behind it; with grid,
+ *          filling the panel's right side, the content beside it. Its
+ *          media.js entry can crop it: `zoom`, how far in, from `focus`, an
  *          object-position
- * panels: [{ id, media, ... }], each holding any of, top to bottom:
+ * panels: [{ id, media, highlight?, ... }]; highlight sets one apart in the
+ *   accent, the one to look at. Each holds any of, top to bottom:
  *   name    — whose it is, in small caps
  *   heading — what it did, as a headline
  *   text    — one thought, set large
@@ -80,6 +82,7 @@ export default function PanelsLayout({
 
 function Panel({
   media: art,
+  highlight = false,
   name,
   heading,
   text,
@@ -92,7 +95,7 @@ function Panel({
   onPlayed,
 }) {
   return (
-    <li className="panel">
+    <li className={`panel${highlight ? ' panel--highlight' : ''}`}>
       {shot ? (
         <PanelShot name={art} />
       ) : (

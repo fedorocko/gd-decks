@@ -115,6 +115,61 @@
   text-wrap: pretty;
 }
 
+/* Screenshots two to a row (slide 4): landscape panels, each screenshot
+   filling the right side top to bottom, the content beside it, in the
+   middle of the left. */
+.panels--grid.panels--shots {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.panels--grid.panels--shots .panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44%;
+  grid-template-rows: 1fr repeat(3, auto) 1fr;
+  column-gap: 32px;
+  padding: 0 0 0 36px;
+}
+
+.panels--grid.panels--shots .panel > :not(.panel__shot) {
+  grid-column: 1;
+  max-width: none;
+}
+
+.panels--grid.panels--shots .panel__shot {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  max-width: none;
+  margin: 0;
+  aspect-ratio: auto;
+  border-bottom: 0;
+  border-left: 1px solid var(--line);
+}
+
+.panels--grid.panels--shots .panel__name {
+  margin-bottom: 12px;
+}
+
+.panels--grid.panels--shots .panel__heading {
+  font-size: 26px;
+}
+
+.panels--grid.panels--shots .panel__body {
+  margin-top: 12px;
+  font-size: 17px;
+}
+
+/* The one to look at: drawn in the accent, over its wash. */
+.panel--highlight {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent-wash), transparent 60%),
+    var(--surface);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 48px -12px var(--accent-line);
+}
+
+.panel--highlight .panel__shot {
+  border-color: var(--accent-line);
+}
+
 .panel__shot {
   grid-row: 1;
   align-self: stretch;

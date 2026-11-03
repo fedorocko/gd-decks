@@ -123,14 +123,13 @@ export const personas = [
     photo: '/media/vitol/technical-analyst.jpg',
     story: 'Go beyond the dashboard: dig into data with Python, and put the results back where the desk can use them.',
     journey: [
-      {
-        step: 'A business analyst spots an unusual profitability pattern that needs exploring.',
-      },
+      { step: 'The desk lead asks for contracts where P&L does not add up.' },
       { step: 'Uses Data Compass to understand data semantics, metadata and lineage.' },
-      { step: 'Opens a Python notebook and pulls the data in with the GoodData SDK.' },
-      { step: 'Implements custom data analysis using AI-assisted coding.' },
-      { step: 'Publishes the results back to GoodData with the SDK.' },
+      { step: 'Pulls the data into a Python notebook with the GoodData SDK.' },
+      { step: 'Uses AI-assisted coding to spot a trader pattern or outliers.' },
+      { step: 'Gives the desk the list of contracts to review.' },
     ],
+    bonus: [{ step: 'Publishes the results back to GoodData with the SDK.' }],
     features: ['Data Catalog', 'GoodPandas', 'Python SDK'],
   },
   {

@@ -38,6 +38,14 @@ const media = {
     zoom: 1.15,
     focus: '30% top',
   },
+  // the quote desk, wider than the frame: in from its top left, so the
+  // enquiries and the deal in hand read
+  cargoIq: {
+    src: '/media/vitol/cargoiq.png',
+    label: 'Screenshot — CargoIQ',
+    zoom: 1.3,
+    focus: 'left top',
+  },
   // Slide 4 (components/Tree.jsx). Two pages of one report: the solution's,
   // and two clients' copies of it, branded and filled with their own
   // numbers. Cut from multitenancy.png, a row of it to each node, 556 × 313.

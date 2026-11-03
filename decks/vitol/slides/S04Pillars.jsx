@@ -9,8 +9,8 @@ export default function S04Pillars() {
     <DiagramLayout title="Agentic Serving Plane lets you build any AI solution">
       <Stack
         label="Agentic Serving Plane"
-        // the next slide's solutions, over the screenshots it shows them
-        // by, and the client's own
+        // the solutions slide's, over the screenshots it shows them by,
+        // and the client's own
         above={[
           { name: 'Survey Studio', media: 'surveyStudio' },
           { name: 'AI Publisher', media: 'aiPublisher' },

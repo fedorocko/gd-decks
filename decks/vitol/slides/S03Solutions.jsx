@@ -1,14 +1,16 @@
 import PanelsLayout from '../layouts/PanelsLayout.jsx'
 
-// Three products built on the plane, each over a screenshot of it
-// (media.js): what it does, as the headline, and what it gives the client
-// under it. Survey Studio and Signals Engine from their demos' write-ups,
-// AI Publisher from the webinar deck's slide 11.
+// Four products built on the plane, two to a row, each beside a screenshot
+// of it (media.js): what it does, as the headline, and what it gives the
+// client under it. CargoIQ, the one for a trading desk, highlighted. Survey Studio and Signals Engine from their demos' write-ups,
+// AI Publisher from the webinar deck's slide 11, CargoIQ from its own
+// screen.
 export default function S03Solutions() {
   return (
     <PanelsLayout
       title="What we’ve built recently using Agentic Serving Plane"
       titleFit
+      grid
       shots
       panels={[
         {
@@ -31,6 +33,14 @@ export default function S03Solutions() {
           name: 'Signals Engine',
           heading: 'Gives every client personal market signals.',
           body: 'Noise and false alarms filtered out, drivers explained and routed to the right people — and a growth engine you sell in tiers.',
+        },
+        {
+          id: 'cargoiq',
+          media: 'cargoIq',
+          highlight: true,
+          name: 'CargoIQ',
+          heading: 'Answers every bunker enquiry from one screen.',
+          body: 'Compliance, credit headroom, barge availability and a suggested premium from similar won quotes, side by side, before the quote is due.',
         },
       ]}
     />
