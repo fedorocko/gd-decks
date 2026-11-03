@@ -8,7 +8,7 @@ import {
 import S04Tenants from './S04Tenants.jsx'
 
 /**
- * The demo after slide 6: three slides to each persona in demo.js, in its
+ * The demo, from slide 7: three slides to each persona in demo.js, in its
  * order (layouts/PersonaLayouts.jsx), and any of the deck's own slides a
  * persona's story goes on to, between their story and their requirements.
  */

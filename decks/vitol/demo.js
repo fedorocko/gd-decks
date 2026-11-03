@@ -1,6 +1,6 @@
 /**
  * The demo: three tiers, the personas in each, and what each persona does.
- * Slide 6 (slides/S04Today.jsx) and the slides per persona after it
+ * Slide 3 (slides/S04Today.jsx) and the slides per persona from slide 7
  * (slides/demo.js) are all drawn from this list, so a change here reaches
  * every one of them.
  *

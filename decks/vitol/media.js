@@ -65,10 +65,15 @@ const media = {
   toolCatalog: { src: '/media/catalog.png', label: 'Screenshot — Analytics Catalog' },
   toolObservability: { src: '/media/observ.png', label: 'Screenshot — Observability' },
   toolEvals: { src: '/media/evals.png', label: 'Screenshot — Evals' },
-  // Slide 5 (slides/S04Open.jsx). Analytics as code: the still of code on
+  // Slide 4 (slides/S04Open.jsx). Analytics as code: the still of code on
   // a screen that the Mastercard deck's slide 9 stands in for an IDE.
   // Portrait, cropped to its middle in the 16 : 10 frame.
   ide: { src: '/media/pil-1-still.jpg', label: 'IDE' },
+  // The cover and the close (slides/S00Title.jsx, S08Thanks.jsx), the
+  // webinar's: the name, white on transparent, 1024 × 184; and its circles,
+  // the slide's height, their ground transparent.
+  wordmark: { src: '/media/webinar/gooddata-ai.png', label: 'GoodData.AI' },
+  circles: { src: '/media/webinar/art-circles.webp', label: '' },
 }
 
 export default media
