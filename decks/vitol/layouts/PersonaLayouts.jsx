@@ -3,13 +3,12 @@ import Checklist from '../components/Checklist.jsx'
 import Journey, { Features } from '../components/Journey.jsx'
 import { Face, Roster, TierTag, Who } from '../components/Persona.jsx'
 import { tierOf } from '../demo.js'
-import { notShown, requirements, shownBy } from '../requirements.js'
+import { shownBy } from '../requirements.js'
 
 /**
  * The three slides each persona in the demo gets (slides/demo.js), given
  * the persona from demo.js: who they are; their story and journey, with the
  * features it shows; and which of Vitol's requirements their demo shows.
- * Then one slide after them all: the requirements no demo shows yet.
  */
 
 /** 1 — who they are: their tier, their role, their name and face. */
@@ -72,20 +71,7 @@ export function NeedsLayout({ persona }) {
   )
 }
 
-/** After the last persona: the requirements no demo shows yet. */
-export function GapsLayout() {
-  return (
-    <section className="slide slide--persona">
-      <p className="eyebrow pslide__kicker pslide__kicker--top">
-        Requirements · {notShown.length} of {requirements.length}
-      </p>
-      <h2 className="pslide__title">Not addressed in the demo yet</h2>
-      <Checklist items={notShown} open columns={2} />
-    </section>
-  )
-}
-
-/** The header the last two share: who, and in which tier. */
+/** The header the story and requirements share: who, and in which tier. */
 function Head({ persona }) {
   return (
     <header className="phead">

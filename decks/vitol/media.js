@@ -46,15 +46,15 @@ const media = {
     zoom: 1.3,
     focus: 'left top',
   },
-  // Slide 4 (components/Tree.jsx). Two pages of one report: the solution's,
-  // and two clients' copies of it, branded and filled with their own
-  // numbers. Cut from multitenancy.png, a row of it to each node, 556 × 313.
+  // The admin's multi-tenancy slide (components/Tree.jsx). Two pages of one
+  // report: the solution's, and two desks' copies of it, branded and filled
+  // with their own numbers. Cut from multitenancy.png, a row of it to each node, 556 × 313.
   solutionOverview: { src: tenancy('solution-1'), label: 'Page — the solution' },
   solutionSummary: { src: tenancy('solution-2'), label: 'Page — the solution' },
-  clientAOverview: { src: tenancy('client-a-1'), label: 'Page — Client A' },
-  clientAReturns: { src: tenancy('client-a-2'), label: 'Page — Client A' },
-  clientBOverview: { src: tenancy('client-b-1'), label: 'Page — Client B' },
-  clientBReturns: { src: tenancy('client-b-2'), label: 'Page — Client B' },
+  clientAOverview: { src: tenancy('client-a-1'), label: 'Page — Desk A' },
+  clientAReturns: { src: tenancy('client-a-2'), label: 'Page — Desk A' },
+  clientBOverview: { src: tenancy('client-b-1'), label: 'Page — Desk B' },
+  clientBReturns: { src: tenancy('client-b-2'), label: 'Page — Desk B' },
   // Slide 4b, the management tools (components/Tools.jsx). Window captures,
   // 3024 × 1646, shown from their top left: Agent Builder's and Analytics
   // Catalog's are the shared diagram's. Evals is a side panel, 1064 × 1706,

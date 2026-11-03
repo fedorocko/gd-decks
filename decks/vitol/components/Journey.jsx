@@ -33,7 +33,7 @@ export function Features({ features }) {
       <p className="features__label">Under the Hood in GoodData.AI</p>
       <ul className="features__list">
         {features.map((f) => (
-          <li className="feature" key={f}>
+          <li className="features__item" key={f}>
             {f}
           </li>
         ))}

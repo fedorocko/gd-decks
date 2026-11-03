@@ -1272,7 +1272,7 @@
 
 .inside__step {
   position: relative;
-  padding: 18px 22px 20px;
+  padding: 20px 22px 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -2575,8 +2575,10 @@
   list-style: none;
 }
 
-/* A GoodData.AI feature, in the accent's wash, as slide 5 picks out ours. */
-.feature {
+/* A GoodData.AI feature, in the accent's wash, as slide 5 picks out ours.
+   Not .feature: the webinar's feature slides have that, and the Infobip
+   deck shows both. */
+.features__item {
   height: 48px;
   padding: 0 22px;
   border-radius: 999px;
@@ -2698,19 +2700,4 @@
 .checklist--dense .checklist__name {
   font-size: 19px;
   line-height: 1.25;
-}
-
-/* Not shown yet: the box left open, the ID set back. */
-.checklist--open .checklist__box {
-  background: none;
-  box-shadow: inset 0 0 0 1.5px var(--faint);
-}
-
-.checklist--open .checklist__id {
-  color: var(--muted);
-}
-
-/* On a slide with no persona over it, the kicker leads. */
-.pslide__kicker--top {
-  margin-top: 0;
 }

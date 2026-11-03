@@ -14,8 +14,8 @@ const slides = [
   S03Solutions,
   S04Pillars,
   S04Today,
-  // three slides to each persona slide 6 names, then the requirements none
-  // of them shows (demo.js)
+  // three slides to each persona slide 6 names, and the multi-tenancy
+  // slide in the admin's (demo.js)
   ...demo,
 ]
 

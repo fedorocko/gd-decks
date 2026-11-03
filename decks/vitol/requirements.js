@@ -1,7 +1,7 @@
 /**
  * Vitol's requirements (Vitol Requirements.xlsx), each against the persona
  * whose demo shows it (demo.js). A persona's requirements slide lists theirs;
- * the slide after the last persona lists those no demo shows yet.
+ * those no demo shows are on none.
  *
  *   id      — Vitol's
  *   name    — short, for the slide
@@ -40,7 +40,6 @@ export const requirements = [
     name: 'Surface test results, incidents, data quality and errors',
     text: 'Surfaces test results, known incidents, data quality test results, errors',
     shownBy: 'developer',
-    note: 'pytest & Python SDK',
   },
   {
     id: 'BR-CON-06',
@@ -77,7 +76,7 @@ export const requirements = [
     id: 'BR-CON-11',
     name: 'Eager fetch: polling or push on data changes',
     text: 'Supports some form of "eager fetch" (ie: polling every second to process changes ASAP, or "push" mechanism)',
-    shownBy: 'developer',
+    shownBy: null,
   },
   {
     id: 'BR-CON-12',
@@ -137,7 +136,7 @@ export const requirements = [
     id: 'TR-CON-01',
     name: 'Governed semantic layer: KPIs defined once, reused everywhere',
     text: 'The platform should provide a governed semantic layer so KPIs are defined once and reused across tools.',
-    shownBy: 'developer',
+    shownBy: 'technical-analyst',
   },
   {
     id: 'TR-CON-02',
@@ -203,7 +202,7 @@ export const requirements = [
     id: 'TR-CON-12',
     name: 'Automated tests, incl. AI prompt regression tests',
     text: 'Automated tests for measures/joins/aggregation/filters; AI prompt-and-answer regression tests; independent per-domain testing to control duration/cost/impact',
-    shownBy: null,
+    shownBy: 'admin',
   },
   {
     id: 'TR-CON-13',
@@ -245,7 +244,7 @@ export const requirements = [
     id: 'TR-SEC-05',
     name: 'OAuth 2.0 / token auth for APIs and machines',
     text: 'The platform shall support OAuth 2.0 / token-based authentication for all programmatic, API and machine-to-machine communication.',
-    shownBy: null,
+    shownBy: 'desk-lead',
   },
   {
     id: 'TR-SEC-04',
@@ -272,6 +271,3 @@ const showing = (r) => [r.shownBy ?? []].flat()
 /** What a persona's demo shows, in the spreadsheet's order. */
 export const shownBy = (persona) =>
   requirements.filter((r) => showing(r).includes(persona.id))
-
-/** What no demo shows yet. */
-export const notShown = requirements.filter((r) => showing(r).length === 0)

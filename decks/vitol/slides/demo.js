@@ -1,26 +1,27 @@
 import { createElement } from 'react'
 import { personas } from '../demo.js'
 import {
-  GapsLayout,
   IntroLayout,
   NeedsLayout,
   StoryLayout,
 } from '../layouts/PersonaLayouts.jsx'
+import S04Tenants from './S04Tenants.jsx'
 
 /**
- * The demo after slide 7: three slides to each persona in demo.js, in its
- * order (layouts/PersonaLayouts.jsx), then the requirements none of them
- * shows yet (requirements.js).
+ * The demo after slide 6: three slides to each persona in demo.js, in its
+ * order (layouts/PersonaLayouts.jsx), and any of the deck's own slides a
+ * persona's story goes on to, between their story and their requirements.
  */
 const slide = (Layout, persona) => () => createElement(Layout, { persona })
 
-const demo = [
-  ...personas.flatMap((persona) => [
-    slide(IntroLayout, persona),
-    slide(StoryLayout, persona),
-    slide(NeedsLayout, persona),
-  ]),
-  () => createElement(GapsLayout),
-]
+// the ASP New Pitch's multi-tenancy slide, for the admin's new desk
+const more = { admin: [S04Tenants] }
+
+const demo = personas.flatMap((persona) => [
+  slide(IntroLayout, persona),
+  slide(StoryLayout, persona),
+  ...(more[persona.id] ?? []),
+  slide(NeedsLayout, persona),
+])
 
 export default demo
