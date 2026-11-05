@@ -11,7 +11,7 @@
 // keeps it, or set CHROME.
 
 import { spawn } from 'node:child_process'
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -38,8 +38,10 @@ if (!deck) {
 }
 const out = resolve(root, target ?? join('exports', `${deck}.pdf`))
 
-const pages = await running(deck)
-console.log(`${deck}: ${pages.length} slides`)
+await access(join(root, 'decks', deck, 'slides', 'index.js')).catch(() => {
+  console.error(`No deck called ${deck} (decks/${deck}/slides/index.js).`)
+  process.exit(1)
+})
 
 const server = await createServer({
   configFile: join(root, 'vite.config.js'),
@@ -77,6 +79,9 @@ try {
   await page.send('Emulation.setEmulatedMedia', {
     features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
   })
+
+  const pages = await running(page, `${site}${deck}/`)
+  console.log(`${deck}: ${pages.length} slides`)
 
   const shots = []
   for (const n of pages) {
@@ -132,31 +137,23 @@ try {
 
 /**
  * The deck's slides as presented, by their 1-based number: the running order
- * from its slides/index.js, without the ones marked `internal = true`.
+ * its slides/index.js exports, without the ones marked `internal = true`.
+ * Read in the page, through the dev server, rather than from the file, so
+ * slides a deck makes in code (the Vitol deck's personas) count too.
  */
-async function running(name) {
-  const dir = join(root, 'decks', name, 'slides')
-  const index = await readFile(join(dir, 'index.js'), 'utf8').catch(() => {
-    console.error(`No deck called ${name} (decks/${name}/slides/index.js).`)
-    process.exit(1)
+async function running(page, url) {
+  await page.go(url)
+  const { result, exceptionDetails } = await page.send('Runtime.evaluate', {
+    expression: `import(${JSON.stringify(`${url}slides/index.js`)}).then(({ default: slides }) =>
+      slides.flatMap((slide, i) => (slide.internal ? [] : [i + 1])))`,
+    awaitPromise: true,
+    returnByValue: true,
   })
-  const from = new Map(
-    [...index.matchAll(/import\s+(\w+)\s+from\s+'\.\/([^']+)'/g)].map(
-      ([, id, file]) => [id, file],
-    ),
-  )
-  const order = index
-    .match(/const slides = \[([\s\S]*?)\]/)[1]
-    .split(',')
-    .map((id) => id.trim())
-    .filter(Boolean)
-
-  const shown = []
-  for (const [i, id] of order.entries()) {
-    const source = await readFile(join(dir, from.get(id)), 'utf8')
-    if (!new RegExp(`${id}\\.internal\\s*=\\s*true`).test(source)) shown.push(i + 1)
+  if (exceptionDetails) {
+    const why = exceptionDetails.exception?.description ?? exceptionDetails.text
+    throw new Error(`Could not load ${url}slides/index.js: ${why}`)
   }
-  return shown
+  return result.value
 }
 
 /** A page of the pictures, each filling a page of its own. */
