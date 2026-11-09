@@ -1,0 +1,200 @@
+/* The Mews deck, on top of ../../shared/slides.css. */
+
+/* ----------------------------------------------------------------- thesis */
+/* Slide 1 (slides/S00Statement.jsx): the deck's one sentence in three equal
+   columns, framed and filled as the platform's columns are, and the agenda
+   under them in one row of four frosted boxes, like the platform's items.
+   The title, the columns and the agenda only fit the stage with its top and
+   bottom pad cut to the platform slide's 88px margin. */
+.slide--thesis {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+.thesis__title {
+  margin-bottom: 44px;
+}
+
+.thesis,
+.thesis__agenda {
+  display: grid;
+  gap: 24px;
+}
+
+.thesis {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.thesis__eyebrow {
+  margin: 36px 0 18px;
+}
+
+.thesis__agenda {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.thesis__claim {
+  padding: 36px 34px 44px;
+  border: 1.5px solid var(--accent);
+  border-radius: 20px;
+  background: linear-gradient(rgba(218, 254, 133, 0.1), rgba(218, 254, 133, 0.03));
+  box-shadow: 0 0 22px rgba(218, 254, 133, 0.16);
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+.thesis__item {
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: rgba(250, 250, 247, 0.1);
+  font-size: 24px;
+  line-height: 1.36;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--paper);
+}
+
+/* --------------------------------------------------------------- platform */
+/* Slide 2 (components/Platform.jsx), the schema filling the stage. In the
+   Infobip deck's voice: the platform a lime frame over a wash, what it is
+   made of solid lime boxes, the client's own dashed, and what stands
+   outside it frosted or outlined pills. */
+.slide--platform {
+  padding: 0;
+}
+
+.platform {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.platform :where(text) {
+  font-family: var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.platform__frame {
+  fill: url(#platform-frame);
+  stroke: var(--accent-line);
+  stroke-width: 1.5;
+}
+
+/* The agents and the columns: what the platform is made of, in the full
+   accent, glowing. */
+.platform__part {
+  fill: url(#platform-part);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 22px rgba(218, 254, 133, 0.16));
+}
+
+.platform__agents {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.platform__column {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* What each column holds: frosted, like the Infobip deck's filled layers. */
+.platform__item {
+  fill: rgba(250, 250, 247, 0.12);
+}
+
+.platform__item-name {
+  fill: var(--paper);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* The client's own, as the Infobip deck draws "Your solution?": dashed,
+   its name in the accent. */
+.platform__yours {
+  fill: none;
+  stroke: rgba(250, 250, 247, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+}
+
+.platform__yours-name {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* What stands outside the platform: frosted pills, as the Infobip deck's
+   plugs. */
+.platform__pill rect {
+  fill: rgba(250, 250, 247, 0.14);
+}
+
+.platform__pill text {
+  fill: var(--paper);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* What the platform is and gives: lime outlines, as the Infobip deck's row
+   of what the plane gives. */
+.platform__prop rect {
+  fill: rgba(218, 254, 133, 0.04);
+  stroke: var(--accent-line);
+  stroke-width: 1.5;
+}
+
+.platform__prop text {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* What it gives, the slide's payoff: solid lime, glowing, as the decks'
+   badges. */
+.platform__prop--lit rect {
+  fill: var(--accent);
+  stroke: none;
+  filter: drop-shadow(0 0 24px rgba(218, 254, 133, 0.35));
+}
+
+.platform__prop--lit text {
+  fill: var(--ink);
+  font-weight: 600;
+}
+
+.platform__arrow path {
+  fill: none;
+  stroke: rgba(250, 250, 247, 0.6);
+  stroke-width: 1.5;
+}
+
+.platform__soon rect {
+  fill: var(--paper);
+}
+
+.platform__soon text {
+  fill: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}

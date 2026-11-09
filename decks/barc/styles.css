@@ -1,0 +1,1264 @@
+/* The BARC Conference deck, on top of ../../shared/slides.css. It loads no
+   other deck's styles: what its copied slides need was copied here with
+   them, so a change to those decks does not reach this one. */
+
+/* ----------------------------------------------------------------- tokens */
+/* Gain and loss, for the arrows and the schema's boxes: what makes AI fit
+   for production in the deck's accent, what it costs or exposes in red. The
+   schema's three kinds of side keep colours of their own, each well apart
+   from those two and from each other. */
+:root {
+  --gain: var(--accent);
+  --loss: #ff6b5e;
+  --loss-wash: rgba(255, 107, 94, 0.08);
+  --context: #ffa53d;
+  --inference: #b085ff;
+  --tools: #4ea8ff;
+}
+
+/* ------------------------------------------------------------ type scale */
+.frame__title,
+.center__text,
+.huge,
+.big,
+.who__model,
+.who__cities,
+.who__value,
+.speaker__name,
+.cover__title,
+.cover__sub,
+.cover__extra,
+.take__name,
+.colhead,
+.thanks__title,
+.thanks__question,
+.thanks__cta,
+.panel__heading,
+.panel__text,
+.triangle__label {
+  font-family: var(--font-display);
+}
+
+/* The size a claim fills half the slide at. */
+.huge {
+  font-size: 72px;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+/* A question or a sentence: longer, so a size down. */
+.huge--long {
+  font-size: 60px;
+  line-height: 1.08;
+}
+
+/* A line of its own, where the words are to break. */
+.huge__line {
+  display: block;
+}
+
+.big {
+  font-size: 44px;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------------ frame */
+/* The titled slide (layouts/FrameLayout.jsx). The title is small and quiet,
+   in the corner, and the body has the rest of the stage. */
+.slide--frame {
+  justify-content: flex-start;
+  padding: 44px 88px 64px;
+}
+
+/* A slide that carries on the one before it: no entrance, so what both show
+   stays where it was. */
+.slide--still {
+  animation: none;
+}
+
+.frame__title {
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.frame__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+}
+
+/* ----------------------------------------------------------------- centre */
+/* One line of thought in the middle of the stage (layouts/CenterLayout.jsx). */
+.slide--center {
+  align-items: center;
+  text-align: center;
+}
+
+.center__text {
+  max-width: 1240px;
+  font-size: 84px;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+/* A statement set a part to a line, each whole; the words that join two
+   parts small and quieter between them. */
+.center__text--lines {
+  max-width: none;
+  font-size: 80px;
+}
+
+.center__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.center__line--link {
+  margin: 18px 0;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------ grid, cells */
+/* The body split into cells, each boxed as the shared cards are. */
+.grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  gap: 24px;
+}
+
+.grid--cols {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--start {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+/* Slide 2: three across, two down. */
+.grid--3x2 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+/* Slide 6: two cells, the one under them across both. */
+.grid--goals {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.grid--goals > :last-child {
+  grid-column: 1 / -1;
+}
+
+/* The goals set a size up from the deck's .big: three short lines fill
+   the slide. */
+.grid--goals .big {
+  font-size: 60px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+/* The word a goal runs on with, into the one under it: small, quieter, on
+   a line of its own. */
+.goals__on {
+  display: block;
+  margin-top: 14px;
+  font-size: 36px;
+  color: var(--muted);
+}
+
+/* Slide 12: the first row three quarters of the height. */
+.grid--tall {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto 3fr 1fr;
+}
+
+/* Over each of its columns, a row of the tools of that kind, white as the
+   customers' logos on slide 3: wordmarks at one height, marks set with their
+   names (Brand.jsx) at the size their names make the same height. */
+.makers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+  height: 72px;
+  margin-bottom: 4px;
+}
+
+.makers__logo {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.makers__logo--workday {
+  height: 56px;
+}
+
+.makers .brand {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.makers .brand__logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Slides 22 and 23: a column per starting point, filled down the column. */
+.grid--start {
+  grid-auto-flow: column;
+}
+
+/* Slide 48: four across, two down, each cell two rows of its own, the
+   name's and what it gets you (.take). */
+.grid--takes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto 1fr auto 1fr;
+}
+
+.cell {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px 48px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(244, 243, 239, 0.035);
+}
+
+.cell--centre {
+  align-items: center;
+  text-align: center;
+}
+
+/* What the cells around it lead to, outlined in the accent. */
+.cell--lead {
+  border-color: var(--accent-line);
+  background: linear-gradient(var(--accent-wash), rgba(218, 254, 133, 0.03));
+  color: var(--accent);
+}
+
+/* What the cells over it stand on: outlined in the accent, its words left
+   white. */
+.cell--base {
+  border: 2px solid var(--accent);
+}
+
+
+/* A column held for what comes on a later slide. */
+.cell--empty {
+  border-style: dashed;
+  background: none;
+}
+
+/* ----------------------------------------------------------------- badges */
+/* What stands behind a claim, a frosted pill each, as the panels' pills. */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.badge {
+  height: 56px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.14);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 56px;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+/* Badges set in rows of their own, as many to a row as given. */
+.badges__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* A second voice to the claim it sits under: just the accent's outline,
+   its words in the accent. */
+.badge--outline {
+  background: none;
+  box-shadow: inset 0 0 0 2px var(--accent-line);
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- arrows */
+/* components/Arrow.jsx: up in the gain colour, down in the loss colour. */
+.arrow {
+  flex: none;
+  height: 150px;
+  width: auto;
+  aspect-ratio: 100 / 120;
+}
+
+.arrow--up {
+  fill: var(--gain);
+}
+
+.arrow--down {
+  fill: var(--loss);
+  transform: rotate(180deg);
+}
+
+/* ------------------------------------------------------------------ cover */
+/* Slide 1, drawn as the webinar's cover: the circles the slide's height on
+   its right, faded in from their left edge where the crop cut through them,
+   the name in the corner. */
+.slide--cover {
+  padding: 96px 120px;
+}
+
+.cover__art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+
+.cover__logo {
+  position: absolute;
+  top: 96px;
+  left: 120px;
+  width: 224px;
+}
+
+.cover__block {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1000px;
+}
+
+.cover__title {
+  font-size: 104px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--accent);
+  text-wrap: balance;
+}
+
+.cover__sub {
+  max-width: 900px;
+  font-size: 48px;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* What comes with the talk, under the line it finishes: the same size,
+   quieter, so it reads as an aside to it. */
+.cover__extra {
+  margin-top: -16px;
+  font-size: 48px;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+}
+
+/* The event, where the webinar's cover has its date: the bracketed small
+   caps, in the accent and a size up so it carries across a hall. */
+.cover__event {
+  margin-top: 40px;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------ who we are */
+/* Slide 2: six cells, the model, the figures, the cities and the investors
+   each centred in theirs. What we do is the one line in the accent. */
+.who__model {
+  font-size: 88px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+.who__claim {
+  font-size: 56px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.who__figures {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin: 0;
+  text-align: center;
+}
+
+.who__value {
+  font-size: 80px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.who__label {
+  margin: 14px 0 0;
+  font-size: 26px;
+  color: var(--muted);
+}
+
+/* One to a line. */
+.who__cities {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 52px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+/* One under another: a row of them is wider than a third of the slide. */
+.funders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+/* The webinar's investors' logos, sized by eye to one weight by their
+   height rather than fitted to a box. */
+.funders .logo {
+  width: auto;
+  height: auto;
+}
+
+.funders .logo img {
+  display: block;
+  width: auto;
+  max-width: none;
+  max-height: none;
+}
+
+.funders__logo--a16z img {
+  height: 42px;
+}
+
+.funders__logo--intel img {
+  height: 58px;
+}
+
+.funders__logo--gc img {
+  height: 30px;
+}
+
+/* ---------------------------------------------------------------- speaker */
+/* Slide 4: the photo and the name in the left cell, three notes in the
+   right. */
+.speaker {
+  gap: 56px;
+}
+
+/* The webinar's round, with its orbit: two arcs of a ring a little way out,
+   opposite each other, in the accent's thin line. */
+.speaker__frame {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+
+.speaker__frame::before {
+  content: '';
+  position: absolute;
+  inset: -22px;
+  border: 1px solid;
+  border-color: var(--accent-line) transparent;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+.speaker__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.speaker__photo--empty {
+  display: grid;
+  place-items: center;
+  border: 1.5px dashed rgba(250, 250, 247, 0.22);
+  color: var(--muted);
+  font-size: 22px;
+}
+
+.speaker__name {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+/* Each note behind a short dash in the accent. */
+.speaker__notes {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.speaker__notes li {
+  position: relative;
+  padding-left: 56px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.speaker__line {
+  display: block;
+}
+
+.speaker__notes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* ------------------------------------------------------------------ logos */
+/* A company's logo (components/Logo.jsx), shown white; until it exists, its
+   name in a dashed box. It fills the box it is given. */
+.logo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo img {
+  max-width: 78%;
+  max-height: 56%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.logo--empty {
+  border: 1.5px dashed rgba(250, 250, 247, 0.22);
+  border-radius: 16px;
+  color: var(--muted);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------- who we serve */
+/* Slide 3: the larger names over the smaller, each row a box per name. */
+.serve {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.serve__row {
+  display: grid;
+  gap: 24px;
+}
+
+.serve__row > li {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(244, 243, 239, 0.035);
+}
+
+.serve__row--large {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.serve__row--large > li {
+  height: 240px;
+}
+
+.serve__row--small {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.serve__row--small > li {
+  height: 140px;
+}
+
+/* In its row's box a placeholder is just the name: the box is its frame. */
+.serve__row .logo--empty {
+  border: 0;
+}
+
+.serve__row--small .logo--empty {
+  font-size: 22px;
+}
+
+/* Sized by eye to one weight across a row: the solid marks and the heavy
+   serif a step down from what their box would give them. */
+.serve__logo--datev img {
+  max-height: 46%;
+}
+
+.serve__logo--mastercard img {
+  max-height: 50%;
+}
+
+.serve__logo--boozt img {
+  max-width: 62%;
+}
+
+/* --------------------------------------------------------------- panels  */
+/* Slides 7 and 18 (layouts/PanelsLayout.jsx), copied from the ASP New
+   Pitch's styles with the Mastercard deck's own rule for its slide 2:
+   columns side by side, each a card grown to the body's height, over its
+   own picture or clip. Air, then the name, the headline or thought, the
+   body, the figures: every panel takes these rows as its own, so like parts
+   start on one line across the slide however long each is. */
+.panels {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: 1fr repeat(4, auto);
+  column-gap: 24px;
+}
+
+/* Air under the content as well as over it, which centres it. */
+.panels--centre {
+  grid-template-rows: 1fr repeat(4, auto) 1fr;
+}
+
+.panel {
+  position: relative;
+  /* its own layer, so the art can go behind the text without going behind
+     the panel */
+  isolation: isolate;
+  overflow: hidden;
+  grid-row: 1 / -1;
+  display: grid;
+  grid-template-rows: subgrid;
+  align-items: start;
+  padding: 40px 36px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.panels--2 .panel {
+  padding: 44px 56px;
+}
+
+/* The art fills the panel. At the foot of a panel, under its text, the scrim
+   is all but solid; towards the top it thins, so the picture shows. */
+.panel__art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(9, 9, 12, 0.3) 0%,
+    rgba(9, 9, 12, 0.72) 38%,
+    rgba(9, 9, 12, 0.94) 66%
+  );
+}
+
+/* Centred, the text runs over the middle of the art, so it is dimmed evenly
+   instead. */
+.panels--centre .panel::before {
+  background: rgba(9, 9, 12, 0.8);
+}
+
+/* The clips are cropped from the left only: they carry an “AI generated”
+   mark in their bottom right corner, which stays whole. */
+.panel__art--clip {
+  object-position: right;
+  filter: saturate(0.6);
+}
+
+.panel__art--empty {
+  display: grid;
+  align-content: start;
+  padding-top: 120px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #141817,
+    #141817 14px,
+    #171b1a 14px,
+    #171b1a 28px
+  );
+}
+
+.panel__name {
+  grid-row: 2;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+.panel__heading,
+.panel__text {
+  grid-row: 3;
+  text-wrap: balance;
+}
+
+.panel__heading {
+  font-size: 32px;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.panel__text {
+  font-size: 64px;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  font-weight: 500;
+}
+
+/* Three across, a thought is set a size down to fit a third of the slide. */
+.panels--centre.panels--3 .panel__text {
+  font-size: 46px;
+  line-height: 1.08;
+}
+
+.panel__body {
+  grid-row: 4;
+  margin-top: 20px;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Figures: a case's results, in the accent under its story. */
+.panel__kpis {
+  grid-row: 5;
+  margin-top: 32px;
+}
+
+.panel__kpis .kpis {
+  gap: 48px;
+}
+
+.panel__kpis .kpi__label {
+  max-width: 360px;
+}
+
+/* ------------------------------------------------------------------ brand */
+/* Slide 9: a product's mark set in a line with its name (Brand.jsx), from
+   the offsite deck. Sized in em, so it follows the type. */
+.brand {
+  white-space: nowrap;
+}
+
+.brand__logo {
+  display: inline-block;
+  height: 0.9em;
+  width: auto;
+  margin-right: 0.2em;
+  vertical-align: -0.1em;
+}
+
+.brand__logo--empty {
+  width: 0.9em;
+  border: 0.03em dashed var(--faint);
+  border-radius: 50%;
+}
+
+/* ------------------------------------------------------------- dashboards */
+/* Slide 13, the offsite deck's slide 11: the picture inside its 96 × 56
+   margins at 16 : 9, its corners rounded as its copies' are there. */
+.slide--dashboards {
+  padding: 56px 96px;
+  align-items: center;
+}
+
+.dashboards {
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 42px;
+}
+
+/* --------------------------------------------------------------- triangle */
+/* Slides 10, 14, 16 and 20 (components/Triangle.jsx), drawn on the stage in
+   the accent: its sides, and a box on each corner. A corner still to be named
+   is an empty dashed box; a named one is outlined, its name in paper; the one
+   named on this slide is filled with the accent's wash, its name in the
+   accent. Nothing in it moves, so it prints as it shows. */
+.triangle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.triangle__side {
+  fill: rgba(218, 254, 133, 0.035);
+  stroke: var(--accent-line);
+  stroke-width: 2;
+}
+
+.triangle__box {
+  fill: #121410;
+  stroke: var(--accent-line);
+  stroke-width: 2;
+  stroke-dasharray: 12 9;
+}
+
+.triangle__corner--named .triangle__box {
+  stroke: var(--accent);
+  stroke-dasharray: none;
+}
+
+.triangle__label {
+  fill: var(--paper);
+  font-size: 58px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.triangle__corner--fresh .triangle__box {
+  stroke: var(--accent);
+  stroke-width: 3;
+  fill: #20271a;
+}
+
+.triangle__corner--fresh .triangle__label {
+  fill: var(--accent);
+}
+
+/* ----------------------------------------------------------------- impact */
+/* Slides 17 and 19 (components/Impact.jsx): in the middle of each column
+   its arrow, what it stands for under it in badges stacked one width, outlined
+   and lettered in the arrow's colour. */
+.impact {
+  align-items: center;
+  gap: 48px;
+}
+
+.impact .arrow {
+  height: 200px;
+}
+
+.impact--fresh {
+  animation: rise 520ms var(--ease-move) 200ms both;
+}
+
+.impact__badges {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 400px;
+}
+
+.impact__badge {
+  height: 76px;
+  font-size: 38px;
+  line-height: 76px;
+  text-align: center;
+  background: var(--wash);
+  box-shadow: inset 0 0 0 2px var(--c);
+  color: var(--c);
+}
+
+.impact__badge--gain {
+  --c: var(--gain);
+  --wash: var(--accent-wash);
+}
+
+.impact__badge--loss {
+  --c: var(--loss);
+  --wash: var(--loss-wash);
+}
+
+/* ------------------------------------------------------- starting point */
+/* Slides 22 and 23 (components/StartingPoint.jsx): the arrow beside the
+   P&L. */
+.start__pnl {
+  flex-direction: row;
+  justify-content: center;
+  gap: 36px;
+}
+
+.start__pnl .arrow {
+  height: 120px;
+}
+
+/* ----------------------------------------------------------------- schema */
+/* Slides 24–47 (components/Flex.jsx), the deck's overlay, drawn on the stage
+   under the slide's title. Every part is there all the time: its tone sets
+   its colour, and a hidden one is see-through, so moving between states
+   fades and recolours parts where they stand. */
+.flex {
+  --move: 600ms;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: rise 420ms var(--ease-move) both;
+}
+
+/* Where the titled slide puts its title (.slide--frame). */
+.flex__title {
+  position: absolute;
+  top: 44px;
+  left: 88px;
+  margin: 0;
+}
+
+.flex__art {
+  position: absolute;
+  inset: 0;
+}
+
+.fx {
+  transition:
+    opacity var(--move) var(--ease-move),
+    fill var(--move) var(--ease-move),
+    stroke var(--move) var(--ease-move),
+    color var(--move) var(--ease-move);
+}
+
+.fx--plain {
+  --c: var(--paper);
+  --wash: rgba(250, 250, 247, 0.04);
+}
+
+.fx--risk {
+  --c: var(--loss);
+  --wash: var(--loss-wash);
+}
+
+.fx--safe {
+  --c: var(--accent);
+  --wash: var(--accent-wash);
+}
+
+.fx--dim {
+  --c: var(--faint);
+  --wash: transparent;
+  opacity: 0.5;
+}
+
+.fx--off {
+  opacity: 0;
+}
+
+.flex text {
+  font-family: var(--font);
+}
+
+.flex__box {
+  fill: var(--wash);
+  stroke: var(--c);
+  stroke-width: 1.5;
+}
+
+.flex__name {
+  fill: var(--c);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.flex__word {
+  fill: var(--c);
+  font-size: 20px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+
+.flex__frame {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 1.5;
+}
+
+.flex__frame-name {
+  fill: var(--c);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.flex__link {
+  fill: none;
+  stroke: rgba(250, 250, 247, 0.55);
+  stroke-width: 1.5;
+  stroke-linejoin: miter;
+}
+
+.flex__head {
+  fill: rgba(250, 250, 247, 0.75);
+}
+
+/* A line faded back as far as the box it reaches: drawn lighter than a box's
+   border, it would otherwise stay the brighter of the two. */
+.flex__line.fx--dim {
+  opacity: 0.33;
+}
+
+.flex__loop {
+  fill: rgba(250, 250, 247, 0.03);
+  stroke: var(--c);
+  stroke-width: 4;
+  stroke-linejoin: miter;
+}
+
+.flex__loop-name {
+  fill: var(--c);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-anchor: middle;
+}
+
+.flex__boundary {
+  stroke: var(--c);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 8;
+  opacity: 0.5;
+}
+
+.flex__boundary.fx--off {
+  opacity: 0;
+}
+
+.flex__mark--context,
+.flex__kind--context {
+  --run: var(--context);
+}
+
+.flex__mark--inference,
+.flex__kind--inference {
+  --run: var(--inference);
+}
+
+.flex__mark--tools,
+.flex__kind--tools {
+  --run: var(--tools);
+}
+
+.flex__mark {
+  fill: none;
+  stroke: var(--run);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* The key, in the top right corner, level with the slide's title: quiet,
+   in muted type, each kind by a stroke like its runs. */
+.flex__key {
+  position: absolute;
+  top: 54px;
+  right: 88px;
+  display: flex;
+  gap: 28px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--faint);
+}
+
+.flex__kind {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flex__kind::before {
+  content: '';
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--run);
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------ what it takes */
+/* Slide 48: a cell to each part, its name in the accent as the schema's
+   safe boxes are, what it gets you under it. The names run to one, two or
+   three lines, so the cells in a row share their rows (subgrid) and what
+   they get you still starts on one line across. */
+.take {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 20px;
+  padding: 36px 32px;
+}
+
+.take__name {
+  font-size: 44px;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.take__gain {
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- pillars */
+/* Slide 50, the Mastercard deck's slide 3: its columns, from the ASP pitch's
+   styles and its own, copied. A card to each column down to the foot of the
+   slide, its words at the top; the heads run to uneven line counts, so the
+   cards share their rows (subgrid) and the lists still start on one line. */
+.cols {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+}
+
+.col {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 22px;
+  align-content: start;
+  padding: 36px 28px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.colhead {
+  font-size: 40px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.col__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.col__list li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.col__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ----------------------------------------------------------------- thanks */
+/* Slide 51, drawn as the webinar's close: everything centred, the cover's
+   circles framing it from both sides, the left ones turned to face in and
+   quieter; the thanks small over the ask, the ask large, the name at the
+   foot. */
+.slide--thanks {
+  padding: 72px 120px;
+  align-items: center;
+  text-align: center;
+  gap: 56px;
+}
+
+.cover__art--left {
+  right: auto;
+  left: 0;
+  transform: scaleX(-1);
+  opacity: 0.6;
+}
+
+.thanks__title {
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.thanks__ask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+.thanks__question {
+  font-size: 72px;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+.thanks__cta {
+  font-size: 128px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+
+.thanks__logo {
+  width: 280px;
+  margin-top: 24px;
+}
