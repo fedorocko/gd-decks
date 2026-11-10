@@ -1,5 +1,5 @@
-// The BARC Conference deck. Slides 7, 13, 18 and 50 are copies of other
-// decks' slides, and slides 2, 9 and 51 take parts of theirs: copied into
+// The BARC Conference deck. Slides 7, 13, 18 and 53 are copies of other
+// decks' slides, and slides 2, 9 and 54 take parts of theirs: copied into
 // this folder, so a change to those decks does not reach this one.
 import S01Title from './S01Title.jsx'
 import S02WhoWeAre from './S02WhoWeAre.jsx'
@@ -25,10 +25,20 @@ import S21Advice from './S21Advice.jsx'
 import S22StartEnabling from './S22StartEnabling.jsx'
 import S23StartTightening from './S23StartTightening.jsx'
 import S24Flexibility from './S24Flexibility.jsx'
-import S48WhatItTakes from './S48WhatItTakes.jsx'
-import S49BasedOnAgain from './S49BasedOnAgain.jsx'
-import S50Pillars from './S50Pillars.jsx'
-import S51Thanks from './S51Thanks.jsx'
+import S30Challenges from './S30Challenges.jsx'
+import S37Address from './S37Address.jsx'
+import S50WhatItTakes from './S50WhatItTakes.jsx'
+import S51WhatWeDo from './S51WhatWeDo.jsx'
+import S52BasedOnAgain from './S52BasedOnAgain.jsx'
+import S53Pillars from './S53Pillars.jsx'
+import S54Thanks from './S54Thanks.jsx'
+
+// Where the schema's run turns (flex/states.js): from building it up to what
+// it costs, where slide 30 stands, and from that to how each is answered,
+// where slide 37 does.
+const step = (name) => S24Flexibility.findIndex((Step) => Step.flex === name)
+const RISKS = step('llmRisk')
+const ANSWERS = step('llmFocus')
 
 /** Presentation order. Reorder here to reorder the deck. */
 const slides = [
@@ -63,15 +73,22 @@ const slides = [
   // where to start, then where to go from there
   S22StartEnabling,
   S23StartTightening,
-  // the schema, a slide per step of flex/states.js: slides 24–47
-  ...S24Flexibility,
-  S48WhatItTakes,
+  // the schema, a slide per step of flex/states.js: built up on slides
+  // 24–29, what it costs on 31–36, and how each is answered on 38–49
+  ...S24Flexibility.slice(0, RISKS),
+  S30Challenges,
+  ...S24Flexibility.slice(RISKS, ANSWERS),
+  S37Address,
+  ...S24Flexibility.slice(ANSWERS),
+  S50WhatItTakes,
+  // slide 50 again, GoodData.AI's logo over it
+  S51WhatWeDo,
   // slide 7 again, the same slide
-  S49BasedOnAgain,
+  S52BasedOnAgain,
   // the Mastercard deck's slide 3, copied
-  S50Pillars,
+  S53Pillars,
   // the webinar's slide 12, copied, its events made the one ask
-  S51Thanks,
+  S54Thanks,
 ]
 
 export default slides

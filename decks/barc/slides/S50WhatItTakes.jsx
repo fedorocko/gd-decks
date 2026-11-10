@@ -1,4 +1,6 @@
+import asset from '../../../shared/asset.js'
 import FrameLayout from '../layouts/FrameLayout.jsx'
+import media from '../media.js'
 
 // What the schema came to, a box each: what it is, and what it gets you.
 const TAKES = [
@@ -12,9 +14,13 @@ const TAKES = [
   { name: 'Evaluations Framework', gain: 'Assured quality, with no degradation' },
 ]
 
-export default function S48WhatItTakes() {
+/**
+ * ours — slide 51: the boxes stay where slide 50 left them and fade back,
+ *   and GoodData.AI's logo rises in large over them
+ */
+export default function S50WhatItTakes({ ours = false }) {
   return (
-    <FrameLayout title="What it takes">
+    <FrameLayout title="What it takes" className={ours ? 'slide--still takes--ours' : undefined}>
       <div className="grid grid--takes">
         {TAKES.map(({ name, gain }) => (
           <div className="cell take" key={name}>
@@ -23,6 +29,11 @@ export default function S48WhatItTakes() {
           </div>
         ))}
       </div>
+      {ours && (
+        <div className="takes__ours">
+          <img className="takes__logo" src={asset(media.wordmark.src)} alt="GoodData.AI" />
+        </div>
+      )}
     </FrameLayout>
   )
 }

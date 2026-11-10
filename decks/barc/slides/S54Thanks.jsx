@@ -6,7 +6,7 @@ import media from '../media.js'
 // cover's circles framing it from both sides, the name at the foot. Where the
 // webinar lists its next events, one thing to do, set large: come to the
 // booth, its number in a lime pill, the badge voice, so it reads as the ask.
-export default function S51Thanks() {
+export default function S54Thanks() {
   return (
     <section className="slide slide--thanks">
       <img className="cover__art" src={asset(media.circles.src)} alt="" />
@@ -17,7 +17,7 @@ export default function S51Thanks() {
         <p className="thanks__cta">
           Meet us at{' '}
           <Mark variant="pill" keep>
-            booth 6
+            booth 7
           </Mark>
         </p>
       </div>

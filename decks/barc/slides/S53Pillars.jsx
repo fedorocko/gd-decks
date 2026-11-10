@@ -51,7 +51,7 @@ const PILLARS = [
   },
 ]
 
-export default function S50Pillars() {
+export default function S53Pillars() {
   return (
     <FrameLayout title="Lasting AI transformation will depend on 4 key pillars (4S):">
       <div className="cols">

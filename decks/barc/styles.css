@@ -228,7 +228,7 @@
   grid-auto-flow: column;
 }
 
-/* Slide 48: four across, two down, each cell two rows of its own, the
+/* Slides 50 and 51: four across, two down, each cell two rows of its own, the
    name's and what it gets you (.take). */
 .grid--takes {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -933,10 +933,10 @@
 }
 
 /* ----------------------------------------------------------------- schema */
-/* Slides 24–47 (components/Flex.jsx), the deck's overlay, drawn on the stage
-   under the slide's title. Every part is there all the time: its tone sets
-   its colour, and a hidden one is see-through, so moving between states
-   fades and recolours parts where they stand. */
+/* Slides 24–29, 31–36 and 38–49 (components/Flex.jsx), the deck's overlay,
+   drawn on the stage under the slide's title. Every part is there all the
+   time: its tone sets its colour, and a hidden one is see-through, so moving
+   between states fades and recolours parts where they stand. */
 .flex {
   --move: 600ms;
   position: absolute;
@@ -1125,7 +1125,7 @@
 }
 
 /* ------------------------------------------------------------ what it takes */
-/* Slide 48: a cell to each part, its name in the accent as the schema's
+/* Slides 50 and 51: a cell to each part, its name in the accent as the schema's
    safe boxes are, what it gets you under it. The names run to one, two or
    three lines, so the cells in a row share their rows (subgrid) and what
    they get you still starts on one line across. */
@@ -1153,8 +1153,37 @@
   text-wrap: balance;
 }
 
+/* Slide 51: slide 50's boxes faded back where they stood, and over their
+   middle the logo, large, rising in once they have. */
+.takes--ours .frame__body {
+  position: relative;
+}
+
+.takes--ours .grid--takes {
+  opacity: 0.14;
+  animation: fade-back 600ms var(--ease-move) both;
+}
+
+@keyframes fade-back {
+  from {
+    opacity: 1;
+  }
+}
+
+.takes__ours {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.takes__logo {
+  width: 920px;
+  animation: rise 520ms var(--ease-move) 300ms both;
+}
+
 /* ---------------------------------------------------------------- pillars */
-/* Slide 50, the Mastercard deck's slide 3: its columns, from the ASP pitch's
+/* Slide 53, the Mastercard deck's slide 3: its columns, from the ASP pitch's
    styles and its own, copied. A card to each column down to the foot of the
    slide, its words at the top; the heads run to uneven line counts, so the
    cards share their rows (subgrid) and the lists still start on one line. */
@@ -1211,7 +1240,7 @@
 }
 
 /* ----------------------------------------------------------------- thanks */
-/* Slide 51, drawn as the webinar's close: everything centred, the cover's
+/* Slide 54, drawn as the webinar's close: everything centred, the cover's
    circles framing it from both sides, the left ones turned to face in and
    quieter; the thanks small over the ask, the ask large, the name at the
    foot. */
