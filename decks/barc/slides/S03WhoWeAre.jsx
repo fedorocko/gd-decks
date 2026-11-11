@@ -10,7 +10,7 @@ const FUNDERS = [
 
 // Six cells, three to a row: the model, what it means and where it runs;
 // then how long and how many, where from, and who backs us.
-export default function S02WhoWeAre() {
+export default function S03WhoWeAre() {
   return (
     <FrameLayout title="Who we are">
       <div className="grid grid--3x2">

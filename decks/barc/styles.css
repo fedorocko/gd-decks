@@ -151,7 +151,7 @@
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
-/* Slide 2: three across, two down. */
+/* Slide 3: three across, two down. */
 .grid--3x2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -191,7 +191,7 @@
 }
 
 /* Over each of its columns, a row of the tools of that kind, white as the
-   customers' logos on slide 3: wordmarks at one height, marks set with their
+   customers' logos on slide 4: wordmarks at one height, marks set with their
    names (Brand.jsx) at the size their names make the same height. */
 .makers {
   display: flex;
@@ -396,7 +396,7 @@
 }
 
 /* ------------------------------------------------------------ who we are */
-/* Slide 2: six cells, the model, the figures, the cities and the investors
+/* Slide 3: six cells, the model, the figures, the cities and the investors
    each centred in theirs. What we do is the one line in the accent. */
 .who__model {
   font-size: 88px;
@@ -479,7 +479,7 @@
 }
 
 /* ---------------------------------------------------------------- speaker */
-/* Slide 4: the photo and the name in the left cell, three notes in the
+/* Slide 2: the photo and the name in the left cell, three notes in the
    right. */
 .speaker {
   gap: 56px;
@@ -586,7 +586,7 @@
 }
 
 /* --------------------------------------------------------- who we serve */
-/* Slide 3: the larger names over the smaller, each row a box per name. */
+/* Slide 4: the larger names over the smaller, each row a box per name. */
 .serve {
   flex: 1;
   display: flex;

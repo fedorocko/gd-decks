@@ -1,10 +1,10 @@
 // The BARC Conference deck. Slides 7, 13, 18 and 53 are copies of other
-// decks' slides, and slides 2, 9 and 54 take parts of theirs: copied into
+// decks' slides, and slides 3, 9 and 54 take parts of theirs: copied into
 // this folder, so a change to those decks does not reach this one.
 import S01Title from './S01Title.jsx'
-import S02WhoWeAre from './S02WhoWeAre.jsx'
-import S03WhoWeServe from './S03WhoWeServe.jsx'
-import S04Speaker from './S04Speaker.jsx'
+import S02Speaker from './S02Speaker.jsx'
+import S03WhoWeAre from './S03WhoWeAre.jsx'
+import S04WhoWeServe from './S04WhoWeServe.jsx'
 import S05NotHear from './S05NotHear.jsx'
 import S06Goals from './S06Goals.jsx'
 import S07BasedOn from './S07BasedOn.jsx'
@@ -43,11 +43,11 @@ const ANSWERS = step('llmFocus')
 /** Presentation order. Reorder here to reorder the deck. */
 const slides = [
   S01Title,
-  // the webinar's investors, from its slide 5
-  S02WhoWeAre,
-  S03WhoWeServe,
   // the speaker, in the webinar's round photo
-  S04Speaker,
+  S02Speaker,
+  // the webinar's investors, from its slide 5
+  S03WhoWeAre,
+  S04WhoWeServe,
   S05NotHear,
   S06Goals,
   // the Mastercard deck's slide 7, copied

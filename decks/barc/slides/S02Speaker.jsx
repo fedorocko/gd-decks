@@ -10,7 +10,7 @@ const NOTES = [
   ['Serial data & AI entrepreneur', '2× exited founder'],
 ]
 
-export default function S04Speaker() {
+export default function S02Speaker() {
   const photo = media.speakerPeter
 
   return (

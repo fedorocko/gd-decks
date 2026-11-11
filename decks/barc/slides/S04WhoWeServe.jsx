@@ -11,7 +11,7 @@ const SMALL = [
   'logoPlancraft',
 ]
 
-export default function S03WhoWeServe() {
+export default function S04WhoWeServe() {
   return (
     <FrameLayout title="Who we serve">
       <div className="serve">

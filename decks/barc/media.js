@@ -9,7 +9,7 @@ const media = {
   // circles, the slide's height on its right.
   wordmark: { src: '/media/webinar/gooddata-ai.png', label: 'Logo — GoodData.AI' },
   circles: { src: '/media/webinar/art-circles.webp', label: 'Art — circles' },
-  // Slide 2. The investors, from the webinar's slide 5: dark on
+  // Slide 3. The investors, from the webinar's slide 5: dark on
   // transparent, shown white (styles.css).
   fundA16z: { src: '/media/webinar/fund-a16z.png', label: 'a16z' },
   fundIntelCapital: { src: '/media/webinar/fund-intel-capital.png', label: 'Intel Capital' },
@@ -17,7 +17,7 @@ const media = {
     src: '/media/webinar/fund-general-catalyst.png',
     label: 'General Catalyst',
   },
-  // Slide 3. The customers' logos, white on transparent, as the slide shows
+  // Slide 4. The customers' logos, white on transparent, as the slide shows
   // every logo white. Six were cut from the June booth leaflet, as wide as
   // the leaflet had them (about 250px); the other four were made white from
   // the brands' own files, Mastercard's circles each keeping a tone of its
@@ -32,7 +32,7 @@ const media = {
   logoBoozt: { src: '/media/barc/logo-boozt.png', label: 'Boozt' },
   logoMedifox: { src: '/media/barc/logo-medifox.png', label: 'Medifox DAN' },
   logoPlancraft: { src: '/media/barc/logo-plancraft.png', label: 'plancraft' },
-  // Slide 4. The webinar's speaker photo, 275 × 275: already round, grey on
+  // Slide 2. The webinar's speaker photo, 275 × 275: already round, grey on
   // an olive disc with a lime rim.
   speakerPeter: { src: '/media/webinar/speaker-peter.png', label: 'Photo — Peter Fedoročko' },
   // Slide 7. The case study photos: the Mastercard deck's (its slide 7) and
